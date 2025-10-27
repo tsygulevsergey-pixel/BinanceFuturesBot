@@ -126,15 +126,16 @@ class UniverseSelector:
                 logger.warning("⚠️ [UniverseSelector] No symbols passed spread filter")
                 return self.selected_symbols
             
-            # Calculate scores and select top 50
+            # Calculate scores for ALL symbols that passed filters
             scored_symbols = []
             for symbol_data in final_symbols:
                 score = await self.calculate_symbol_score(symbol_data)
                 symbol_data['score'] = score
                 scored_symbols.append(symbol_data)
             
+            # Sort by score (best first) but use ALL symbols, no artificial limit
             scored_symbols.sort(key=lambda x: x['score'], reverse=True)
-            top_symbols = scored_symbols[:50]
+            top_symbols = scored_symbols  # Use ALL symbols that passed filters
             self.selected_symbols = [s['symbol'] for s in top_symbols]
             
             # Update database

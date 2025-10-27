@@ -65,11 +65,17 @@ class BinanceFuturesScanner:
             
             await self.scan_universe_initial()
             
+            # Start DataCollector for WebSocket data streaming
+            active_symbols = universe_selector.get_active_symbols()
+            if active_symbols:
+                logger.info(f"🚀 [Main] Starting DataCollector for {len(active_symbols)} symbols...")
+            
             tasks = [
                 self.universe_scan_loop(),
                 self.signal_generation_loop(),
                 self.signal_tracking_loop(),
-                self.metrics_update_loop()
+                self.metrics_update_loop(),
+                data_collector.start_collecting(active_symbols) if active_symbols else asyncio.sleep(0)
             ]
             
             await asyncio.gather(*tasks, return_exceptions=True)
@@ -129,10 +135,14 @@ class BinanceFuturesScanner:
                     await asyncio.sleep(30)
                     continue
                 
-                for symbol in active_symbols[:10]:
-                    await self.check_and_generate_signal(symbol)
-                    await asyncio.sleep(1)
+                logger.info(f"🔍 [Main] Analyzing ALL {len(active_symbols)} symbols for signals...")
                 
+                # Analyze ALL symbols that passed filters (no artificial limits!)
+                for symbol in active_symbols:
+                    await self.check_and_generate_signal(symbol)
+                    await asyncio.sleep(0.5)  # Small delay to avoid rate limits
+                
+                logger.info(f"✅ [Main] Completed signal check for {len(active_symbols)} symbols")
                 await asyncio.sleep(60)
                 
             except Exception as e:

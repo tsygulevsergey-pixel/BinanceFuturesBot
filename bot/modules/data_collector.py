@@ -28,46 +28,68 @@ class DataCollector:
             self.running = True
             
             logger.info(f"🚀 [DataCollector] Starting data collection for {len(symbols)} symbols...")
+            logger.info(f"📊 [DataCollector] Total streams: {len(symbols) * 3} (limit: 1024)")
             
-            tasks = []
-            for symbol in symbols[:20]:
-                tasks.append(self.collect_symbol_data(symbol))
-            
-            await asyncio.gather(*tasks, return_exceptions=True)
+            # Use ONE combined WebSocket connection for ALL symbols (efficient!)
+            await self.collect_all_symbols_combined(symbols)
             
         except Exception as e:
             logger.error(f"❌ [DataCollector] Error in data collection: {e}")
     
-    async def collect_symbol_data(self, symbol: str):
-        symbol_lower = symbol.lower()
+    async def collect_all_symbols_combined(self, symbols: List[str]):
+        """Collect data for ALL symbols using ONE combined WebSocket connection"""
         
-        streams = [
-            f"{symbol_lower}@depth@100ms",
-            f"{symbol_lower}@aggTrade",
-            f"{symbol_lower}@kline_15m"
-        ]
+        # Build combined stream URL for all symbols
+        all_streams = []
+        for symbol in symbols:
+            symbol_lower = symbol.lower()
+            all_streams.extend([
+                f"{symbol_lower}@depth@100ms",
+                f"{symbol_lower}@aggTrade",
+                f"{symbol_lower}@kline_15m"
+            ])
         
-        stream_url = f"{self.base_url}/stream?streams={'/'.join(streams)}"
+        stream_url = f"{self.base_url}/stream?streams={'/'.join(all_streams)}"
+        
+        logger.info(f"📡 [DataCollector] Connecting to combined WebSocket for {len(symbols)} symbols...")
         
         while self.running:
             try:
-                logger.debug(f"📡 [DataCollector] Connecting to WebSocket for {symbol}...")
-                
                 async with websockets.connect(stream_url) as ws:
-                    logger.info(f"✅ [DataCollector] Connected to WebSocket for {symbol}")
+                    logger.info(f"✅ [DataCollector] Connected! Streaming {len(all_streams)} streams for {len(symbols)} symbols")
                     
                     async for message in ws:
                         if not self.running:
                             break
                         
-                        await self.process_message(symbol, message)
+                        await self.process_combined_message(message)
                         
             except websockets.exceptions.ConnectionClosed:
-                logger.warning(f"⚠️ [DataCollector] WebSocket connection closed for {symbol}, reconnecting...")
+                logger.warning(f"⚠️ [DataCollector] Combined WebSocket connection closed, reconnecting...")
                 await asyncio.sleep(5)
             except Exception as e:
-                logger.error(f"❌ [DataCollector] WebSocket error for {symbol}: {e}")
+                logger.error(f"❌ [DataCollector] Combined WebSocket error: {e}")
                 await asyncio.sleep(5)
+    
+    async def process_combined_message(self, message: str):
+        """Process messages from combined stream (includes symbol in stream name)"""
+        try:
+            data = json.loads(message)
+            stream = data.get('stream', '')
+            event_data = data.get('data', {})
+            
+            # Extract symbol from stream name (e.g., "btcusdt@depth@100ms" -> "BTCUSDT")
+            symbol = stream.split('@')[0].upper()
+            
+            if 'depth' in stream:
+                await self.process_depth(symbol, event_data)
+            elif 'aggTrade' in stream:
+                await self.process_trade(symbol, event_data)
+            elif 'kline' in stream:
+                await self.process_kline(symbol, event_data)
+                
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error processing combined message: {e}")
     
     async def process_message(self, symbol: str, message: str):
         try:
