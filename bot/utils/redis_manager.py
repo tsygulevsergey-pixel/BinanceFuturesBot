@@ -11,6 +11,8 @@ from bot.utils import logger
 class RedisManager:
     def __init__(self):
         self.client = None
+        self.fallback_cache = {}
+        self.redis_available = False
         
     def connect(self):
         try:
@@ -24,44 +26,59 @@ class RedisManager:
                 socket_keepalive=True
             )
             self.client.ping()
+            self.redis_available = True
             logger.info("✅ [RedisManager] Connected to Redis successfully")
         except Exception as e:
-            logger.error(f"❌ [RedisManager] Failed to connect to Redis: {e}")
-            raise
+            logger.warning(f"⚠️ [RedisManager] Redis unavailable, using in-memory cache fallback: {e}")
+            self.redis_available = False
+            self.client = None
     
     def set(self, key: str, value: Any, expiry: Optional[int] = None):
         try:
-            if isinstance(value, (dict, list)):
-                value = json.dumps(value)
-            
-            if expiry:
-                self.client.setex(key, expiry, value)
+            if self.redis_available and self.client:
+                if isinstance(value, (dict, list)):
+                    value_str = json.dumps(value)
+                else:
+                    value_str = value
+                
+                if expiry:
+                    self.client.setex(key, expiry, value_str)
+                else:
+                    self.client.set(key, value_str)
             else:
-                self.client.set(key, value)
+                self.fallback_cache[key] = value
                 
             logger.debug(f"📝 [RedisManager] Set key: {key}")
         except Exception as e:
             logger.error(f"❌ [RedisManager] Error setting key {key}: {e}")
+            self.fallback_cache[key] = value
     
     def get(self, key: str) -> Optional[Any]:
         try:
-            value = self.client.get(key)
-            if value:
-                try:
-                    return json.loads(value)
-                except json.JSONDecodeError:
-                    return value
-            return None
+            if self.redis_available and self.client:
+                value = self.client.get(key)
+                if value:
+                    try:
+                        return json.loads(value)
+                    except json.JSONDecodeError:
+                        return value
+                return None
+            else:
+                return self.fallback_cache.get(key)
         except Exception as e:
             logger.error(f"❌ [RedisManager] Error getting key {key}: {e}")
-            return None
+            return self.fallback_cache.get(key)
     
     def delete(self, key: str):
         try:
-            self.client.delete(key)
+            if self.redis_available and self.client:
+                self.client.delete(key)
+            else:
+                self.fallback_cache.pop(key, None)
             logger.debug(f"🗑️ [RedisManager] Deleted key: {key}")
         except Exception as e:
             logger.error(f"❌ [RedisManager] Error deleting key {key}: {e}")
+            self.fallback_cache.pop(key, None)
     
     def exists(self, key: str) -> bool:
         try:
