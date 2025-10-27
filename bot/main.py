@@ -139,7 +139,7 @@ class BinanceFuturesScanner:
                 
                 # Analyze ALL symbols that passed filters (no artificial limits!)
                 for symbol in active_symbols:
-                    await self.check_and_generate_signal(symbol)
+                    await self.check_and_generate_signal(symbol, active_symbols)
                     await asyncio.sleep(0.5)  # Small delay to avoid rate limits
                 
                 logger.info(f"✅ [Main] Completed signal check for {len(active_symbols)} symbols")
@@ -149,7 +149,7 @@ class BinanceFuturesScanner:
                 logger.error(f"❌ [Main] Error in signal generation loop: {e}")
                 await asyncio.sleep(60)
     
-    async def check_and_generate_signal(self, symbol: str):
+    async def check_and_generate_signal(self, symbol: str, active_symbols: list = []):
         try:
             orderbook = redis_manager.get(f'orderbook:{symbol}')
             if not orderbook:
@@ -164,7 +164,10 @@ class BinanceFuturesScanner:
                 orderbook.get('asks', [])
             )
             
-            volume_intensity = trade_flow.get('volume_per_minute', 0) / 1_000_000
+            # Calculate volume_intensity and add to trade_flow
+            volume_per_minute = trade_flow.get('volume_per_minute', 0)
+            volume_intensity = volume_per_minute / 1_000_000  # Convert to millions
+            trade_flow['volume_intensity'] = volume_intensity  # Add to trade_flow!
             
             price = float(orderbook['bids'][0][0]) if orderbook.get('bids') else 0
             
@@ -191,6 +194,14 @@ class BinanceFuturesScanner:
                 trade_flow,
                 price_data
             )
+            
+            # Debug log for first few symbols to see why signals aren't generated
+            if symbol in active_symbols[:3]:  # Log for first 3 symbols only
+                logger.info(f"📊 [DEBUG {symbol}] imb={imbalance:.3f}, large_buys={trade_flow.get('large_buys', 0)}, large_sells={trade_flow.get('large_sells', 0)}, vol_int={volume_intensity:.2f}")
+                if not can_long and not can_short:
+                    failed_long = [k for k, v in long_conditions.get('required', {}).items() if not v]
+                    failed_short = [k for k, v in short_conditions.get('required', {}).items() if not v]
+                    logger.info(f"📊 [DEBUG {symbol}] LONG failed: {failed_long}, SHORT failed: {failed_short}")
             
             direction = None
             if can_long:
