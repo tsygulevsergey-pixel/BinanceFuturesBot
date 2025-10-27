@@ -139,10 +139,19 @@ class UniverseSelector:
     async def _filter_by_volume(self, symbols: List[str], ticker_dict: Dict) -> List[Dict]:
         """Stage 1: Filter by 24h volume (in-memory, no API calls)"""
         filtered = []
+        logged_first_ticker = False
+        
         for symbol in symbols:
             ticker = ticker_dict.get(symbol)
             if not ticker:
                 continue
+            
+            # Log first ticker to see available fields
+            if not logged_first_ticker:
+                ticker_keys = list(ticker.keys())
+                logger.info(f"📝 [Stage 1 Debug] First ticker ({symbol}) has fields: {ticker_keys}")
+                logger.info(f"📝 [Stage 1 Debug] bidPrice: {ticker.get('bidPrice')}, askPrice: {ticker.get('askPrice')}")
+                logged_first_ticker = True
             
             volume_24h = float(ticker.get('quoteVolume', 0))
             if volume_24h < Config.MIN_24H_VOLUME:
@@ -228,15 +237,31 @@ class UniverseSelector:
     async def _filter_by_spread(self, symbols: List[Dict], ticker_dict: Dict) -> List[Dict]:
         """Stage 3: Filter by spread with optional dynamic ATR-based filter"""
         filtered = []
+        spread_samples = []  # Track first 5 spread values for debugging
+        no_bid_count = 0
+        passed_count = 0
+        filtered_count = 0
         
         for symbol_data in symbols:
             bid_price = symbol_data.get('bid_price', 0)
             ask_price = symbol_data.get('ask_price', 0)
             
             if bid_price <= 0:
+                no_bid_count += 1
+                logger.debug(f"[{symbol_data['symbol']}] No bid price: bid={bid_price}, ask={ask_price}")
                 continue
             
             spread = (ask_price - bid_price) / bid_price
+            
+            # Log first 5 spread values for debugging
+            if len(spread_samples) < 5:
+                spread_samples.append({
+                    'symbol': symbol_data['symbol'],
+                    'bid': bid_price,
+                    'ask': ask_price,
+                    'spread': spread,
+                    'spread_pct': spread * 100
+                })
             
             # Calculate dynamic spread threshold if enabled
             max_spread = Config.MAX_SPREAD
@@ -251,6 +276,16 @@ class UniverseSelector:
             if spread <= max_spread:
                 symbol_data['spread'] = spread
                 filtered.append(symbol_data)
+                passed_count += 1
+            else:
+                filtered_count += 1
+        
+        # Log spread samples
+        if spread_samples:
+            sample_str = ', '.join([f"{s['symbol']}({s['spread_pct']:.4f}%)" for s in spread_samples])
+            logger.info(f"📊 [Stage 3 Samples] First 5 spreads: {sample_str}")
+        
+        logger.info(f"📊 [Stage 3 Details] Passed: {passed_count}, Filtered: {filtered_count}, No bid: {no_bid_count}, Max spread: {Config.MAX_SPREAD*100:.2f}%")
         
         return filtered
     
