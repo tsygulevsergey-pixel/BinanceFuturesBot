@@ -1,0 +1,362 @@
+1. ОБЩЕЕ ОПИСАНИЕ СИСТЕМЫ
+Бот предназначен для автоматического поиска торговых возможностей на фьючерсах Binance с использованием анализа стакана ордеров, объемов торгов и потоков крупных сделок. Режим работы: только сигнальный - бот отправляет сигналы и отслеживает их исполнение без реальной торговли.
+
+2. АРХИТЕКТУРА СИСТЕМЫ
+2.1. Компоненты системы:
+text
+Data Collector → Universe Selector → Signal Generator → 
+Risk Manager → Signal Dispatcher → Performance Monitor
+2.2. Технические требования:
+Язык: Python 3.8+
+
+База данных: PostgreSQL для хранения исторических данных
+
+Кэш: Redis для реального времени
+
+Дашборд: Web-интерфейс для мониторинга
+
+3. КОНФИГУРАЦИЯ И НАСТРОЙКИ
+python
+CONFIG = {
+    # Режим работы
+    'mode': 'SIGNAL_ONLY',
+    
+    # Параметры обновления универсума
+    'universe_rescan_interval': 6,  # часов
+    'min_24h_volume': 50000000,  # $50M
+    'min_open_interest': 10000000,  # $10M
+    'max_spread': 0.0002,  # 0.02%
+    
+    # Параметры сигналов
+    'orderbook_imbalance_threshold': 0.28,
+    'min_large_trades': 3,
+    'large_trade_size': 50000,  # $50k
+    'volume_confirmation_multiplier': 1.8,
+    
+    # Таймфреймы анализа
+    'primary_tf': '15m',
+    'context_tf': '1h',
+    
+    # Риск-менеджмент
+    'max_daily_signals': 80,
+    'max_concurrent_signals': 5,
+    'correlation_threshold': 0.6
+}
+
+4. МОДУЛЬ ДИНАМИЧЕСКОГО ОТБОРА МОНЕТ
+4.1. Алгоритм отбора:
+python
+class UniverseSelector:
+    def calculate_symbol_score(self, symbol_data):
+        weights = {
+            'volume': 0.35,
+            'liquidity': 0.25, 
+            'volatility': 0.20,
+            'activity': 0.20
+        }
+        
+        score = 0
+        
+        # Объем (нормализованный к $100M)
+        volume_score = min(symbol_data['24h_volume'] / 100000000, 1)
+        score += volume_score * weights['volume']
+        
+        # Ликвидность стакана
+        liquidity_score = self.calculate_liquidity_score(symbol_data)
+        score += liquidity_score * weights['liquidity']
+        
+        # Волатильность (ATR/цена)
+        volatility_score = min(self.calculate_atr_ratio(symbol_data), 0.1) / 0.1
+        score += volatility_score * weights['volatility']
+        
+        # Активность (сделки/сек)
+        activity_score = min(symbol_data['trades_24h'] / 86400 / 10, 1)
+        score += activity_score * weights['activity']
+        
+        return score * 100  # Приводим к 100 балльной шкале
+    
+    def calculate_liquidity_score(self, symbol_data):
+        """Оценивает глубину стакана в пределах 1% от цены"""
+        depth_volume = self.get_orderbook_depth(symbol_data['symbol'], depth_percent=0.01)
+        return min(depth_volume / 2000000, 1)  # Нормализуем к $2M
+4.2. Расписание пересчета:
+Полный пересчет: каждые 6 часов
+
+Быстрая проверка: каждый час на соответствие минимальным требованиям
+
+Экстренное исключение: при нарушении минимальных требований
+
+5. МОДУЛЬ СБОРА ДАННЫХ
+5.1. Источники данных:
+python
+DATA_SOURCES = {
+    'orderbook': 'wss://fstream.binance.com/ws/!bookTicker',
+    'depth': 'wss://fstream.binance.com/ws/{symbol}@depth@100ms',
+    'trades': 'wss://fstream.binance.com/ws/{symbol}@aggTrade',
+    'kline': 'wss://fstream.binance.com/ws/{symbol}@kline_15m',
+    
+    # REST API для исторических данных
+    'exchange_info': 'https://fapi.binance.com/fapi/v1/exchangeInfo',
+    '24hr_ticker': 'https://fapi.binance.com/fapi/v1/ticker/24hr'
+}
+5.2. Параметры сбора:
+python
+DATA_CONFIG = {
+    'orderbook_depth': 20,  # уровней
+    'trade_history_window': 300,  # секунд для анализа
+    'kline_history_bars': 100,  # свечей для контекста
+    'update_frequency': 100  # ms
+}
+6. МОДУЛЬ АНАЛИЗА ДАННЫХ
+6.1. Анализ стакана ордеров:
+python
+class OrderBookAnalyzer:
+    def calculate_imbalance(self, bids, asks):
+        """Расчет имбаланса стакана"""
+        bid_volume = sum(float(bid[1]) for bid in bids[:10])
+        ask_volume = sum(float(ask[1]) for ask in asks[:10])
+        
+        if bid_volume + ask_volume == 0:
+            return 0
+            
+        return (bid_volume - ask_volume) / (bid_volume + ask_volume)
+    
+    def detect_large_orders(self, orderbook, avg_size):
+        """Детекция аномально крупных ордеров"""
+        large_orders = []
+        for price, volume in orderbook:
+            if float(volume) > avg_size * 5:
+                large_orders.append({
+                    'price': price,
+                    'volume': volume,
+                    'size_multiple': float(volume) / avg_size
+                })
+        return large_orders
+6.2. Анализ потока сделок:
+python
+class TradeFlowAnalyzer:
+    def __init__(self, window_minutes=5):
+        self.window_size = window_minutes * 60 * 1000  # ms
+        self.trades = []
+    
+    def analyze_trade_flow(self, new_trade):
+        # Добавляем сделку в окно
+        current_time = new_trade['T']
+        self.trades = [t for t in self.trades 
+                      if current_time - t['T'] <= self.window_size]
+        self.trades.append(new_trade)
+        
+        # Анализируем поток
+        large_buys = 0
+        large_sells = 0
+        total_volume = 0
+        
+        for trade in self.trades:
+            volume = float(trade['q'])
+            price = float(trade['p'])
+            trade_size = volume * price
+            
+            if trade_size >= 50000:  # $50k
+                if trade['m']:  # seller is maker
+                    large_sells += 1
+                else:
+                    large_buys += 1
+            
+            total_volume += trade_size
+        
+        return {
+            'large_buys': large_buys,
+            'large_sells': large_sells,
+            'total_volume': total_volume,
+            'volume_vs_average': total_volume / (self.window_size / 60000) / 1000000  # $M/мин
+        }
+7. МОДУЛЬ ГЕНЕРАЦИИ СИГНАЛОВ
+7.1. Условия для сигналов:
+python
+SIGNAL_CONDITIONS = {
+    'LONG': {
+        'required_conditions': [
+            'orderbook_imbalance > 0.28',
+            'large_buy_trades >= 3',
+            'volume_intensity > 1.5',
+            'price_above_vwap'  # Цена выше VWAP за 1 час
+        ],
+        'optional_conditions': [
+            'rsi_oversold',  # RSI(9) < 30 на 15m
+            'bullish_divergence',  # Бычья дивергенция RSI
+            'support_level'  # Тестирование уровня поддержки
+        ]
+    },
+    
+    'SHORT': {
+        'required_conditions': [
+            'orderbook_imbalance < -0.28', 
+            'large_sell_trades >= 3',
+            'volume_intensity > 1.5',
+            'price_below_vwap'  # Цена ниже VWAP за 1 час
+        ],
+        'optional_conditions': [
+            'rsi_overbought',  # RSI(9) > 70 на 15m
+            'bearish_divergence',  # Медвежья дивергенция RSI
+            'resistance_level'  # Тестирование уровня сопротивления
+        ]
+    }
+}
+7.2. Классификация сигналов:
+python
+def calculate_signal_quality(signal_data):
+    quality_score = 0
+    
+    # Order Book Imbalance (макс 35 баллов)
+    imbalance = abs(signal_data['orderbook_imbalance'])
+    if imbalance > 0.4:
+        quality_score += 35
+    elif imbalance > 0.3:
+        quality_score += 25
+    else:
+        quality_score += 15
+    
+    # Подтверждение объемом (макс 30 баллов)
+    volume_confirm = signal_data['volume_intensity']
+    if volume_confirm >= 2.0:
+        quality_score += 30
+    elif volume_confirm >= 1.5:
+        quality_score += 20
+    else:
+        quality_score += 10
+        
+    # Количество крупных сделок (макс 35 баллов)
+    large_trades = max(signal_data['large_buys'], signal_data['large_sells'])
+    quality_score += min(large_trades * 8, 35)
+    
+    # Определяем уровень качества
+    if quality_score >= 80:
+        return 'HIGH', quality_score
+    elif quality_score >= 65:
+        return 'MEDIUM', quality_score
+    else:
+        return 'LOW', quality_score
+8. МОДУЛЬ УПРАВЛЕНИЯ СИГНАЛАМИ
+8.1. Приоритеты и лимиты:
+python
+SIGNAL_MANAGEMENT = {
+    'PRIORITY_LEVELS': {
+        'HIGH': {
+            'max_daily': 20,
+            'min_quality': 80,
+            'response_time': 'immediate',
+            'hold_time': '15-45min'
+        },
+        'MEDIUM': {
+            'max_daily': 40, 
+            'min_quality': 65,
+            'response_time': '<5min',
+            'hold_time': '30-90min'
+        },
+        'LOW': {
+            'max_daily': 20,
+            'min_quality': 50,
+            'response_time': '<15min', 
+            'hold_time': '60-180min'
+        }
+    },
+    
+    'RISK_CONTROLS': {
+        'max_concurrent_signals': 5,
+        'max_correlation': 0.6,
+        'daily_signal_limit': 80,
+        'cooldown_after_loss': 3  # сигнала
+    }
+}
+8.2. Формат сигнала:
+python
+SIGNAL_TEMPLATE = {
+    'signal_id': 'UUID',
+    'symbol': 'BTCUSDT',
+    'direction': 'LONG/SHORT',
+    'signal_type': 'ENTRY/EXIT',
+    'priority': 'HIGH/MEDIUM/LOW',
+    'timestamp': '2024-01-01T00:00:00Z',
+    
+    # Параметры входа
+    'entry_price': 50000.0,
+    'stop_loss': 49000.0,
+    'take_profit_1': 51000.0,
+    'take_profit_2': 51500.0,
+    
+    # Метаданные
+    'quality_score': 85,
+    'orderbook_imbalance': 0.35,
+    'large_trades_count': 5,
+    'volume_intensity': 2.1,
+    'confidence': 0.78,
+    
+    # Рекомендации по управлению
+    'suggested_position_size': 0.01,  # 1% от капитала
+    'risk_reward_ratio': 1.67,
+    'expected_hold_time': '25min'
+}
+9. МОДУЛЬ МОНИТОРИНГА И АНАЛИТИКИ
+9.1. Ключевые метрики:
+python
+PERFORMANCE_METRICS = {
+    'daily': {
+        'signals_generated': 0,
+        'signals_triggered': 0,
+        'win_rate': 0.0,
+        'average_hold_time': 0.0,
+        'total_pnl': 0.0,
+        'sharpe_ratio': 0.0,
+        'max_drawdown': 0.0
+    },
+    'weekly': {
+        'best_symbols': [],
+        'worst_symbols': [],
+        'strategy_efficiency': 0.0,
+        'signal_quality_trend': 0.0
+    }
+}
+9.2. Дашборд для мониторинга:
+Реал-тайм сигналы с приоритетами
+
+Performance по символам
+
+Качество сигналов (исторические данные)
+
+Системные метрики (загрузка CPU, память, latency)
+11. ОБРАБОТКА ОШИБОК И ВОССТАНОВЛЕНИЕ
+11.1. Мониторинг состояния:
+python
+HEALTH_CHECKS = {
+    'api_connectivity': {
+        'check_interval': 30,  # seconds
+        'timeout_threshold': 5,  # consecutive failures
+        'action': 'switch_to_backup_feed'
+    },
+    'data_quality': {
+        'check_interval': 60,
+        'anomaly_threshold': 3,  # standard deviations
+        'action': 'pause_signaling'
+    },
+    'system_performance': {
+        'cpu_threshold': 80,  # %
+        'memory_threshold': 85,  # %
+        'action': 'reduce_universe_size'
+    }
+}
+13. ДОКУМЕНТАЦИЯ И ЛОГГИРОВАНИЕ
+13.1. Обязательные логи:
+Все входящие рыночные данные
+
+Причины генерации каждого сигнала
+
+Performance метрики в реальном времени
+
+Системные ошибки и восстановления
+
+13.2. Отчетность:
+Ежедневные отчеты по эффективности
+
+Еженедельная аналитика по стратегии
+
+Месячные тюнинги параметров системы
