@@ -36,6 +36,16 @@ class Config:
     
     OI_CONCURRENT_LIMIT = 10  # Max concurrent open interest requests
     
+    # Blacklist: symbols to exclude from universe
+    SYMBOL_BLACKLIST = [
+        'BTCDOMUSDT',  # Bitcoin Dominance Index
+        'DEFIUSDT',    # DeFi Index
+        'ETHBTCUSDT',  # ETH/BTC ratio (not a real coin)
+    ]
+    
+    # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
+    FILTER_NON_ASCII = True
+    
     ORDERBOOK_IMBALANCE_THRESHOLD = 0.28
     MIN_LARGE_TRADES = 3
     LARGE_TRADE_SIZE = 50_000

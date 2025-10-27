@@ -29,6 +29,36 @@ class UniverseSelector:
         
         logger.info("🔧 [UniverseSelector] Initialized")
     
+    def _apply_blacklist(self, symbols: List[str]) -> List[str]:
+        """Filter out blacklisted symbols and non-ASCII symbols"""
+        filtered = []
+        blacklisted_count = 0
+        non_ascii_count = 0
+        
+        for symbol in symbols:
+            # Check if in blacklist
+            if symbol in Config.SYMBOL_BLACKLIST:
+                blacklisted_count += 1
+                continue
+            
+            # Check for non-ASCII characters (Chinese, Japanese, etc.)
+            if Config.FILTER_NON_ASCII:
+                try:
+                    symbol.encode('ascii')
+                except UnicodeEncodeError:
+                    non_ascii_count += 1
+                    logger.debug(f"🚫 [Blacklist] Filtered non-ASCII symbol: {symbol}")
+                    continue
+            
+            filtered.append(symbol)
+        
+        if blacklisted_count > 0:
+            logger.info(f"🚫 [Blacklist] Filtered {blacklisted_count} blacklisted symbols")
+        if non_ascii_count > 0:
+            logger.info(f"🚫 [Blacklist] Filtered {non_ascii_count} non-ASCII symbols")
+        
+        return filtered
+    
     async def scan_universe(self) -> List[str]:
         logger.info("🔍 [UniverseSelector] Starting optimized 3-stage universe scan...")
         start_time = datetime.now()
@@ -45,6 +75,10 @@ class UniverseSelector:
                 if s['quoteAsset'] == 'USDT' and s['status'] == 'TRADING'
             ]
             logger.info(f"📊 [UniverseSelector] Found {len(usdt_symbols)} USDT trading pairs")
+            
+            # Apply blacklist filter
+            usdt_symbols = self._apply_blacklist(usdt_symbols)
+            logger.info(f"📊 [UniverseSelector] After blacklist filter: {len(usdt_symbols)} symbols")
             
             tickers = await binance_client.get_24hr_tickers()
             if not tickers:
