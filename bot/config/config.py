@@ -29,7 +29,7 @@ class Config:
     
     MIN_24H_VOLUME = 30_000_000  # Stage 1: Initial volume filter
     MIN_OPEN_INTEREST = 1_000_000  # Stage 2: Open interest filter ($1M)
-    MAX_SPREAD = 0.01  # Stage 3: Fixed spread filter (1.0% для теста)
+    MAX_SPREAD = 0.0002  # Stage 3: Fixed spread filter (0.02%)
     
     USE_DYNAMIC_SPREAD = False  # Use ATR-based dynamic spread filter (disabled for now)
     DYNAMIC_SPREAD_ATR_MULTIPLIER = 0.1  # Spread <= 10% of ATR
