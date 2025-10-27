@@ -138,7 +138,8 @@ class UniverseSelector:
             
             elapsed = (datetime.now() - start_time).total_seconds()
             logger.info(f"✅ [UniverseSelector] Universe scan completed in {elapsed:.2f}s, selected {len(self.selected_symbols)} symbols")
-            logger.info(f"🏆 [UniverseSelector] Top 10 symbols by score: {[s['symbol'] + f'({s['score']:.1f})' for s in top_symbols[:10]]}")
+            top_symbols_str = ', '.join([f"{s['symbol']}({s['score']:.1f})" for s in top_symbols[:10]])
+            logger.info(f"🏆 [UniverseSelector] Top 10 symbols by score: {top_symbols_str}")
             
             return self.selected_symbols
             

@@ -2,7 +2,7 @@
 Trade Flow Analyzer - analyzes large trades flow (>$50k)
 Tracks buy/sell pressure from large market orders in 5-minute window
 """
-from typing import Dict, List
+from typing import Dict, List, Optional
 from collections import deque
 from datetime import datetime, timedelta
 from bot.config import Config

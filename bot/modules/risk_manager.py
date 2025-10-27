@@ -3,7 +3,7 @@ Risk Manager - manages signal limits and correlation checks
 Limits: max 80 signals/day, max 5 concurrent, correlation <0.6
 Priority limits: HIGH (20/day), MEDIUM (40/day), LOW (20/day)
 """
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 from datetime import datetime, timedelta
 from bot.config import Config
 from bot.utils import logger
@@ -176,7 +176,5 @@ class RiskManager:
         except Exception as e:
             logger.error(f"❌ [RiskManager] Error getting daily stats: {e}")
             return {}
-
-from typing import Tuple
 
 risk_manager = RiskManager()
