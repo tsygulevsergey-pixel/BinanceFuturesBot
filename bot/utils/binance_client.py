@@ -166,5 +166,14 @@ class BinanceProxyClient:
             params={'symbol': symbol},
             weight=1
         )
+    
+    async def get_book_tickers(self) -> Optional[list]:
+        """Get best bid/ask prices for all symbols (single batch request)"""
+        logger.info("📝 [BinanceClient] Fetching book tickers (bid/ask prices) for all symbols...")
+        return await self._make_request(
+            'GET',
+            '/fapi/v1/ticker/bookTicker',
+            weight=5  # Weight for all symbols
+        )
 
 binance_client = BinanceProxyClient()

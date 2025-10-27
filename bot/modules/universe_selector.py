@@ -53,9 +53,18 @@ class UniverseSelector:
             
             ticker_dict = {t['symbol']: t for t in tickers if t['symbol'] in usdt_symbols}
             
+            # Get book tickers (bid/ask prices) - single batch request
+            book_tickers = await binance_client.get_book_tickers()
+            if not book_tickers:
+                logger.error("❌ [UniverseSelector] Failed to get book tickers")
+                return self.selected_symbols
+            
+            book_ticker_dict = {bt['symbol']: bt for bt in book_tickers if bt['symbol'] in usdt_symbols}
+            logger.info(f"📊 [UniverseSelector] Fetched book tickers (bid/ask) for {len(book_ticker_dict)} symbols")
+            
             # STAGE 1: Filter by 24h volume (in-memory, no API calls)
             stage1_start = datetime.now()
-            stage1_symbols = await self._filter_by_volume(usdt_symbols, ticker_dict)
+            stage1_symbols = await self._filter_by_volume(usdt_symbols, ticker_dict, book_ticker_dict)
             stage1_elapsed = (datetime.now() - stage1_start).total_seconds()
             logger.info(f"✅ [Stage 1/3] Volume filter: {len(usdt_symbols)} → {len(stage1_symbols)} symbols ({stage1_elapsed:.2f}s)")
             
@@ -136,35 +145,46 @@ class UniverseSelector:
             logger.error(f"❌ [UniverseSelector] Universe scan error: {e}")
             return self.selected_symbols
     
-    async def _filter_by_volume(self, symbols: List[str], ticker_dict: Dict) -> List[Dict]:
+    async def _filter_by_volume(self, symbols: List[str], ticker_dict: Dict, book_ticker_dict: Dict) -> List[Dict]:
         """Stage 1: Filter by 24h volume (in-memory, no API calls)"""
         filtered = []
-        logged_first_ticker = False
+        logged_first_book = False
+        no_book_ticker_count = 0
         
         for symbol in symbols:
             ticker = ticker_dict.get(symbol)
             if not ticker:
                 continue
             
-            # Log first ticker to see available fields
-            if not logged_first_ticker:
-                ticker_keys = list(ticker.keys())
-                logger.info(f"📝 [Stage 1 Debug] First ticker ({symbol}) has fields: {ticker_keys}")
-                logger.info(f"📝 [Stage 1 Debug] bidPrice: {ticker.get('bidPrice')}, askPrice: {ticker.get('askPrice')}")
-                logged_first_ticker = True
-            
             volume_24h = float(ticker.get('quoteVolume', 0))
             if volume_24h < Config.MIN_24H_VOLUME:
                 continue
+            
+            # Get bid/ask from book ticker
+            book_ticker = book_ticker_dict.get(symbol)
+            if not book_ticker:
+                no_book_ticker_count += 1
+                continue
+            
+            # Log first book ticker to confirm structure
+            if not logged_first_book:
+                logger.info(f"📝 [Stage 1 Debug] First book ticker ({symbol}): bidPrice={book_ticker.get('bidPrice')}, askPrice={book_ticker.get('askPrice')}")
+                logged_first_book = True
+            
+            bid_price = float(book_ticker.get('bidPrice', 0))
+            ask_price = float(book_ticker.get('askPrice', 0))
             
             filtered.append({
                 'symbol': symbol,
                 'volume_24h': volume_24h,
                 'trades_24h': int(ticker.get('count', 0)),
                 'price_change_percent': float(ticker.get('priceChangePercent', 0)),
-                'bid_price': float(ticker.get('bidPrice', 0)),
-                'ask_price': float(ticker.get('askPrice', 0))
+                'bid_price': bid_price,
+                'ask_price': ask_price
             })
+        
+        if no_book_ticker_count > 0:
+            logger.info(f"📊 [Stage 1] Skipped {no_book_ticker_count} symbols without book ticker data")
         
         return filtered
     
