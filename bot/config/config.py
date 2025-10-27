@@ -26,9 +26,15 @@ class Config:
     PROXY_URL = 'http://fyplvqgw:04azcek13s9n@23.27.184.165:5766'
     
     UNIVERSE_RESCAN_INTERVAL = 6 * 3600
-    MIN_24H_VOLUME = 50_000_000
-    MIN_OPEN_INTEREST = 10_000_000
-    MAX_SPREAD = 0.0002
+    
+    MIN_24H_VOLUME = 30_000_000  # Stage 1: Initial volume filter
+    MIN_OPEN_INTEREST = 1_000_000  # Stage 2: Open interest filter ($1M)
+    MAX_SPREAD = 0.01  # Stage 3: Fixed spread filter (1.0% для теста)
+    
+    USE_DYNAMIC_SPREAD = False  # Use ATR-based dynamic spread filter (disabled for now)
+    DYNAMIC_SPREAD_ATR_MULTIPLIER = 0.1  # Spread <= 10% of ATR
+    
+    OI_CONCURRENT_LIMIT = 10  # Max concurrent open interest requests
     
     ORDERBOOK_IMBALANCE_THRESHOLD = 0.28
     MIN_LARGE_TRADES = 3
