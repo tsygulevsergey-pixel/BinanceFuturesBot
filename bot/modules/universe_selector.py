@@ -224,6 +224,13 @@ class UniverseSelector:
         if no_book_ticker_count > 0:
             logger.info(f"📊 [Stage 1] Skipped {no_book_ticker_count} symbols without book ticker data")
         
+        # Limit to TOP 40 symbols by volume to avoid API request limits and speed up Stage 2
+        if len(filtered) > 40:
+            passed_count = len(filtered)
+            filtered_sorted = sorted(filtered, key=lambda x: x.get('volume_24h', 0), reverse=True)
+            filtered = filtered_sorted[:40]
+            logger.info(f"🔝 [Stage 1] Limited to TOP-40 symbols by 24h volume (from {passed_count} to {len(filtered)})")
+        
         return filtered
     
     async def _filter_by_open_interest(self, symbols: List[Dict], ticker_dict: Dict) -> List[Dict]:
@@ -284,8 +291,8 @@ class UniverseSelector:
                     failed_count += 1
                     logger.debug(f"Failed to fetch OI for {symbol_data['symbol']}: {e}")
                 
-                # Small delay between individual requests
-                await asyncio.sleep(0.5)
+                # Small delay between individual requests (0.3s for faster Stage 2)
+                await asyncio.sleep(0.3)
             
             # Longer pause between batches to avoid overwhelming system
             if batch_idx < total_batches:

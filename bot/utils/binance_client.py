@@ -52,7 +52,14 @@ class BinanceProxyClient:
         try:
             logger.info("🔧 [BinanceClient] Initializing async session with proxy...")
             
-            connector = aiohttp.TCPConnector(ssl=False)
+            # Configure connector for stable connection pooling with proxy
+            connector = aiohttp.TCPConnector(
+                ssl=False,
+                limit=50,              # Max total connections
+                limit_per_host=10,     # Max connections per host (Binance API)
+                force_close=True,      # Force close connections after use (critical for proxy stability)
+                enable_cleanup_closed=True  # Clean up closed connections
+            )
             timeout = aiohttp.ClientTimeout(total=30)
             
             self.session = aiohttp.ClientSession(
@@ -60,7 +67,7 @@ class BinanceProxyClient:
                 timeout=timeout
             )
             
-            logger.info("✅ [BinanceClient] Async session initialized")
+            logger.info("✅ [BinanceClient] Async session initialized with optimized connector (limit=50, force_close=True)")
             
         except Exception as e:
             logger.error(f"❌ [BinanceClient] Failed to initialize async session: {e}")
