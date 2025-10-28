@@ -37,14 +37,8 @@ class DatabaseManager:
             
             self.session_factory = scoped_session(sessionmaker(bind=self.engine))
             
-            logger.info("📝 [DatabaseManager] Creating database tables (with timeout protection)...")
-            try:
-                # Create tables with connection, if timeout - tables probably already exist
-                Base.metadata.create_all(self.engine, checkfirst=True)
-                logger.info("✅ [DatabaseManager] Database tables created successfully")
-            except Exception as table_error:
-                logger.warning(f"⚠️ [DatabaseManager] Table creation warning (probably already exist): {table_error}")
-                # Continue anyway - tables might already exist
+            # Skip table creation/checking - tables should already exist in production
+            logger.info("✅ [DatabaseManager] Database connection ready (assuming tables exist)")
             
         except Exception as e:
             logger.error(f"❌ [DatabaseManager] Failed to initialize database: {e}", exc_info=True)

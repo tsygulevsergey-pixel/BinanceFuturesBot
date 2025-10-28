@@ -224,12 +224,12 @@ class UniverseSelector:
         if no_book_ticker_count > 0:
             logger.info(f"📊 [Stage 1] Skipped {no_book_ticker_count} symbols without book ticker data")
         
-        # Limit to TOP 40 symbols by volume to avoid API request limits and speed up Stage 2
-        if len(filtered) > 40:
+        # Limit to TOP 20 symbols by volume for ultra-stable operation
+        if len(filtered) > 20:
             passed_count = len(filtered)
             filtered_sorted = sorted(filtered, key=lambda x: x.get('volume_24h', 0), reverse=True)
-            filtered = filtered_sorted[:40]
-            logger.info(f"🔝 [Stage 1] Limited to TOP-40 symbols by 24h volume (from {passed_count} to {len(filtered)})")
+            filtered = filtered_sorted[:20]
+            logger.info(f"🔝 [Stage 1] Limited to TOP-20 symbols by 24h volume (from {passed_count} to {len(filtered)})")
         
         return filtered
     
@@ -242,8 +242,8 @@ class UniverseSelector:
         oi_samples = []  # Track first 5 OI values for logging
         results = []
         
-        # Split symbols into batches of 20
-        BATCH_SIZE = 20
+        # Split symbols into small batches of 10 for stability
+        BATCH_SIZE = 10
         batches = [symbols[i:i + BATCH_SIZE] for i in range(0, len(symbols), BATCH_SIZE)]
         total_batches = len(batches)
         
