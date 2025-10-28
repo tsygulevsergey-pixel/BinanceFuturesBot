@@ -48,7 +48,13 @@ class Config:
     
     ORDERBOOK_IMBALANCE_THRESHOLD = 0.28  # ORIGINAL STRICT VALUE
     MIN_LARGE_TRADES = 3                   # ORIGINAL STRICT VALUE
-    LARGE_TRADE_SIZE = 50_000              # ORIGINAL STRICT VALUE ($50K)
+    
+    # Large trade detection: DYNAMIC (percentile-based) approach
+    USE_DYNAMIC_LARGE_TRADES = True        # Use percentile-based (top 1%) instead of fixed threshold
+    LARGE_TRADE_PERCENTILE = 99            # 99th percentile = top 1% of trade sizes
+    MIN_LARGE_TRADE_SIZE = 10_000          # Minimum threshold ($10K) as fallback for low-liquidity pairs
+    LARGE_TRADE_SIZE = 50_000              # Legacy fixed threshold (used when USE_DYNAMIC_LARGE_TRADES=False)
+    
     VOLUME_CONFIRMATION_MULTIPLIER = 1.8   # ORIGINAL STRICT VALUE
     
     PRIMARY_TF = '15m'
