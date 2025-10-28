@@ -4,7 +4,7 @@ Provides real-time status and detailed statistics
 """
 import asyncio
 from telegram import Update
-from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram.ext import Updater, CommandHandler, CallbackContext
 from bot.config import Config
 from bot.utils import logger
 from bot.utils.redis_manager import redis_manager
@@ -13,21 +13,20 @@ from bot.database import db_manager, Signal
 
 class TelegramBotHandler:
     def __init__(self):
-        self.application = None
+        self.updater = None
         logger.info("🔧 [TelegramBotHandler] Initialized")
     
     async def start_bot(self):
         try:
             logger.info("🚀 [TelegramBotHandler] Starting Telegram bot...")
             
-            self.application = Application.builder().token(Config.TELEGRAM_BOT_TOKEN).build()
+            self.updater = Updater(token=Config.TELEGRAM_BOT_TOKEN, use_context=True)
             
-            self.application.add_handler(CommandHandler("status", self.status_command))
-            self.application.add_handler(CommandHandler("stats", self.stats_command))
+            self.updater.dispatcher.add_handler(CommandHandler("status", self.status_command))
+            self.updater.dispatcher.add_handler(CommandHandler("stats", self.stats_command))
             
-            await self.application.initialize()
-            await self.application.start()
-            await self.application.updater.start_polling()
+            # Start polling in background thread (v13 is sync)
+            self.updater.start_polling()
             
             logger.info("✅ [TelegramBotHandler] Telegram bot started successfully")
             
@@ -35,7 +34,7 @@ class TelegramBotHandler:
             logger.error(f"❌ [TelegramBotHandler] Error starting bot: {e}")
             raise
     
-    async def status_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+    def status_command(self, update: Update, context: CallbackContext):
         try:
             logger.info(f"📥 [TelegramBotHandler] Received /status command from user {update.effective_user.id}")
             
@@ -58,22 +57,22 @@ class TelegramBotHandler:
 ⏰ **Uptime:** Active
 """
             
-            await update.message.reply_text(message, parse_mode='Markdown')
+            update.message.reply_text(message, parse_mode='Markdown')
             
             logger.info(f"📤 [TelegramBotHandler] Sent status response: {symbol_count} symbols, {open_signals} open signals")
             
         except Exception as e:
             logger.error(f"❌ [TelegramBotHandler] Error in status command: {e}")
-            await update.message.reply_text("Error retrieving status")
+            update.message.reply_text("Error retrieving status")
     
-    async def stats_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+    def stats_command(self, update: Update, context: CallbackContext):
         try:
             logger.info(f"📥 [TelegramBotHandler] Received /stats command from user {update.effective_user.id}")
             
             stats = performance_monitor.get_stats_for_telegram()
             
             if not stats:
-                await update.message.reply_text("No statistics available yet")
+                update.message.reply_text("No statistics available yet")
                 return
             
             message = f"""
@@ -92,19 +91,17 @@ class TelegramBotHandler:
 🛑 **SL Hit:** {stats.get('sl_count', 0)} times
 """
             
-            await update.message.reply_text(message, parse_mode='Markdown')
+            update.message.reply_text(message, parse_mode='Markdown')
             
             logger.info(f"📤 [TelegramBotHandler] Sent stats response")
             
         except Exception as e:
             logger.error(f"❌ [TelegramBotHandler] Error in stats command: {e}")
-            await update.message.reply_text("Error retrieving statistics")
+            update.message.reply_text("Error retrieving statistics")
     
     async def stop_bot(self):
-        if self.application:
-            await self.application.updater.stop()
-            await self.application.stop()
-            await self.application.shutdown()
+        if self.updater:
+            self.updater.stop()
             logger.info("🛑 [TelegramBotHandler] Telegram bot stopped")
 
 telegram_bot_handler = TelegramBotHandler()

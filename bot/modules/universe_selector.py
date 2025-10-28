@@ -127,16 +127,19 @@ class UniverseSelector:
                 return self.selected_symbols
             
             # Calculate scores for ALL symbols that passed filters
+            logger.info(f"📊 [UniverseSelector] Calculating scores for {len(final_symbols)} symbols...")
             scored_symbols = []
             for symbol_data in final_symbols:
                 score = await self.calculate_symbol_score(symbol_data)
                 symbol_data['score'] = score
                 scored_symbols.append(symbol_data)
+            logger.info(f"✅ [UniverseSelector] Score calculation complete")
             
             # Sort by score (best first) but use ALL symbols, no artificial limit
             scored_symbols.sort(key=lambda x: x['score'], reverse=True)
             top_symbols = scored_symbols  # Use ALL symbols that passed filters
             self.selected_symbols = [s['symbol'] for s in top_symbols]
+            logger.info(f"📊 [UniverseSelector] Updating database with {len(top_symbols)} symbols...")
             
             # Update database
             with db_manager.get_session() as session:
@@ -276,9 +279,10 @@ class UniverseSelector:
                 return None
         
         tasks = [fetch_oi(s) for s in symbols]
-        results = await asyncio.gather(*tasks)
+        results = await asyncio.gather(*tasks, return_exceptions=True)
         
-        filtered = [r for r in results if r is not None]
+        # Filter out exceptions and None values
+        filtered = [r for r in results if r is not None and not isinstance(r, Exception)]
         
         # Log sample OI values for debugging
         if oi_samples:

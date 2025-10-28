@@ -5,7 +5,7 @@ Updates Redis cache and triggers analysis
 """
 import asyncio
 import json
-import websockets
+import aiohttp
 from typing import Dict, List, Set
 from bot.config import Config
 from bot.utils import logger
@@ -19,6 +19,7 @@ class DataCollector:
         self.active_symbols = []
         self.websocket_connections = {}
         self.running = False
+        self.proxy = Config.PROXY_URL  # Add proxy support
         
         logger.info("🔧 [DataCollector] Initialized")
     
@@ -37,7 +38,7 @@ class DataCollector:
             logger.error(f"❌ [DataCollector] Error in data collection: {e}")
     
     async def collect_all_symbols_combined(self, symbols: List[str]):
-        """Collect data for ALL symbols using ONE combined WebSocket connection"""
+        """Collect data for ALL symbols using ONE combined WebSocket connection with proxy"""
         
         # Build combined stream URL for all symbols
         all_streams = []
@@ -51,21 +52,28 @@ class DataCollector:
         
         stream_url = f"{self.base_url}/stream?streams={'/'.join(all_streams)}"
         
-        logger.info(f"📡 [DataCollector] Connecting to combined WebSocket for {len(symbols)} symbols...")
+        logger.info(f"📡 [DataCollector] Connecting to combined WebSocket for {len(symbols)} symbols with proxy...")
         
         while self.running:
             try:
-                async with websockets.connect(stream_url) as ws:
-                    logger.info(f"✅ [DataCollector] Connected! Streaming {len(all_streams)} streams for {len(symbols)} symbols")
-                    
-                    async for message in ws:
-                        if not self.running:
-                            break
+                # Create aiohttp session with proxy support
+                timeout = aiohttp.ClientTimeout(total=None)
+                async with aiohttp.ClientSession(timeout=timeout) as session:
+                    async with session.ws_connect(stream_url, proxy=self.proxy) as ws:
+                        logger.info(f"✅ [DataCollector] Connected! Streaming {len(all_streams)} streams for {len(symbols)} symbols")
                         
-                        await self.process_combined_message(message)
-                        
-            except websockets.exceptions.ConnectionClosed:
-                logger.warning(f"⚠️ [DataCollector] Combined WebSocket connection closed, reconnecting...")
+                        async for msg in ws:
+                            if not self.running:
+                                break
+                            
+                            if msg.type == aiohttp.WSMsgType.TEXT:
+                                await self.process_combined_message(msg.data)
+                            elif msg.type == aiohttp.WSMsgType.ERROR:
+                                logger.error(f"❌ [DataCollector] WebSocket error: {ws.exception()}")
+                                break
+                                
+            except aiohttp.ClientError as e:
+                logger.warning(f"⚠️ [DataCollector] WebSocket connection error, reconnecting... {e}")
                 await asyncio.sleep(5)
             except Exception as e:
                 logger.error(f"❌ [DataCollector] Combined WebSocket error: {e}")

@@ -35,7 +35,10 @@ class BinanceProxyClient:
             self.sync_client = Client(
                 api_key=self.api_key,
                 api_secret=self.api_secret,
-                requests_params={'proxies': Config.PROXY}
+                requests_params={
+                    'proxies': Config.PROXY,
+                    'timeout': 30  # 30 seconds timeout for proxy connections
+                }
             )
             
             info = self.sync_client.futures_exchange_info()
