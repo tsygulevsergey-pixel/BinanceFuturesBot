@@ -137,12 +137,15 @@ class BinanceFuturesScanner:
                 
                 logger.info(f"🔍 [Main] Analyzing ALL {len(active_symbols)} symbols for signals...")
                 
+                signals_generated = 0
                 # Analyze ALL symbols that passed filters (no artificial limits!)
                 for symbol in active_symbols:
-                    await self.check_and_generate_signal(symbol, active_symbols)
+                    result = await self.check_and_generate_signal(symbol, active_symbols)
+                    if result:
+                        signals_generated += 1
                     await asyncio.sleep(0.5)  # Small delay to avoid rate limits
                 
-                logger.info(f"✅ [Main] Completed signal check for {len(active_symbols)} symbols")
+                logger.info(f"✅ [Main] Completed signal check for {len(active_symbols)} symbols - Generated {signals_generated} signals")
                 await asyncio.sleep(60)
                 
             except Exception as e:
@@ -195,8 +198,9 @@ class BinanceFuturesScanner:
                 price_data
             )
             
-            # Debug log for first few symbols to see why signals aren't generated
-            if symbol in active_symbols[:3]:  # Log for first 3 symbols only
+            # Debug log for EVERY 10th symbol to see why signals aren't generated
+            symbol_index = active_symbols.index(symbol) if symbol in active_symbols else -1
+            if symbol_index % 10 == 0:  # Log every 10th symbol
                 logger.info(f"📊 [DEBUG {symbol}] imb={imbalance:.3f}, large_buys={trade_flow.get('large_buys', 0)}, large_sells={trade_flow.get('large_sells', 0)}, vol_int={volume_intensity:.2f}")
                 if not can_long and not can_short:
                     failed_long = [k for k, v in long_conditions.get('required', {}).items() if not v]
@@ -260,9 +264,11 @@ class BinanceFuturesScanner:
                 session.add(signal_obj)
             
             logger.info(f"✅ [Main] Signal generated and saved: {symbol} {direction} @ ${price:.4f}")
+            return True  # Signal generated successfully
             
         except Exception as e:
             logger.error(f"❌ [Main] Error generating signal for {symbol}: {e}")
+            return False
     
     async def signal_tracking_loop(self):
         logger.info("👁️ [Main] Starting signal tracking loop...")

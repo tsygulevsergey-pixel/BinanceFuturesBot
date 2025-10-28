@@ -36,6 +36,9 @@ class TradeFlowAnalyzer:
     def analyze_trade_flow(self, symbol: str, current_time: Optional[int] = None) -> Dict:
         try:
             if symbol not in self.trades or not self.trades[symbol]:
+                # Log first 5 symbols to understand why no trades
+                if len(self.trades) < 5 or symbol not in list(self.trades.keys())[:5]:
+                    logger.debug(f"⚠️ [TradeFlowAnalyzer] {symbol} - No trades in memory (total symbols tracked: {len(self.trades)})")
                 return {
                     'large_buys': 0,
                     'large_sells': 0,
@@ -103,8 +106,9 @@ class TradeFlowAnalyzer:
                 'buy_sell_ratio': buy_sell_ratio
             }
             
-            if large_buys >= Config.MIN_LARGE_TRADES or large_sells >= Config.MIN_LARGE_TRADES:
-                logger.debug(f"🔍 [TradeFlowAnalyzer] {symbol} - Large trades: Buys={large_buys}, Sells={large_sells}, Volume=${total_volume:,.0f}")
+            # Log for debugging - show volume stats for first few symbols
+            if len(self.trades) <= 10 and large_buys + large_sells > 0:
+                logger.info(f"✅ [TradeFlowAnalyzer] {symbol} - Trades: {len(self.trades[symbol])}, Large: B={large_buys}/S={large_sells}, Vol/min: ${volume_per_minute:,.0f}, Avg: ${avg_trade_size:,.0f}")
             
             return result
             

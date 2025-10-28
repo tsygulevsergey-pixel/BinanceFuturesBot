@@ -46,10 +46,10 @@ class Config:
     # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
     FILTER_NON_ASCII = True
     
-    ORDERBOOK_IMBALANCE_THRESHOLD = 0.28
-    MIN_LARGE_TRADES = 3
-    LARGE_TRADE_SIZE = 50_000
-    VOLUME_CONFIRMATION_MULTIPLIER = 1.8
+    ORDERBOOK_IMBALANCE_THRESHOLD = 0.20  # Было 0.28 - смягчено до 20%
+    MIN_LARGE_TRADES = 2                   # Было 3 - смягчено до 2
+    LARGE_TRADE_SIZE = 30_000              # Было 50k - смягчено до 30k
+    VOLUME_CONFIRMATION_MULTIPLIER = 1.2   # Было 1.8 - смягчено до 1.2M
     
     PRIMARY_TF = '15m'
     CONTEXT_TF = '1h'
