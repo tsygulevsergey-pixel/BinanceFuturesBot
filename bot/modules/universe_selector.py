@@ -224,12 +224,8 @@ class UniverseSelector:
         if no_book_ticker_count > 0:
             logger.info(f"📊 [Stage 1] Skipped {no_book_ticker_count} symbols without book ticker data")
         
-        # Limit to TOP 20 symbols by volume for ultra-stable operation
-        if len(filtered) > 20:
-            passed_count = len(filtered)
-            filtered_sorted = sorted(filtered, key=lambda x: x.get('volume_24h', 0), reverse=True)
-            filtered = filtered_sorted[:20]
-            logger.info(f"🔝 [Stage 1] Limited to TOP-20 symbols by 24h volume (from {passed_count} to {len(filtered)})")
+        # Return ALL symbols that passed volume filter (no artificial limits)
+        logger.info(f"✅ [Stage 1] Passed volume filter: {len(filtered)} symbols ready for Stage 2")
         
         return filtered
     
