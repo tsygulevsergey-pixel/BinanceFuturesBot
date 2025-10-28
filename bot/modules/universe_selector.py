@@ -227,62 +227,61 @@ class UniverseSelector:
         return filtered
     
     async def _filter_by_open_interest(self, symbols: List[Dict], ticker_dict: Dict) -> List[Dict]:
-        """Stage 2: Filter by open interest (throttled API calls with semaphore)"""
-        semaphore = asyncio.Semaphore(Config.OI_CONCURRENT_LIMIT)
+        """Stage 2: Filter by open interest (SEQUENTIAL requests for stability)"""
         passed_count = 0
         failed_count = 0
         below_threshold_count = 0
         
         oi_samples = []  # Track first 5 OI values for logging
+        results = []
         
-        async def fetch_oi(symbol_data: Dict) -> Dict:
-            nonlocal passed_count, failed_count, below_threshold_count
-            async with semaphore:
-                try:
-                    oi_data = await binance_client.get_open_interest(symbol_data['symbol'])
-                    if oi_data and oi_data.get('openInterest'):
-                        open_interest = float(oi_data.get('openInterest', 0))
-                        
-                        # Use lastPrice from ticker data (already loaded, no extra API call)
-                        ticker = ticker_dict.get(symbol_data['symbol'])
-                        if ticker:
-                            last_price = float(ticker.get('lastPrice', 0))
-                            if last_price > 0:
-                                oi_value = open_interest * last_price
-                                
-                                # Log first 5 OI values for debugging
-                                if len(oi_samples) < 5:
-                                    oi_samples.append({
-                                        'symbol': symbol_data['symbol'],
-                                        'oi_value': oi_value,
-                                        'last_price': last_price,
-                                        'oi_contracts': open_interest
-                                    })
-                                
-                                if oi_value >= Config.MIN_OPEN_INTEREST:
-                                    symbol_data['open_interest'] = oi_value
-                                    symbol_data['mark_price'] = last_price
-                                    passed_count += 1
-                                    return symbol_data
-                                else:
-                                    below_threshold_count += 1
+        logger.info(f"📊 [Stage 2] Processing {len(symbols)} symbols SEQUENTIALLY (stable mode)...")
+        
+        for idx, symbol_data in enumerate(symbols, 1):
+            try:
+                # Log progress every 20 symbols
+                if idx % 20 == 0:
+                    logger.info(f"📊 [Stage 2 Progress] {idx}/{len(symbols)} symbols processed...")
+                
+                oi_data = await binance_client.get_open_interest(symbol_data['symbol'])
+                if oi_data and oi_data.get('openInterest'):
+                    open_interest = float(oi_data.get('openInterest', 0))
+                    
+                    # Use lastPrice from ticker data (already loaded, no extra API call)
+                    ticker = ticker_dict.get(symbol_data['symbol'])
+                    if ticker:
+                        last_price = float(ticker.get('lastPrice', 0))
+                        if last_price > 0:
+                            oi_value = open_interest * last_price
+                            
+                            # Log first 5 OI values for debugging
+                            if len(oi_samples) < 5:
+                                oi_samples.append({
+                                    'symbol': symbol_data['symbol'],
+                                    'oi_value': oi_value,
+                                    'last_price': last_price,
+                                    'oi_contracts': open_interest
+                                })
+                            
+                            if oi_value >= Config.MIN_OPEN_INTEREST:
+                                symbol_data['open_interest'] = oi_value
+                                symbol_data['mark_price'] = last_price
+                                passed_count += 1
+                                results.append(symbol_data)
                             else:
-                                failed_count += 1
+                                below_threshold_count += 1
                         else:
                             failed_count += 1
                     else:
                         failed_count += 1
-                except Exception as e:
+                else:
                     failed_count += 1
-                    logger.debug(f"Failed to fetch OI for {symbol_data['symbol']}: {e}")
-                
-                return None
-        
-        tasks = [fetch_oi(s) for s in symbols]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        # Filter out exceptions and None values
-        filtered = [r for r in results if r is not None and not isinstance(r, Exception)]
+            except Exception as e:
+                failed_count += 1
+                logger.debug(f"Failed to fetch OI for {symbol_data['symbol']}: {e}")
+            
+            # Small delay between requests to avoid overwhelming proxy
+            await asyncio.sleep(0.1)
         
         # Log sample OI values for debugging
         if oi_samples:
@@ -291,7 +290,7 @@ class UniverseSelector:
         
         logger.info(f"📊 [Stage 2 Details] Passed: {passed_count}, Below threshold: {below_threshold_count}, Failed: {failed_count}")
         
-        return filtered
+        return results
     
     async def _filter_by_spread(self, symbols: List[Dict], ticker_dict: Dict) -> List[Dict]:
         """Stage 3: Filter by spread with optional dynamic ATR-based filter"""
