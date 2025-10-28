@@ -172,6 +172,17 @@ class DataCollector:
                 'm': data.get('m')
             }
             
+            # DIAGNOSTIC: Log first 3 trades from Binance to verify data structure
+            if not hasattr(self, '_trade_log_count'):
+                self._trade_log_count = 0
+            if self._trade_log_count < 3:
+                price = float(trade.get('p', 0))
+                qty = float(trade.get('q', 0))
+                trade_size = price * qty
+                is_sell = trade.get('m', False)
+                logger.info(f"🔍 [DIAGNOSTIC] Trade #{self._trade_log_count + 1} from Binance: {symbol} - Price=${price:.2f}, Qty={qty:.4f}, Size=${trade_size:,.0f}, IsSell={is_sell}, Time={trade.get('T')}")
+                self._trade_log_count += 1
+            
             trade_flow_analyzer.add_trade(symbol, trade)
             
             flow_analysis = trade_flow_analyzer.analyze_trade_flow(symbol)

@@ -20,25 +20,38 @@ class TradeFlowAnalyzer:
         try:
             if symbol not in self.trades:
                 self.trades[symbol] = deque()
+                logger.debug(f"🆕 [TradeFlowAnalyzer] Created new deque for {symbol}")
             
             current_time = trade.get('T', int(datetime.now().timestamp() * 1000))
             
+            # Clean old trades
+            before_count = len(self.trades[symbol])
             self.trades[symbol] = deque([
                 t for t in self.trades[symbol]
                 if current_time - t.get('T', 0) <= self.window_size
             ])
+            after_count = len(self.trades[symbol])
             
+            # Add new trade
             self.trades[symbol].append(trade)
+            
+            # DIAGNOSTIC: Log accumulation for first few symbols
+            if len(self.trades) <= 5 and after_count % 50 == 0:
+                logger.info(f"📊 [DIAGNOSTIC] {symbol} - Trades accumulated: {after_count + 1} (cleaned {before_count - after_count})")
             
         except Exception as e:
             logger.error(f"❌ [TradeFlowAnalyzer] Error adding trade for {symbol}: {e}")
     
     def analyze_trade_flow(self, symbol: str, current_time: Optional[int] = None) -> Dict:
         try:
+            # DIAGNOSTIC: Log memory state every 100 calls
+            if not hasattr(self, '_analyze_count'):
+                self._analyze_count = 0
+            self._analyze_count += 1
+            if self._analyze_count % 100 == 0:
+                logger.info(f"📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: {len(self.trades)} symbols tracked, Total trades: {sum(len(deque) for deque in self.trades.values())}")
+            
             if symbol not in self.trades or not self.trades[symbol]:
-                # Log first 5 symbols to understand why no trades
-                if len(self.trades) < 5 or symbol not in list(self.trades.keys())[:5]:
-                    logger.debug(f"⚠️ [TradeFlowAnalyzer] {symbol} - No trades in memory (total symbols tracked: {len(self.trades)})")
                 return {
                     'large_buys': 0,
                     'large_sells': 0,
@@ -81,10 +94,14 @@ class TradeFlowAnalyzer:
                         sell_volume += trade_size
                         if trade_size >= self.large_trade_size:
                             large_sells += 1
+                            # DIAGNOSTIC: Log large sells
+                            logger.info(f"💰 [DIAGNOSTIC] LARGE SELL {symbol}: ${trade_size:,.0f} (price=${price:.2f}, qty={quantity:.4f})")
                     else:
                         buy_volume += trade_size
                         if trade_size >= self.large_trade_size:
                             large_buys += 1
+                            # DIAGNOSTIC: Log large buys
+                            logger.info(f"💰 [DIAGNOSTIC] LARGE BUY {symbol}: ${trade_size:,.0f} (price=${price:.2f}, qty={quantity:.4f})")
                             
                 except Exception as e:
                     logger.error(f"❌ [TradeFlowAnalyzer] Error processing trade: {e}")
