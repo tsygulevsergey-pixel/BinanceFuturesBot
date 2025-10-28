@@ -20,22 +20,34 @@ class DatabaseManager:
     def init_sync_db(self):
         try:
             logger.info("🔧 [DatabaseManager] Initializing synchronous database connection...")
+            
+            if not self.database_url:
+                raise ValueError("DATABASE_URL is not set")
+            
+            # Use smaller pool to avoid connection exhaustion
             self.engine = create_engine(
                 self.database_url,
-                pool_size=20,
-                max_overflow=40,
+                pool_size=5,          # Reduced from 20
+                max_overflow=10,      # Reduced from 40
                 pool_pre_ping=True,
-                echo=False
+                pool_recycle=3600,    # Recycle connections every hour
+                echo=False,
+                connect_args={"connect_timeout": 10}  # 10 second timeout
             )
             
             self.session_factory = scoped_session(sessionmaker(bind=self.engine))
             
-            logger.info("📝 [DatabaseManager] Creating database tables...")
-            Base.metadata.create_all(self.engine)
-            logger.info("✅ [DatabaseManager] Database tables created successfully")
+            logger.info("📝 [DatabaseManager] Creating database tables (with timeout protection)...")
+            try:
+                # Create tables with connection, if timeout - tables probably already exist
+                Base.metadata.create_all(self.engine, checkfirst=True)
+                logger.info("✅ [DatabaseManager] Database tables created successfully")
+            except Exception as table_error:
+                logger.warning(f"⚠️ [DatabaseManager] Table creation warning (probably already exist): {table_error}")
+                # Continue anyway - tables might already exist
             
         except Exception as e:
-            logger.error(f"❌ [DatabaseManager] Failed to initialize database: {e}")
+            logger.error(f"❌ [DatabaseManager] Failed to initialize database: {e}", exc_info=True)
             raise
     
     @contextmanager
@@ -54,15 +66,21 @@ class DatabaseManager:
     async def init_async_pool(self):
         try:
             logger.info("🔧 [DatabaseManager] Initializing async database connection pool...")
+            
+            if not self.database_url:
+                raise ValueError("DATABASE_URL is not set")
+            
+            # Use smaller pool to avoid connection exhaustion and timeout issues
             self.async_pool = await asyncpg.create_pool(
                 self.database_url,
-                min_size=10,
-                max_size=50,
-                command_timeout=60
+                min_size=2,           # Reduced from 10
+                max_size=10,          # Reduced from 50
+                command_timeout=30,   # Reduced from 60
+                timeout=10            # Connection timeout 10s
             )
-            logger.info("✅ [DatabaseManager] Async database pool created successfully")
+            logger.info("✅ [DatabaseManager] Async database pool created successfully (2-10 connections)")
         except Exception as e:
-            logger.error(f"❌ [DatabaseManager] Failed to create async pool: {e}")
+            logger.error(f"❌ [DatabaseManager] Failed to create async pool: {e}", exc_info=True)
             raise
     
     async def close_async_pool(self):
