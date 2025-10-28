@@ -227,7 +227,7 @@ class UniverseSelector:
         return filtered
     
     async def _filter_by_open_interest(self, symbols: List[Dict], ticker_dict: Dict) -> List[Dict]:
-        """Stage 2: Filter by open interest (SEQUENTIAL requests for stability)"""
+        """Stage 2: Filter by open interest (BATCHED requests for stability)"""
         passed_count = 0
         failed_count = 0
         below_threshold_count = 0
@@ -235,60 +235,69 @@ class UniverseSelector:
         oi_samples = []  # Track first 5 OI values for logging
         results = []
         
-        logger.info(f"📊 [Stage 2] Processing {len(symbols)} symbols SEQUENTIALLY (stable mode)...")
+        # Split symbols into batches of 20
+        BATCH_SIZE = 20
+        batches = [symbols[i:i + BATCH_SIZE] for i in range(0, len(symbols), BATCH_SIZE)]
+        total_batches = len(batches)
         
-        for idx, symbol_data in enumerate(symbols, 1):
-            try:
-                # Log progress every 20 symbols
-                if idx % 20 == 0:
-                    logger.info(f"📊 [Stage 2 Progress] {idx}/{len(symbols)} symbols processed...")
-                
-                oi_data = await binance_client.get_open_interest(symbol_data['symbol'])
-                if oi_data and oi_data.get('openInterest'):
-                    open_interest = float(oi_data.get('openInterest', 0))
-                    
-                    # Use lastPrice from ticker data (already loaded, no extra API call)
-                    ticker = ticker_dict.get(symbol_data['symbol'])
-                    if ticker:
-                        last_price = float(ticker.get('lastPrice', 0))
-                        if last_price > 0:
-                            oi_value = open_interest * last_price
-                            
-                            # Log first 5 OI values for debugging
-                            if len(oi_samples) < 5:
-                                oi_samples.append({
-                                    'symbol': symbol_data['symbol'],
-                                    'oi_value': oi_value,
-                                    'last_price': last_price,
-                                    'oi_contracts': open_interest
-                                })
-                            
-                            if oi_value >= Config.MIN_OPEN_INTEREST:
-                                symbol_data['open_interest'] = oi_value
-                                symbol_data['mark_price'] = last_price
-                                passed_count += 1
-                                results.append(symbol_data)
+        logger.info(f"📊 [Stage 2] Processing {len(symbols)} symbols in {total_batches} batches of {BATCH_SIZE} (stable mode)...")
+        
+        for batch_idx, batch in enumerate(batches, 1):
+            logger.info(f"🔄 [Stage 2 Batch {batch_idx}/{total_batches}] Processing symbols {(batch_idx-1)*BATCH_SIZE + 1} to {min(batch_idx*BATCH_SIZE, len(symbols))}...")
+            
+            for symbol_data in batch:
+                try:
+                    oi_data = await binance_client.get_open_interest(symbol_data['symbol'])
+                    if oi_data and oi_data.get('openInterest'):
+                        open_interest = float(oi_data.get('openInterest', 0))
+                        
+                        # Use lastPrice from ticker data (already loaded, no extra API call)
+                        ticker = ticker_dict.get(symbol_data['symbol'])
+                        if ticker:
+                            last_price = float(ticker.get('lastPrice', 0))
+                            if last_price > 0:
+                                oi_value = open_interest * last_price
+                                
+                                # Log first 5 OI values for debugging
+                                if len(oi_samples) < 5:
+                                    oi_samples.append({
+                                        'symbol': symbol_data['symbol'],
+                                        'oi_value': oi_value,
+                                        'last_price': last_price,
+                                        'oi_contracts': open_interest
+                                    })
+                                
+                                if oi_value >= Config.MIN_OPEN_INTEREST:
+                                    symbol_data['open_interest'] = oi_value
+                                    symbol_data['mark_price'] = last_price
+                                    passed_count += 1
+                                    results.append(symbol_data)
+                                else:
+                                    below_threshold_count += 1
                             else:
-                                below_threshold_count += 1
+                                failed_count += 1
                         else:
                             failed_count += 1
                     else:
                         failed_count += 1
-                else:
+                except Exception as e:
                     failed_count += 1
-            except Exception as e:
-                failed_count += 1
-                logger.debug(f"Failed to fetch OI for {symbol_data['symbol']}: {e}")
+                    logger.debug(f"Failed to fetch OI for {symbol_data['symbol']}: {e}")
+                
+                # Small delay between individual requests
+                await asyncio.sleep(0.5)
             
-            # Small delay between requests to avoid overwhelming proxy
-            await asyncio.sleep(0.1)
+            # Longer pause between batches to avoid overwhelming system
+            if batch_idx < total_batches:
+                logger.info(f"⏸️  [Stage 2] Batch {batch_idx}/{total_batches} complete, pausing 1 second before next batch...")
+                await asyncio.sleep(1)
         
         # Log sample OI values for debugging
         if oi_samples:
             sample_str = ', '.join([f"{s['symbol']}(${s['oi_value']/1e6:.1f}M @ ${s['last_price']:.2f})" for s in oi_samples])
             logger.info(f"📊 [Stage 2 Samples] First 5 OI values: {sample_str}")
         
-        logger.info(f"📊 [Stage 2 Details] Passed: {passed_count}, Below threshold: {below_threshold_count}, Failed: {failed_count}")
+        logger.info(f"📊 [Stage 2 Summary] Processed {len(symbols)} symbols: Passed={passed_count}, Below threshold={below_threshold_count}, Failed={failed_count}")
         
         return results
     
