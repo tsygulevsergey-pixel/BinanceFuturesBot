@@ -54,29 +54,52 @@ class DataCollector:
         
         logger.info(f"📡 [DataCollector] Connecting to combined WebSocket for {len(symbols)} symbols with proxy...")
         
+        message_count = 0
+        last_heartbeat = asyncio.get_event_loop().time()
+        
         while self.running:
             try:
                 # Create aiohttp session with proxy support
-                timeout = aiohttp.ClientTimeout(total=None)
+                timeout = aiohttp.ClientTimeout(total=None, sock_connect=30, sock_read=300)
                 async with aiohttp.ClientSession(timeout=timeout) as session:
-                    async with session.ws_connect(stream_url, proxy=self.proxy) as ws:
+                    async with session.ws_connect(stream_url, proxy=self.proxy, heartbeat=20) as ws:
                         logger.info(f"✅ [DataCollector] Connected! Streaming {len(all_streams)} streams for {len(symbols)} symbols")
                         
-                        async for msg in ws:
-                            if not self.running:
-                                break
-                            
-                            if msg.type == aiohttp.WSMsgType.TEXT:
-                                await self.process_combined_message(msg.data)
-                            elif msg.type == aiohttp.WSMsgType.ERROR:
-                                logger.error(f"❌ [DataCollector] WebSocket error: {ws.exception()}")
-                                break
+                        try:
+                            async for msg in ws:
+                                if not self.running:
+                                    logger.info("🛑 [DataCollector] Stopping WebSocket (running=False)")
+                                    break
+                                
+                                if msg.type == aiohttp.WSMsgType.TEXT:
+                                    await self.process_combined_message(msg.data)
+                                    message_count += 1
+                                    
+                                    # Heartbeat logging every 30 seconds
+                                    current_time = asyncio.get_event_loop().time()
+                                    if current_time - last_heartbeat >= 30:
+                                        logger.info(f"💓 [DataCollector] WebSocket alive - {message_count} messages processed")
+                                        last_heartbeat = current_time
+                                        
+                                elif msg.type == aiohttp.WSMsgType.ERROR:
+                                    logger.error(f"❌ [DataCollector] WebSocket error: {ws.exception()}")
+                                    break
+                                elif msg.type == aiohttp.WSMsgType.CLOSED:
+                                    logger.warning("⚠️ [DataCollector] WebSocket closed by server")
+                                    break
+                                    
+                        except Exception as msg_error:
+                            logger.error(f"❌ [DataCollector] Error in message loop: {msg_error}", exc_info=True)
+                            break
                                 
             except aiohttp.ClientError as e:
-                logger.warning(f"⚠️ [DataCollector] WebSocket connection error, reconnecting... {e}")
+                logger.warning(f"⚠️ [DataCollector] WebSocket connection error, reconnecting in 5s... {e}")
+                await asyncio.sleep(5)
+            except asyncio.TimeoutError:
+                logger.warning("⚠️ [DataCollector] WebSocket timeout, reconnecting...")
                 await asyncio.sleep(5)
             except Exception as e:
-                logger.error(f"❌ [DataCollector] Combined WebSocket error: {e}")
+                logger.error(f"❌ [DataCollector] Combined WebSocket error: {e}", exc_info=True)
                 await asyncio.sleep(5)
     
     async def process_combined_message(self, message: str):
