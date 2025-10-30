@@ -143,10 +143,10 @@ class BinanceFuturesScanner:
                     result = await self.check_and_generate_signal(symbol, active_symbols)
                     if result:
                         signals_generated += 1
-                    await asyncio.sleep(0.5)  # Small delay to avoid rate limits
+                    # No delay needed - data already in Redis, no API calls!
                 
                 logger.info(f"✅ [Main] Completed signal check for {len(active_symbols)} symbols - Generated {signals_generated} signals")
-                await asyncio.sleep(60)
+                await asyncio.sleep(30)  # Shorter pause - check every 30 seconds
                 
             except Exception as e:
                 logger.error(f"❌ [Main] Error in signal generation loop: {e}")
