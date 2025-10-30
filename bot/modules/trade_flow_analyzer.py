@@ -104,7 +104,8 @@ class TradeFlowAnalyzer:
                     'trade_count': 0,
                     'avg_trade_size': 0,
                     'buy_sell_ratio': 0,
-                    'dynamic_threshold': 0
+                    'dynamic_threshold': 0,
+                    'vwap': 0
                 }
             
             if current_time is None:
@@ -134,6 +135,10 @@ class TradeFlowAnalyzer:
             sell_volume = 0
             trade_sizes = []
             
+            # Calculate VWAP = Σ(price * quantity) / Σ(quantity)
+            total_pv = 0  # price * volume (quantity)
+            total_q = 0   # total quantity
+            
             for trade in self.trades[symbol]:
                 try:
                     quantity = float(trade.get('q', 0))
@@ -142,6 +147,10 @@ class TradeFlowAnalyzer:
                     
                     total_volume += trade_size
                     trade_sizes.append(trade_size)
+                    
+                    # Add to VWAP calculation
+                    total_pv += price * quantity
+                    total_q += quantity
                     
                     is_buyer_maker = trade.get('m', False)
                     
@@ -174,6 +183,9 @@ class TradeFlowAnalyzer:
             avg_trade_size = sum(trade_sizes) / len(trade_sizes) if trade_sizes else 0
             buy_sell_ratio = buy_volume / sell_volume if sell_volume > 0 else 0
             
+            # Calculate VWAP
+            vwap = total_pv / total_q if total_q > 0 else 0
+            
             result = {
                 'large_buys': large_buys,
                 'large_sells': large_sells,
@@ -184,7 +196,8 @@ class TradeFlowAnalyzer:
                 'trade_count': len(self.trades[symbol]),
                 'avg_trade_size': avg_trade_size,
                 'buy_sell_ratio': buy_sell_ratio,
-                'dynamic_threshold': threshold if self.use_dynamic else 0
+                'dynamic_threshold': threshold if self.use_dynamic else 0,
+                'vwap': vwap  # Real VWAP calculation
             }
             
             # Log for debugging - show volume stats for first few symbols with large trades
@@ -205,7 +218,8 @@ class TradeFlowAnalyzer:
                 'trade_count': 0,
                 'avg_trade_size': 0,
                 'buy_sell_ratio': 0,
-                'dynamic_threshold': 0
+                'dynamic_threshold': 0,
+                'vwap': 0
             }
     
     def clear_old_trades(self, symbol: str, current_time: Optional[int] = None):

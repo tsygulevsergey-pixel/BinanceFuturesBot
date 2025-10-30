@@ -174,13 +174,12 @@ class BinanceFuturesScanner:
             
             price = float(orderbook['bids'][0][0]) if orderbook.get('bids') else 0
             
-            # VWAP temporarily disabled (checks set to True in signal_generator.py)
-            # TODO: Implement real VWAP calculation from trade flow data
-            # VWAP = Σ(price * volume) / Σ(volume)
+            # Get real VWAP from trade flow analysis (calculated from last 5 minutes of trades)
+            vwap = trade_flow.get('vwap', price)
             
             price_data = {
                 'price': price,
-                'vwap': price,  # Placeholder (not used in checks currently)
+                'vwap': vwap,  # Real VWAP from trade_flow_analyzer
                 'rsi': 50,
                 'near_support': False,
                 'near_resistance': False
