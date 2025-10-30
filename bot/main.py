@@ -167,28 +167,46 @@ class BinanceFuturesScanner:
                 orderbook.get('asks', [])
             )
             
-            # Calculate volume_intensity and add to trade_flow
-            volume_per_minute = trade_flow.get('volume_per_minute', 0)
-            volume_intensity = volume_per_minute / 1_000_000  # Convert to millions
-            trade_flow['volume_intensity'] = volume_intensity  # Add to trade_flow!
+            orderbook_data = {
+                'imbalance': imbalance
+            }
             
+            # OPTIMIZATION: Quick pre-check (only imbalance + large_trades, no extra API calls)
+            quick_long = signal_generator.quick_check_long(orderbook_data, trade_flow)
+            quick_short = signal_generator.quick_check_short(orderbook_data, trade_flow)
+            
+            if not quick_long and not quick_short:
+                # Failed quick check - skip expensive volume/VWAP calculations
+                return
+            
+            # Passed quick check! Now calculate volume_intensity with historical comparison
+            current_volume_per_minute = trade_flow.get('volume_per_minute', 0)
+            
+            # Get average volume from 15m kline data (if available)
+            kline_15m = redis_manager.get(f'kline_15m:{symbol}')
+            if kline_15m:
+                avg_volume_15m = kline_15m.get('volume', 0) / 15  # Convert 15m to per-minute
+                # volume_intensity = current / average (should be > 1.8x for signal)
+                volume_intensity = current_volume_per_minute / avg_volume_15m if avg_volume_15m > 0 else 0
+            else:
+                # Fallback: use old method (divide by 1M)
+                volume_intensity = current_volume_per_minute / 1_000_000
+            
+            trade_flow['volume_intensity'] = volume_intensity
+            
+            # Get price and VWAP
             price = float(orderbook['bids'][0][0]) if orderbook.get('bids') else 0
-            
-            # Get real VWAP from trade flow analysis (calculated from last 5 minutes of trades)
             vwap = trade_flow.get('vwap', price)
             
             price_data = {
                 'price': price,
-                'vwap': vwap,  # Real VWAP from trade_flow_analyzer
+                'vwap': vwap,
                 'rsi': 50,
                 'near_support': False,
                 'near_resistance': False
             }
             
-            orderbook_data = {
-                'imbalance': imbalance
-            }
-            
+            # Full check with volume_intensity and VWAP
             can_long, long_conditions = signal_generator.check_long_conditions(
                 orderbook_data,
                 trade_flow,
@@ -204,7 +222,8 @@ class BinanceFuturesScanner:
             # Debug log for EVERY 10th symbol to see why signals aren't generated
             symbol_index = active_symbols.index(symbol) if symbol in active_symbols else -1
             if symbol_index % 10 == 0:  # Log every 10th symbol
-                logger.info(f"📊 [DEBUG {symbol}] imb={imbalance:.3f}, large_buys={trade_flow.get('large_buys', 0)}, large_sells={trade_flow.get('large_sells', 0)}, vol_int={volume_intensity:.2f}")
+                avg_vol_info = f"avg={kline_15m.get('volume', 0)/15:,.0f}" if kline_15m else "no kline"
+                logger.info(f"📊 [DEBUG {symbol}] imb={imbalance:.3f}, large_buys={trade_flow.get('large_buys', 0)}, large_sells={trade_flow.get('large_sells', 0)}, vol_int={volume_intensity:.2f} (current={current_volume_per_minute:,.0f}, {avg_vol_info}), vwap=${vwap:.2f}, price=${price:.2f}")
                 if not can_long and not can_short:
                     failed_long = [k for k, v in long_conditions.get('required', {}).items() if not v]
                     failed_short = [k for k, v in short_conditions.get('required', {}).items() if not v]

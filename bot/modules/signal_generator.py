@@ -19,6 +19,30 @@ class SignalGenerator:
         
         logger.info(f"🔧 [SignalGenerator] Initialized")
     
+    def quick_check_long(self, orderbook_data: Dict, trade_flow: Dict) -> bool:
+        """Quick pre-check: only imbalance and large_trades (no API calls needed)"""
+        try:
+            imbalance = orderbook_data.get('imbalance', 0)
+            large_buys = trade_flow.get('large_buys', 0)
+            
+            return (imbalance > self.imbalance_threshold and 
+                    large_buys >= self.min_large_trades)
+        except Exception as e:
+            logger.error(f"❌ [SignalGenerator] Error in quick_check_long: {e}")
+            return False
+    
+    def quick_check_short(self, orderbook_data: Dict, trade_flow: Dict) -> bool:
+        """Quick pre-check: only imbalance and large_trades (no API calls needed)"""
+        try:
+            imbalance = orderbook_data.get('imbalance', 0)
+            large_sells = trade_flow.get('large_sells', 0)
+            
+            return (imbalance < -self.imbalance_threshold and 
+                    large_sells >= self.min_large_trades)
+        except Exception as e:
+            logger.error(f"❌ [SignalGenerator] Error in quick_check_short: {e}")
+            return False
+    
     def check_long_conditions(
         self,
         orderbook_data: Dict,
