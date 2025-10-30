@@ -26,8 +26,10 @@ class TelegramBotHandler:
             self.application.add_handler(CommandHandler("status", self.status_command))
             self.application.add_handler(CommandHandler("stats", self.stats_command))
             
-            # Start polling in background task (v20.x is async)
-            asyncio.create_task(self.application.run_polling())
+            # Start polling in background - proper way for v20.x
+            await self.application.initialize()
+            await self.application.start()
+            asyncio.create_task(self.application.updater.start_polling())
             
             logger.info("✅ [TelegramBotHandler] Telegram bot started successfully")
             
@@ -114,7 +116,9 @@ class TelegramBotHandler:
     
     async def stop_bot(self):
         if self.application:
+            await self.application.updater.stop()
             await self.application.stop()
+            await self.application.shutdown()
             logger.info("🛑 [TelegramBotHandler] Telegram bot stopped")
 
 telegram_bot_handler = TelegramBotHandler()
