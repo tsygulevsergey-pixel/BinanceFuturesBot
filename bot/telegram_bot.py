@@ -14,6 +14,7 @@ from bot.database import db_manager, Signal
 class TelegramBotHandler:
     def __init__(self):
         self.application = None
+        self._polling_task = None
         logger.info("🔧 [TelegramBotHandler] Initialized")
     
     async def start_bot(self):
@@ -26,18 +27,10 @@ class TelegramBotHandler:
             self.application.add_handler(CommandHandler("status", self.status_command))
             self.application.add_handler(CommandHandler("stats", self.stats_command))
             
-            # Start polling in background - proper way for v20.x
+            # Proper way to start polling in background for v20.x
             await self.application.initialize()
             await self.application.start()
-            # Start polling with required parameters
-            asyncio.create_task(
-                self.application.updater.start_polling(
-                    poll_interval=1.0,
-                    timeout=10,
-                    bootstrap_retries=-1,
-                    read_timeout=2,
-                )
-            )
+            await self.application.updater.start_polling(drop_pending_updates=True)
             
             logger.info("✅ [TelegramBotHandler] Telegram bot started successfully")
             
@@ -124,9 +117,12 @@ class TelegramBotHandler:
     
     async def stop_bot(self):
         if self.application:
-            await self.application.updater.stop()
-            await self.application.stop()
-            await self.application.shutdown()
-            logger.info("🛑 [TelegramBotHandler] Telegram bot stopped")
+            try:
+                await self.application.updater.stop()
+                await self.application.stop()
+                await self.application.shutdown()
+                logger.info("🛑 [TelegramBotHandler] Telegram bot stopped")
+            except Exception as e:
+                logger.error(f"❌ [TelegramBotHandler] Error stopping bot: {e}")
 
 telegram_bot_handler = TelegramBotHandler()
