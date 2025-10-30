@@ -1,0 +1,32 @@
+      [49/151] Compiling C object pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/meson-generated_pandas__libs_tslibs_base.pyx.c.o
+      FAILED: [code=1] pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/meson-generated_pandas__libs_tslibs_base.pyx.c.o
+      cc -Ipandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p -Ipandas/_libs/tslibs -I../../pandas/_libs/tslibs -I../../../../pip-build-env-ouw_pz5w/overlay/lib/python3.13/site-packages/numpy/core/include -I../../pandas/_libs/include -I/usr/include/python3.13 -fvisibility=hidden -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -w -std=c99 -O3 -DNPY_NO_DEPRECATED_API=0 -DNPY_TARGET_VERSION=NPY_1_21_API_VERSION -fPIC -MD -MQ pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/meson-generated_pandas__libs_tslibs_base.pyx.c.o -MF pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/meson-generated_pandas__libs_tslibs_base.pyx.c.o.d -o pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/meson-generated_pandas__libs_tslibs_base.pyx.c.o -c pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/pandas/_libs/tslibs/base.pyx.c
+      pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/pandas/_libs/tslibs/base.pyx.c: In function ‘__Pyx_PyInt_As_long’:
+      pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/pandas/_libs/tslibs/base.pyx.c:5397:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+       5397 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      In file included from /usr/include/python3.13/longobject.h:107,
+                       from /usr/include/python3.13/Python.h:81,
+                       from pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/pandas/_libs/tslibs/base.pyx.c:6:
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/pandas/_libs/tslibs/base.pyx.c: In function ‘__Pyx_PyInt_As_int’:
+      pandas/_libs/tslibs/base.cpython-313-x86_64-linux-gnu.so.p/pandas/_libs/tslibs/base.pyx.c:5631:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+       5631 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      [50/151] Compiling Cython source /tmp/pip-install-s_mgy764/pandas_67a86fb6081d43d18955af78e0afc7ca/pandas/_libs/window/indexers.pyx
+      ninja: build stopped: subcommand failed.
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> pandas
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
