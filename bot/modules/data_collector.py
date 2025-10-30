@@ -146,6 +146,12 @@ class DataCollector:
             if not bids or not asks:
                 return
             
+            # DIAGNOSTIC: Log prices from WebSocket for BTC, ETH, SOL
+            if symbol in ['BTCUSDT', 'ETHUSDT', 'SOLUSDT'] and bids and asks:
+                best_bid = float(bids[0][0]) if bids else 0
+                best_ask = float(asks[0][0]) if asks else 0
+                logger.warning(f"🔍 [PRICE CHECK] {symbol} from WebSocket: BID=${best_bid:,.2f}, ASK=${best_ask:,.2f}")
+            
             orderbook = {
                 'bids': bids,
                 'asks': asks,
