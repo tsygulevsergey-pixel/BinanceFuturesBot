@@ -1,0 +1,51 @@
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# tail -50 /var/log/binance-bot-error.log
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+2025-10-30 15:41:13 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-30 15:41:13 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/bot/main.py", line 13, in <module>
+    from bot.database import db_manager, Signal
+  File "/root/BinanceFuturesBot/bot/database/__init__.py", line 1, in <module>
+    from .db_manager import db_manager, DatabaseManager
+  File "/root/BinanceFuturesBot/bot/database/db_manager.py", line 6, in <module>
+    from sqlalchemy import create_engine
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/__init__.py", line 13, in <module>
+    from .engine import AdaptedConnection as AdaptedConnection
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/engine/__init__.py", line 18, in <module>
+    from . import events as events
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/engine/events.py", line 19, in <module>
+    from .base import Connection
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 30, in <module>
+    from .interfaces import BindTyping
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/engine/interfaces.py", line 38, in <module>
+    from ..sql.compiler import Compiled as Compiled
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/sql/__init__.py", line 14, in <module>
+    from .compiler import COLLECT_CARTESIAN_PRODUCTS as COLLECT_CARTESIAN_PRODUCTS
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/sql/compiler.py", line 61, in <module>
+    from . import crud
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/sql/crud.py", line 34, in <module>
+    from . import dml
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/sql/dml.py", line 34, in <module>
+    from . import util as sql_util
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/sql/util.py", line 46, in <module>
+    from .ddl import sort_tables as sort_tables  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/sql/ddl.py", line 30, in <module>
+    from .elements import ClauseElement
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 808, in <module>
+    class SQLCoreOperations(Generic[_T_co], ColumnOperators, TypingOnly):
+    ...<472 lines>...
+                ...
+  File "/usr/lib/python3.13/typing.py", line 1257, in _generic_init_subclass
+    super(Generic, cls).__init_subclass__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 1988, in __init_subclass__
+    raise AssertionError(
+    ...<2 lines>...
+    )
+AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}.
