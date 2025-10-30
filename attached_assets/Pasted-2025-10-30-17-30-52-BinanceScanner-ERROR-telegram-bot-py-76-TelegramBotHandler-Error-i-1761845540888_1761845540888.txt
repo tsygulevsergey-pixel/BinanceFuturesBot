@@ -1,0 +1,235 @@
+2025-10-30 17:30:52 - BinanceScanner - ERROR - [telegram_bot.py:76] - ❌ [TelegramBotHandler] Error in status command: Timed out
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_backends/anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/contextlib.py", line 155, in __exit__
+    self.gen.throw(value)
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/contextlib.py", line 155, in __exit__
+    self.gen.throw(value)
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/bot/telegram_bot.py", line 71, in status_command
+    await update.message.reply_text(message, parse_mode='Markdown')
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_message.py", line 1094, in reply_text
+    return await self.get_bot().send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 2624, in send_message
+    return await super().send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 525, in decorator
+    result = await func(self, *args, **kwargs)  # skipcq: PYL-E1102
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 846, in send_message
+    return await self._send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 522, in _send_message
+    result = await super()._send_message(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 703, in _send_message
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 613, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 340, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 641, in _do_post
+    return await request.post(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+2025-10-30 17:30:52 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 33600
+2025-10-30 17:30:53 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 33700
+2025-10-30 17:30:54 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 33800
+2025-10-30 17:30:55 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 33900
+2025-10-30 17:30:55 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34000
+2025-10-30 17:30:56 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34100
+2025-10-30 17:30:56 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34200
+2025-10-30 17:30:57 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34300
+2025-10-30 17:30:57 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34400
+2025-10-30 17:30:58 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34500
+2025-10-30 17:30:58 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34600
+2025-10-30 17:30:59 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34700
+2025-10-30 17:30:59 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34800
+2025-10-30 17:31:00 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 34900
+2025-10-30 17:31:00 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35000
+2025-10-30 17:31:01 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35100
+2025-10-30 17:31:02 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35200
+2025-10-30 17:31:02 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35300
+2025-10-30 17:31:03 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35400
+No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 66, in map_httpcore_exceptions
+    yield
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 366, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    raise exc
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_async/connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_backends/auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_backends/anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/contextlib.py", line 155, in __exit__
+    self.gen.throw(value)
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 365, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/contextlib.py", line 155, in __exit__
+    self.gen.throw(value)
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/httpx/_transports/default.py", line 83, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_application.py", line 1234, in process_update
+    await coroutine
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/bot/telegram_bot.py", line 77, in status_command
+    await update.message.reply_text("Error retrieving status")
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_message.py", line 1094, in reply_text
+    return await self.get_bot().send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 2624, in send_message
+    return await super().send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 525, in decorator
+    result = await func(self, *args, **kwargs)  # skipcq: PYL-E1102
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 846, in send_message
+    return await self._send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 522, in _send_message
+    result = await super()._send_message(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 703, in _send_message
+    result = await self._post(
+             ^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 613, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 340, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 641, in _do_post
+    return await request.post(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.12/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+2025-10-30 17:31:04 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35500
+2025-10-30 17:31:04 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35600
+2025-10-30 17:31:05 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35700
+2025-10-30 17:31:05 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 35800
+2025-10-30 17:31:06 - BinanceScanner - INFO - [trade_flow_ana

@@ -5,6 +5,7 @@ Provides real-time status and detailed statistics
 import asyncio
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram.request import HTTPXRequest
 from bot.config import Config
 from bot.utils import logger
 from bot.utils.redis_manager import redis_manager
@@ -21,8 +22,16 @@ class TelegramBotHandler:
         try:
             logger.info("🚀 [TelegramBotHandler] Starting Telegram bot...")
             
+            # Configure proxy for Telegram API (required on some VPS)
+            request = HTTPXRequest(
+                proxy=Config.PROXY_URL,
+                connection_pool_size=8,
+                connect_timeout=30.0,
+                read_timeout=30.0
+            )
+            
             # In v20.x, use Application instead of Updater
-            self.application = Application.builder().token(Config.TELEGRAM_BOT_TOKEN).build()
+            self.application = Application.builder().token(Config.TELEGRAM_BOT_TOKEN).request(request).build()
             
             self.application.add_handler(CommandHandler("status", self.status_command))
             self.application.add_handler(CommandHandler("stats", self.stats_command))
@@ -32,7 +41,7 @@ class TelegramBotHandler:
             await self.application.start()
             await self.application.updater.start_polling(drop_pending_updates=True)
             
-            logger.info("✅ [TelegramBotHandler] Telegram bot started successfully")
+            logger.info("✅ [TelegramBotHandler] Telegram bot started successfully with proxy")
             
         except Exception as e:
             logger.error(f"❌ [TelegramBotHandler] Error starting bot: {e}")
