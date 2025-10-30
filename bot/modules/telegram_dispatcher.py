@@ -13,14 +13,16 @@ class TelegramDispatcher:
     def __init__(self):
         self.bot_token = Config.TELEGRAM_BOT_TOKEN
         self.chat_id = Config.TELEGRAM_CHAT_ID
-        self.bot = None
+        self.bot: Optional[Bot] = None
         
         logger.info(f"🔧 [TelegramDispatcher] Initialized with chat_id={self.chat_id}")
     
     async def initialize(self):
         try:
+            # In v20.x, Bot() is async-ready by default
             self.bot = Bot(token=self.bot_token)
-            # In v20.x, get_me() is async
+            
+            # Test connection with async context manager
             async with self.bot:
                 me = await self.bot.get_me()
                 logger.info(f"✅ [TelegramDispatcher] Connected as @{me.username}")
@@ -29,6 +31,10 @@ class TelegramDispatcher:
             raise
     
     async def send_signal(self, signal: Dict) -> Optional[int]:
+        if not self.bot:
+            logger.error("❌ [TelegramDispatcher] Bot not initialized")
+            return None
+            
         try:
             direction_emoji = "🟢" if signal['direction'] == 'LONG' else "🔴"
             priority_emoji = {
@@ -60,7 +66,7 @@ class TelegramDispatcher:
 ⏰ {signal['timestamp']}
 """
             
-            # In v20.x, send_message() is async
+            # In v20.x, send_message() is async with context manager
             async with self.bot:
                 sent_message = await self.bot.send_message(
                     chat_id=self.chat_id,
@@ -87,6 +93,10 @@ class TelegramDispatcher:
         hold_time_minutes: int,
         original_message_id: Optional[int] = None
     ) -> bool:
+        if not self.bot:
+            logger.error("❌ [TelegramDispatcher] Bot not initialized")
+            return False
+            
         try:
             emoji = "✅" if pnl_percent > 0 else "❌"
             
@@ -103,7 +113,7 @@ class TelegramDispatcher:
 🆔 Signal ID: `{signal_id}`
 """
             
-            # In v20.x, send_message() is async
+            # In v20.x, send_message() is async with context manager
             async with self.bot:
                 if original_message_id:
                     await self.bot.send_message(
@@ -128,8 +138,12 @@ class TelegramDispatcher:
             return False
     
     async def send_notification(self, message: str) -> bool:
+        if not self.bot:
+            logger.error("❌ [TelegramDispatcher] Bot not initialized")
+            return False
+            
         try:
-            # In v20.x, send_message() is async
+            # In v20.x, send_message() is async with context manager
             async with self.bot:
                 await self.bot.send_message(
                     chat_id=self.chat_id,
