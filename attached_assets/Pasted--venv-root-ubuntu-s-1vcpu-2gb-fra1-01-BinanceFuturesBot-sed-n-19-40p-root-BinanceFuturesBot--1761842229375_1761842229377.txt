@@ -1,0 +1,139 @@
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# sed -n '19,40p' /root/BinanceFuturesBot/bot/telegram_bot.py
+    
+    async def start_bot(self):
+        try:
+            logger.info("🚀 [TelegramBotHandler] Starting Telegram bot...")
+            
+            # In v20.x, use Application instead of Updater
+            self.application = Application.builder().token(Config.TELEGRAM_BOT_TOKEN).build()
+            
+            self.application.add_handler(CommandHandler("status", self.status_command))
+            self.application.add_handler(CommandHandler("stats", self.stats_command))
+            
+            # Proper way to start polling in background for v20.x
+            await self.application.initialize()
+            await self.application.start()
+            await self.application.updater.start_polling(drop_pending_updates=True)
+            
+            logger.info("✅ [TelegramBotHandler] Telegram bot started successfully")
+            
+        except Exception as e:
+            logger.error(f"❌ [TelegramBotHandler] Error starting bot: {e}")
+            raise
+    
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# source venv/bin/activate
+python3 -c "from bot.telegram_bot import telegram_bot_handler; print(telegram_bot_handler.application)"
+2025-10-30 16:36:23 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-30 16:36:23 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-30 16:36:24 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-30 16:36:24 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.28
+2025-10-30 16:36:24 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+2025-10-30 16:36:24 - BinanceScanner - INFO - [signal_generator.py:20] - 🔧 [SignalGenerator] Initialized
+2025-10-30 16:36:24 - BinanceScanner - INFO - [risk_manager.py:21] - 🔧 [RiskManager] Initialized - Daily limit: 80, Concurrent limit: 5, Correlation threshold: 0.6
+2025-10-30 16:36:24 - BinanceScanner - INFO - [telegram_dispatcher.py:18] - 🔧 [TelegramDispatcher] Initialized with chat_id=436451652
+2025-10-30 16:36:24 - BinanceScanner - INFO - [signal_tracker.py:18] - 🔧 [SignalTracker] Initialized
+2025-10-30 16:36:24 - BinanceScanner - INFO - [data_collector.py:24] - 🔧 [DataCollector] Initialized
+2025-10-30 16:36:24 - BinanceScanner - INFO - [performance_monitor.py:16] - 🔧 [PerformanceMonitor] Initialized
+2025-10-30 16:36:24 - BinanceScanner - INFO - [telegram_bot.py:18] - 🔧 [TelegramBotHandler] Initialized
+None
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# journalctl -u binance-bot -n 100 --no-pager
+Oct 30 16:32:21 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:32:24 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:32:24 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:32:24 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.375s CPU time, 79.2M memory peak.
+Oct 30 16:32:35 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 44.
+Oct 30 16:32:35 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:32:38 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:32:38 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:32:38 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.324s CPU time, 79.1M memory peak.
+Oct 30 16:32:48 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 45.
+Oct 30 16:32:48 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:32:52 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:32:52 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:32:52 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.298s CPU time, 79.2M memory peak.
+Oct 30 16:33:02 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 46.
+Oct 30 16:33:02 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:33:06 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:33:06 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:33:06 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.610s CPU time, 79.2M memory peak.
+Oct 30 16:33:16 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 47.
+Oct 30 16:33:16 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:33:20 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:33:20 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:33:20 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.455s CPU time, 79.3M memory peak.
+Oct 30 16:33:30 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 48.
+Oct 30 16:33:30 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:33:33 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:33:33 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:33:33 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.508s CPU time, 79.2M memory peak.
+Oct 30 16:33:44 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 49.
+Oct 30 16:33:44 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:33:47 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:33:47 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:33:47 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.354s CPU time, 79.3M memory peak.
+Oct 30 16:33:57 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 50.
+Oct 30 16:33:57 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:34:01 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:34:01 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:34:01 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 1.908s CPU time, 79.2M memory peak.
+Oct 30 16:34:11 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 51.
+Oct 30 16:34:11 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:34:14 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:34:14 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:34:14 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.343s CPU time, 79.2M memory peak.
+Oct 30 16:34:24 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 52.
+Oct 30 16:34:24 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:34:28 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:34:28 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:34:28 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.428s CPU time, 79.3M memory peak.
+Oct 30 16:34:38 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 53.
+Oct 30 16:34:38 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:34:41 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:34:41 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:34:41 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.213s CPU time, 79.1M memory peak.
+Oct 30 16:34:51 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 54.
+Oct 30 16:34:51 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:34:55 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:34:55 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:34:55 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.220s CPU time, 79.9M memory peak.
+Oct 30 16:35:05 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 55.
+Oct 30 16:35:05 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:35:09 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:35:09 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:35:09 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.534s CPU time, 79.2M memory peak.
+Oct 30 16:35:19 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 56.
+Oct 30 16:35:19 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:35:23 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:35:23 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:35:23 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.377s CPU time, 82.7M memory peak.
+Oct 30 16:35:28 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Stopped binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:35:28 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.377s CPU time, 82.7M memory peak.
+Oct 30 16:35:28 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:35:36 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:35:36 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:35:36 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 5.852s CPU time, 103.4M memory peak.
+Oct 30 16:35:46 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 1.
+Oct 30 16:35:46 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:35:49 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:35:49 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:35:49 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.121s CPU time, 79.2M memory peak.
+Oct 30 16:35:59 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 2.
+Oct 30 16:35:59 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:36:03 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:36:03 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:36:03 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.632s CPU time, 79.2M memory peak.
+Oct 30 16:36:13 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 3.
+Oct 30 16:36:13 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:36:17 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:36:17 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:36:17 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.472s CPU time, 79.3M memory peak.
+Oct 30 16:36:27 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 4.
+Oct 30 16:36:27 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:36:31 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:36:31 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:36:31 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.446s CPU time, 79.2M memory peak.
+Oct 30 16:36:41 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Scheduled restart job, restart counter is at 5.
+Oct 30 16:36:41 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: Started binance-bot.service - Binance Futures Trading Bot.
+Oct 30 16:36:44 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Main process exited, code=exited, status=1/FAILURE
+Oct 30 16:36:44 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Failed with result 'exit-code'.
+Oct 30 16:36:44 ubuntu-s-1vcpu-2gb-fra1-01 systemd[1]: binance-bot.service: Consumed 2.182s CPU time, 79.3M memory peak.
