@@ -4,7 +4,7 @@ Provides real-time status and detailed statistics
 """
 import asyncio
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import Application, CommandHandler, ContextTypes
 from bot.config import Config
 from bot.utils import logger
 from bot.utils.redis_manager import redis_manager
@@ -13,20 +13,21 @@ from bot.database import db_manager, Signal
 
 class TelegramBotHandler:
     def __init__(self):
-        self.updater = None
+        self.application = None
         logger.info("🔧 [TelegramBotHandler] Initialized")
     
     async def start_bot(self):
         try:
             logger.info("🚀 [TelegramBotHandler] Starting Telegram bot...")
             
-            self.updater = Updater(token=Config.TELEGRAM_BOT_TOKEN, use_context=True)
+            # In v20.x, use Application instead of Updater
+            self.application = Application.builder().token(Config.TELEGRAM_BOT_TOKEN).build()
             
-            self.updater.dispatcher.add_handler(CommandHandler("status", self.status_command))
-            self.updater.dispatcher.add_handler(CommandHandler("stats", self.stats_command))
+            self.application.add_handler(CommandHandler("status", self.status_command))
+            self.application.add_handler(CommandHandler("stats", self.stats_command))
             
-            # Start polling in background thread (v13 is sync)
-            self.updater.start_polling()
+            # Start polling in background task (v20.x is async)
+            asyncio.create_task(self.application.run_polling())
             
             logger.info("✅ [TelegramBotHandler] Telegram bot started successfully")
             
@@ -34,7 +35,7 @@ class TelegramBotHandler:
             logger.error(f"❌ [TelegramBotHandler] Error starting bot: {e}")
             raise
     
-    def status_command(self, update: Update, context: CallbackContext):
+    async def status_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             logger.info(f"📥 [TelegramBotHandler] Received /status command from user {update.effective_user.id}")
             
@@ -64,15 +65,15 @@ class TelegramBotHandler:
 ⏰ **Uptime:** Active
 """
             
-            update.message.reply_text(message, parse_mode='Markdown')
+            await update.message.reply_text(message, parse_mode='Markdown')
             
             logger.info(f"📤 [TelegramBotHandler] Sent status response: {symbol_count} symbols, {open_signals} open signals")
             
         except Exception as e:
             logger.error(f"❌ [TelegramBotHandler] Error in status command: {e}", exc_info=True)
-            update.message.reply_text("Error retrieving status")
+            await update.message.reply_text("Error retrieving status")
     
-    def stats_command(self, update: Update, context: CallbackContext):
+    async def stats_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             logger.info(f"📥 [TelegramBotHandler] Received /stats command from user {update.effective_user.id}")
             
@@ -103,17 +104,17 @@ class TelegramBotHandler:
 🛑 **SL Hit:** {stats.get('sl_count', 0)} times
 """
             
-            update.message.reply_text(message, parse_mode='Markdown')
+            await update.message.reply_text(message, parse_mode='Markdown')
             
             logger.info(f"📤 [TelegramBotHandler] Sent stats response")
             
         except Exception as e:
             logger.error(f"❌ [TelegramBotHandler] Error in stats command: {e}", exc_info=True)
-            update.message.reply_text("Error retrieving statistics")
+            await update.message.reply_text("Error retrieving statistics")
     
     async def stop_bot(self):
-        if self.updater:
-            self.updater.stop()
+        if self.application:
+            await self.application.stop()
             logger.info("🛑 [TelegramBotHandler] Telegram bot stopped")
 
 telegram_bot_handler = TelegramBotHandler()
