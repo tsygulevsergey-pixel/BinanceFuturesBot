@@ -47,8 +47,7 @@ class BinanceFuturesScanner:
             
             await telegram_dispatcher.initialize()
             
-            # TODO: Fix telegram_bot_handler for v20.x - temporarily disabled
-            # await telegram_bot_handler.start_bot()
+            await telegram_bot_handler.start_bot()
             
             await telegram_dispatcher.send_startup_message()
             

@@ -12,7 +12,7 @@ dependencies = [
     "python-binance>=1.0.30",
     "python-dotenv>=1.2.1",
     "python-socks[asyncio]>=2.7.2",
-    "python-telegram-bot==13.15",
+    "python-telegram-bot==20.7",
     "pytz>=2025.2",
     "redis>=7.0.1",
     "sqlalchemy>=2.0.44",
