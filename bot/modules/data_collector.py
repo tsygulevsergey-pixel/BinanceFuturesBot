@@ -185,7 +185,11 @@ class DataCollector:
             
             trade_flow_analyzer.add_trade(symbol, trade)
             
-            flow_analysis = trade_flow_analyzer.analyze_trade_flow(symbol)
+            # Run analyze_trade_flow in separate thread to avoid blocking event loop
+            flow_analysis = await asyncio.to_thread(
+                trade_flow_analyzer.analyze_trade_flow,
+                symbol
+            )
             redis_manager.set(f'trade_flow:{symbol}', flow_analysis, expiry=60)
             
         except Exception as e:

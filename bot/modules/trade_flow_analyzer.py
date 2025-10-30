@@ -91,7 +91,7 @@ class TradeFlowAnalyzer:
                 self._analyze_count = 0
             self._analyze_count += 1
             if self._analyze_count % 100 == 0:
-                logger.info(f"📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: {len(self.trades)} symbols tracked, Total trades: {sum(len(deque) for deque in self.trades.values())}")
+                logger.debug(f"📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: {len(self.trades)} symbols tracked, Total trades: {sum(len(deque) for deque in self.trades.values())}")
             
             if symbol not in self.trades or not self.trades[symbol]:
                 return {
