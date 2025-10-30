@@ -29,7 +29,15 @@ class TelegramBotHandler:
             # Start polling in background - proper way for v20.x
             await self.application.initialize()
             await self.application.start()
-            asyncio.create_task(self.application.updater.start_polling())
+            # Start polling with required parameters
+            asyncio.create_task(
+                self.application.updater.start_polling(
+                    poll_interval=1.0,
+                    timeout=10,
+                    bootstrap_retries=-1,
+                    read_timeout=2,
+                )
+            )
             
             logger.info("✅ [TelegramBotHandler] Telegram bot started successfully")
             
