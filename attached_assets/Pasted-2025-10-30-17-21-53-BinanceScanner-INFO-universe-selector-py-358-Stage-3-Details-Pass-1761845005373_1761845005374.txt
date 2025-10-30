@@ -1,0 +1,240 @@
+2025-10-30 17:21:53 - BinanceScanner - INFO - [universe_selector.py:358] - 📊 [Stage 3 Details] Passed: 77, Filtered: 69, No bid: 0, Max spread: 0.02%
+2025-10-30 17:21:53 - BinanceScanner - INFO - [universe_selector.py:123] - ✅ [Stage 3/3] Spread filter: 146 → 77 symbols (0.00s)
+2025-10-30 17:21:53 - BinanceScanner - INFO - [universe_selector.py:130] - 📊 [UniverseSelector] Calculating scores for 77 symbols...
+2025-10-30 17:22:27 - BinanceScanner - INFO - [universe_selector.py:136] - ✅ [UniverseSelector] Score calculation complete
+2025-10-30 17:22:27 - BinanceScanner - INFO - [universe_selector.py:142] - 📊 [UniverseSelector] Updating database with 77 symbols...
+2025-10-30 17:22:28 - BinanceScanner - ERROR - [db_manager.py:55] - ❌ [DatabaseManager] Session error: (psycopg2.errors.UndefinedTable) relation "symbols" does not exist
+LINE 1: UPDATE symbols SET is_active=false, last_updated=now()
+               ^
+
+[SQL: UPDATE symbols SET is_active=%(is_active)s, last_updated=now()]
+[parameters: {'is_active': False}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-30 17:22:28 - BinanceScanner - ERROR - [universe_selector.py:183] - ❌ [UniverseSelector] Universe scan error: (psycopg2.errors.UndefinedTable) relation "symbols" does not exist
+LINE 1: UPDATE symbols SET is_active=false, last_updated=now()
+               ^
+
+[SQL: UPDATE symbols SET is_active=%(is_active)s, last_updated=now()]
+[parameters: {'is_active': False}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-30 17:22:28 - BinanceScanner - INFO - [telegram_dispatcher.py:154] - 📤 [TelegramDispatcher] Sent notification
+2025-10-30 17:22:28 - BinanceScanner - INFO - [main.py:100] - ✅ [Main] Initial scan complete, selected 77 symbols
+2025-10-30 17:22:28 - BinanceScanner - INFO - [main.py:71] - 🚀 [Main] Starting DataCollector for 77 symbols...
+2025-10-30 17:22:28 - BinanceScanner - INFO - [main.py:127] - 🎯 [Main] Starting signal generation loop...
+2025-10-30 17:22:28 - BinanceScanner - INFO - [main.py:138] - 🔍 [Main] Analyzing ALL 77 symbols for signals...
+2025-10-30 17:22:28 - BinanceScanner - INFO - [main.py:274] - 👁️ [Main] Starting signal tracking loop...
+2025-10-30 17:22:28 - BinanceScanner - ERROR - [db_manager.py:55] - ❌ [DatabaseManager] Session error: (psycopg2.errors.UndefinedTable) relation "signals" does not exist
+LINE 2: FROM signals 
+             ^
+
+[SQL: SELECT signals.id AS signals_id, signals.symbol AS signals_symbol, signals.direction AS signals_direction, signals.signal_type AS signals_signal_type, signals.priority AS signals_priority, signals.entry_price AS signals_entry_price, signals.stop_loss AS signals_stop_loss, signals.take_profit_1 AS signals_take_profit_1, signals.take_profit_2 AS signals_take_profit_2, signals.quality_score AS signals_quality_score, signals.orderbook_imbalance AS signals_orderbook_imbalance, signals.large_trades_count AS signals_large_trades_count, signals.volume_intensity AS signals_volume_intensity, signals.confidence AS signals_confidence, signals.suggested_position_size AS signals_suggested_position_size, signals.risk_reward_ratio AS signals_risk_reward_ratio, signals.expected_hold_time AS signals_expected_hold_time, signals.status AS signals_status, signals.telegram_message_id AS signals_telegram_message_id, signals.created_at AS signals_created_at, signals.updated_at AS signals_updated_at 
+FROM signals 
+WHERE signals.status = %(status_1)s]
+[parameters: {'status_1': 'OPEN'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-30 17:22:28 - BinanceScanner - ERROR - [signal_tracker.py:39] - ❌ [SignalTracker] Error checking signals: (psycopg2.errors.UndefinedTable) relation "signals" does not exist
+LINE 2: FROM signals 
+             ^
+
+[SQL: SELECT signals.id AS signals_id, signals.symbol AS signals_symbol, signals.direction AS signals_direction, signals.signal_type AS signals_signal_type, signals.priority AS signals_priority, signals.entry_price AS signals_entry_price, signals.stop_loss AS signals_stop_loss, signals.take_profit_1 AS signals_take_profit_1, signals.take_profit_2 AS signals_take_profit_2, signals.quality_score AS signals_quality_score, signals.orderbook_imbalance AS signals_orderbook_imbalance, signals.large_trades_count AS signals_large_trades_count, signals.volume_intensity AS signals_volume_intensity, signals.confidence AS signals_confidence, signals.suggested_position_size AS signals_suggested_position_size, signals.risk_reward_ratio AS signals_risk_reward_ratio, signals.expected_hold_time AS signals_expected_hold_time, signals.status AS signals_status, signals.telegram_message_id AS signals_telegram_message_id, signals.created_at AS signals_created_at, signals.updated_at AS signals_updated_at 
+FROM signals 
+WHERE signals.status = %(status_1)s]
+[parameters: {'status_1': 'OPEN'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-30 17:22:28 - BinanceScanner - INFO - [main.py:287] - 📊 [Main] Starting metrics update loop...
+2025-10-30 17:22:28 - BinanceScanner - INFO - [data_collector.py:31] - 🚀 [DataCollector] Starting data collection for 77 symbols...
+2025-10-30 17:22:28 - BinanceScanner - INFO - [data_collector.py:32] - 📊 [DataCollector] Total streams: 231 (limit: 1024)
+2025-10-30 17:22:28 - BinanceScanner - INFO - [data_collector.py:55] - 📡 [DataCollector] Connecting to combined WebSocket for 77 symbols with proxy...
+2025-10-30 17:22:29 - BinanceScanner - INFO - [data_collector.py:66] - ✅ [DataCollector] Connected! Streaming 231 streams for 77 symbols
+2025-10-30 17:22:29 - BinanceScanner - INFO - [data_collector.py:183] - 🔍 [DIAGNOSTIC] Trade #1 from Binance: BTCUSDT - Price=$106995.30, Qty=0.0120, Size=$1,284, IsSell=True, Time=1761844949056
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] BTCUSDT - Trades accumulated: 1 (cleaned 0)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [data_collector.py:183] - 🔍 [DIAGNOSTIC] Trade #2 from Binance: KGENUSDT - Price=$0.23, Qty=43.0000, Size=$10, IsSell=True, Time=1761844948947
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] KGENUSDT - Trades accumulated: 1 (cleaned 0)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [data_collector.py:183] - 🔍 [DIAGNOSTIC] Trade #3 from Binance: ASTERUSDT - Price=$0.87, Qty=52.0000, Size=$45, IsSell=False, Time=1761844949103
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] ASTERUSDT - Trades accumulated: 1 (cleaned 0)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] LTCUSDT - Trades accumulated: 1 (cleaned 0)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] 1000BONKUSDT - Trades accumulated: 1 (cleaned 0)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:166] - 💰 [DIAGNOSTIC] LARGE BUY ETHUSDT: $10,599 (threshold=$10,000, price=$3737.21, qty=2.8360)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:166] - 💰 [DIAGNOSTIC] LARGE BUY BTCUSDT: $32,099 (threshold=$10,000, price=$106995.40, qty=0.3000)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:166] - 💰 [DIAGNOSTIC] LARGE BUY DOGEUSDT: $13,333 (threshold=$10,000, price=$0.18, qty=74113.0000)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:166] - 💰 [DIAGNOSTIC] LARGE BUY DOGEUSDT: $13,333 (threshold=$10,000, price=$0.18, qty=74113.0000)
+2025-10-30 17:22:29 - BinanceScanner - INFO - [trade_flow_analyzer.py:166] - 💰 [DIAGNOSTIC] LARGE BUY DOGEUSDT: $13,333 (threshold=$10,000, price=$0.18, qty=74113.0000)
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 39 symbols tracked, Total trades: 100
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 57 symbols tracked, Total trades: 200
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:156] - 💰 [DIAGNOSTIC] LARGE SELL BTCUSDT: $273,159 (threshold=$10,000, price=$106995.30, qty=2.5530)
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:156] - 💰 [DIAGNOSTIC] LARGE SELL BTCUSDT: $273,159 (threshold=$10,000, price=$106995.30, qty=2.5530)
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:156] - 💰 [DIAGNOSTIC] LARGE SELL BTCUSDT: $273,159 (threshold=$10,000, price=$106995.30, qty=2.5530)
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:156] - 💰 [DIAGNOSTIC] LARGE SELL BTCUSDT: $273,159 (threshold=$10,000, price=$106995.30, qty=2.5530)
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:156] - 💰 [DIAGNOSTIC] LARGE SELL BTCUSDT: $273,159 (threshold=$10,000, price=$106995.30, qty=2.5530)
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 58 symbols tracked, Total trades: 300
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 59 symbols tracked, Total trades: 400
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 62 symbols tracked, Total trades: 500
+2025-10-30 17:22:30 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 65 symbols tracked, Total trades: 600
+2025-10-30 17:22:31 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 67 symbols tracked, Total trades: 700
+2025-10-30 17:22:31 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 70 symbols tracked, Total trades: 800
+2025-10-30 17:22:31 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 72 symbols tracked, Total trades: 900
+2025-10-30 17:22:31 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 73 symbols tracked, Total trades: 1000
+2025-10-30 17:22:31 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 75 symbols tracked, Total trades: 1100
+2025-10-30 17:22:31 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 75 symbols tracked, Total trades: 1200
+2025-10-30 17:22:32 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 1300
+2025-10-30 17:22:32 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 76 symbols tracked, Total trades: 1400
+2025-10-30 17:22:32 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 1500
+2025-10-30 17:22:32 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 1600
+2025-10-30 17:22:32 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 1700
+2025-10-30 17:22:32 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 1800
+2025-10-30 17:22:33 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 1900
+2025-10-30 17:22:33 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2000
+2025-10-30 17:22:33 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2100
+2025-10-30 17:22:33 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2200
+2025-10-30 17:22:33 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2300
+2025-10-30 17:22:34 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2400
+2025-10-30 17:22:34 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2500
+2025-10-30 17:22:34 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2600
+2025-10-30 17:22:34 - BinanceScanner - INFO - [main.py:204] - 📊 [DEBUG ETHUSDT] imb=-0.827, large_buys=2, large_sells=1, vol_int=0.61
+2025-10-30 17:22:34 - BinanceScanner - INFO - [main.py:208] - 📊 [DEBUG ETHUSDT] LONG failed: ['orderbook_imbalance', 'large_buy_trades', 'volume_intensity', 'price_above_vwap'], SHORT failed: ['large_sell_trades', 'volume_intensity', 'price_below_vwap']
+2025-10-30 17:22:34 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2700
+2025-10-30 17:22:35 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2800
+2025-10-30 17:22:35 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 2900
+2025-10-30 17:22:35 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3000
+2025-10-30 17:22:35 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3100
+2025-10-30 17:22:35 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3200
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3300
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3400
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3500
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3600
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3700
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3800
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 3900
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4000
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4100
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4200
+2025-10-30 17:22:36 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4300
+2025-10-30 17:22:37 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4400
+2025-10-30 17:22:37 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4500
+2025-10-30 17:22:37 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4600
+2025-10-30 17:22:37 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4700
+2025-10-30 17:22:38 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4800
+2025-10-30 17:22:38 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 4900
+2025-10-30 17:22:38 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5000
+2025-10-30 17:22:38 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5100
+2025-10-30 17:22:38 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5200
+2025-10-30 17:22:38 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5300
+2025-10-30 17:22:39 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5400
+2025-10-30 17:22:39 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5500
+2025-10-30 17:22:39 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5600
+2025-10-30 17:22:39 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5700
+2025-10-30 17:22:40 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5800
+2025-10-30 17:22:40 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 5900
+2025-10-30 17:22:40 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6000
+2025-10-30 17:22:41 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6100
+2025-10-30 17:22:41 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6200
+2025-10-30 17:22:41 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6300
+2025-10-30 17:22:41 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6400
+2025-10-30 17:22:42 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6500
+2025-10-30 17:22:42 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6600
+2025-10-30 17:22:42 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6700
+2025-10-30 17:22:42 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6800
+2025-10-30 17:22:42 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 6900
+2025-10-30 17:22:43 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7000
+2025-10-30 17:22:43 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7100
+2025-10-30 17:22:43 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7200
+2025-10-30 17:22:43 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7300
+2025-10-30 17:22:44 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7400
+2025-10-30 17:22:44 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7500
+2025-10-30 17:22:44 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7600
+2025-10-30 17:22:44 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7700
+2025-10-30 17:22:45 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7800
+2025-10-30 17:22:45 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 7900
+2025-10-30 17:22:45 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8000
+2025-10-30 17:22:45 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8100
+2025-10-30 17:22:46 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8200
+2025-10-30 17:22:46 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8300
+2025-10-30 17:22:46 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8400
+2025-10-30 17:22:46 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8500
+2025-10-30 17:22:46 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8600
+2025-10-30 17:22:47 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8700
+2025-10-30 17:22:47 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8800
+2025-10-30 17:22:47 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 8900
+2025-10-30 17:22:47 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9000
+2025-10-30 17:22:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9100
+2025-10-30 17:22:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9200
+2025-10-30 17:22:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9300
+2025-10-30 17:22:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9400
+2025-10-30 17:22:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9500
+2025-10-30 17:22:49 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9600
+2025-10-30 17:22:49 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9700
+2025-10-30 17:22:49 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9800
+2025-10-30 17:22:49 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 9900
+2025-10-30 17:22:49 - BinanceScanner - INFO - [main.py:204] - 📊 [DEBUG GIGGLEUSDT] imb=-0.993, large_buys=0, large_sells=0, vol_int=0.00
+2025-10-30 17:22:49 - BinanceScanner - INFO - [main.py:208] - 📊 [DEBUG GIGGLEUSDT] LONG failed: ['orderbook_imbalance', 'large_buy_trades', 'volume_intensity', 'price_above_vwap'], SHORT failed: ['large_sell_trades', 'volume_intensity', 'price_below_vwap']
+2025-10-30 17:22:49 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10000
+2025-10-30 17:22:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10100
+2025-10-30 17:22:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10200
+2025-10-30 17:22:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10300
+2025-10-30 17:22:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10400
+2025-10-30 17:22:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10500
+2025-10-30 17:22:51 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10600
+2025-10-30 17:22:51 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10700
+2025-10-30 17:22:51 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10800
+2025-10-30 17:22:51 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 10900
+2025-10-30 17:22:52 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11000
+2025-10-30 17:22:52 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11100
+2025-10-30 17:22:52 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11200
+2025-10-30 17:22:53 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11300
+2025-10-30 17:22:53 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11400
+2025-10-30 17:22:53 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11500
+2025-10-30 17:22:53 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11600
+2025-10-30 17:22:54 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11700
+2025-10-30 17:22:54 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11800
+2025-10-30 17:22:54 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 11900
+2025-10-30 17:22:54 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12000
+2025-10-30 17:22:55 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12100
+2025-10-30 17:22:55 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12200
+2025-10-30 17:22:55 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12300
+2025-10-30 17:22:55 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12400
+2025-10-30 17:22:56 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12500
+2025-10-30 17:22:56 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12600
+2025-10-30 17:22:56 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12700
+2025-10-30 17:22:56 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12800
+2025-10-30 17:22:57 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 12900
+2025-10-30 17:22:57 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13000
+2025-10-30 17:22:57 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13100
+2025-10-30 17:22:57 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13200
+2025-10-30 17:22:58 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13300
+2025-10-30 17:22:58 - BinanceScanner - INFO - [data_collector.py:81] - 💓 [DataCollector] WebSocket alive - 31143 messages processed
+2025-10-30 17:22:58 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13400
+2025-10-30 17:22:58 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13500
+2025-10-30 17:22:58 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13600
+2025-10-30 17:22:59 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13700
+2025-10-30 17:22:59 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13800
+2025-10-30 17:22:59 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 13900
+2025-10-30 17:22:59 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14000
+2025-10-30 17:23:00 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14100
+2025-10-30 17:23:00 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14200
+2025-10-30 17:23:00 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14300
+2025-10-30 17:23:01 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14400
+2025-10-30 17:23:01 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14500
+2025-10-30 17:23:02 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14600
+2025-10-30 17:23:02 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14700
+2025-10-30 17:23:03 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14800
+2025-10-30 17:23:03 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 14900
+2025-10-30 17:23:03 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15000
+2025-10-30 17:23:04 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15100
+2025-10-30 17:23:04 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15200
+2025-10-30 17:23:05 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15300
+2025-10-30 17:23:05 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15400
+2025-10-30 17:23:05 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15500
+2025-10-30 17:23:06 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15600
+2025-10-30 17:23:06 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15700
+2025-10-30 17:23:06 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15800
+2025-10-30 17:23:07 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 15900
+2025-10-30 17:23:07 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16000
+2025-10-30 17:23:08 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16100
+2025-10-30 17:23:08 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16200
+2025-10-30 17:23:09 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16300
+2025-10-30 17:23:09 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16400
+2025-10-30 17:23:10 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16500
+2025-10-30 17:23:10 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16600
+2025-10-30 17:23:11 - BinanceScanner - INFO - [trade_flow_analyzer.py:94] - 📊 [DIAGNOSTIC] TradeFlowAnalyzer memory state: 77 symbols tracked, Total trades: 16700
+2025-10-30 17:23:11 - BinanceScanner - INFO - [main.py:204] - 📊 [DEBUG XLMUSDT] imb=0.427, large_buys=0, large_sells=0, vol_int=0.01
+2025-10-30 17:23:11 - BinanceScanner - INFO - [main.py:208] - 📊 [DEBUG XLMUSDT] LONG failed: ['large_buy_trades', 'volume_intensity', 'price_above_vwap'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity', 'price_below_vwap']
