@@ -1,0 +1,18 @@
+2025-10-30 18:28:53 - BinanceScanner - ERROR - [db_manager.py:55] - ❌ [DatabaseManager] Session error: (psycopg2.errors.UndefinedTable) relation "trades" does not exist
+LINE 2: FROM trades 
+             ^
+
+[SQL: SELECT trades.id AS trades_id, trades.signal_id AS trades_signal_id, trades.symbol AS trades_symbol, trades.direction AS trades_direction, trades.entry_price AS trades_entry_price, trades.exit_price AS trades_exit_price, trades.stop_loss AS trades_stop_loss, trades.take_profit_1 AS trades_take_profit_1, trades.take_profit_2 AS trades_take_profit_2, trades.exit_reason AS trades_exit_reason, trades.pnl AS trades_pnl, trades.pnl_percent AS trades_pnl_percent, trades.hold_time_minutes AS trades_hold_time_minutes, trades.status AS trades_status, trades.entry_time AS trades_entry_time, trades.exit_time AS trades_exit_time 
+FROM trades 
+WHERE trades.exit_time >= %(exit_time_1)s AND trades.status = %(status_1)s]
+[parameters: {'exit_time_1': datetime.datetime(2025, 10, 30, 0, 0), 'status_1': 'CLOSED'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-30 18:28:53 - BinanceScanner - ERROR - [performance_monitor.py:85] - ❌ [PerformanceMonitor] Error calculating daily metrics: (psycopg2.errors.UndefinedTable) relation "trades" does not exist
+LINE 2: FROM trades 
+             ^
+
+[SQL: SELECT trades.id AS trades_id, trades.signal_id AS trades_signal_id, trades.symbol AS trades_symbol, trades.direction AS trades_direction, trades.entry_price AS trades_entry_price, trades.exit_price AS trades_exit_price, trades.stop_loss AS trades_stop_loss, trades.take_profit_1 AS trades_take_profit_1, trades.take_profit_2 AS trades_take_profit_2, trades.exit_reason AS trades_exit_reason, trades.pnl AS trades_pnl, trades.pnl_percent AS trades_pnl_percent, trades.hold_time_minutes AS trades_hold_time_minutes, trades.status AS trades_status, trades.entry_time AS trades_entry_time, trades.exit_time AS trades_exit_time 
+FROM trades 
+WHERE trades.exit_time >= %(exit_time_1)s AND trades.status = %(status_1)s]
+[parameters: {'exit_time_1': datetime.datetime(2025, 10, 30, 0, 0), 'status_1': 'CLOSED'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)

@@ -55,7 +55,7 @@ class Config:
     MIN_LARGE_TRADE_SIZE = 10_000          # Minimum threshold ($10K) as fallback for low-liquidity pairs
     LARGE_TRADE_SIZE = 50_000              # Legacy fixed threshold (used when USE_DYNAMIC_LARGE_TRADES=False)
     
-    VOLUME_CONFIRMATION_MULTIPLIER = 1.8   # ORIGINAL STRICT VALUE
+    VOLUME_CONFIRMATION_MULTIPLIER = 0.5   # FIXED: Realistic threshold for volume/min in millions (was 1.8)
     
     PRIMARY_TF = '15m'
     CONTEXT_TF = '1h'

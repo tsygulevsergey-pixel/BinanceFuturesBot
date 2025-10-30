@@ -37,8 +37,9 @@ class DatabaseManager:
             
             self.session_factory = scoped_session(sessionmaker(bind=self.engine))
             
-            # Skip table creation/checking - tables should already exist in production
-            logger.info("✅ [DatabaseManager] Database connection ready (assuming tables exist)")
+            # Create all tables if they don't exist
+            Base.metadata.create_all(self.engine)
+            logger.info("✅ [DatabaseManager] Database connection ready, all tables created/verified")
             
         except Exception as e:
             logger.error(f"❌ [DatabaseManager] Failed to initialize database: {e}", exc_info=True)

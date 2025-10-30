@@ -36,7 +36,7 @@ class SignalGenerator:
                 'orderbook_imbalance': imbalance > self.imbalance_threshold,
                 'large_buy_trades': large_buys >= self.min_large_trades,
                 'volume_intensity': volume_intensity > self.volume_multiplier,
-                'price_above_vwap': price > vwap if vwap > 0 else True
+                'price_above_vwap': True  # TEMP: Disabled until real VWAP calculation implemented
             }
             
             all_required = all(required_conditions.values())
@@ -72,7 +72,7 @@ class SignalGenerator:
                 'orderbook_imbalance': imbalance < -self.imbalance_threshold,
                 'large_sell_trades': large_sells >= self.min_large_trades,
                 'volume_intensity': volume_intensity > self.volume_multiplier,
-                'price_below_vwap': price < vwap if vwap > 0 else True
+                'price_below_vwap': True  # TEMP: Disabled until real VWAP calculation implemented
             }
             
             all_required = all(required_conditions.values())
