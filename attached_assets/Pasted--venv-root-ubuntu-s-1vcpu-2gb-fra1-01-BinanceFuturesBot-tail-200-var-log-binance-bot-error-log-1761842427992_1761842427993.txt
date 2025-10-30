@@ -1,0 +1,103 @@
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# tail -200 /var/log/binance-bot-error.log | grep -B 5 -A 30 "Traceback"
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# tail -100 /var/log/binance-bot-error.log
+client_session: <aiohttp.client.ClientSession object at 0x720d4e1aea50>
+2025-10-30 16:39:42 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-30 16:39:42 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-30 16:39:42 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-30 16:39:42 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.28
+2025-10-30 16:39:42 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+2025-10-30 16:39:42 - BinanceScanner - INFO - [signal_generator.py:20] - 🔧 [SignalGenerator] Initialized
+2025-10-30 16:39:42 - BinanceScanner - INFO - [risk_manager.py:21] - 🔧 [RiskManager] Initialized - Daily limit: 80, Concurrent limit: 5, Correlation threshold: 0.6
+2025-10-30 16:39:42 - BinanceScanner - INFO - [telegram_dispatcher.py:18] - 🔧 [TelegramDispatcher] Initialized with chat_id=436451652
+2025-10-30 16:39:42 - BinanceScanner - INFO - [signal_tracker.py:18] - 🔧 [SignalTracker] Initialized
+2025-10-30 16:39:42 - BinanceScanner - INFO - [data_collector.py:24] - 🔧 [DataCollector] Initialized
+2025-10-30 16:39:42 - BinanceScanner - INFO - [performance_monitor.py:16] - 🔧 [PerformanceMonitor] Initialized
+2025-10-30 16:39:42 - BinanceScanner - INFO - [telegram_bot.py:18] - 🔧 [TelegramBotHandler] Initialized
+2025-10-30 16:39:42 - BinanceScanner - INFO - [main.py:32] - ================================================================================
+2025-10-30 16:39:42 - BinanceScanner - INFO - [main.py:33] - 🚀 Binance Futures Scanner Bot Initializing...
+2025-10-30 16:39:42 - BinanceScanner - INFO - [main.py:34] - ================================================================================
+2025-10-30 16:39:42 - BinanceScanner - INFO - [main.py:38] - 🔧 [Main] Starting initialization...
+2025-10-30 16:39:42 - BinanceScanner - INFO - [db_manager.py:22] - 🔧 [DatabaseManager] Initializing synchronous database connection...
+2025-10-30 16:39:42 - BinanceScanner - INFO - [db_manager.py:41] - ✅ [DatabaseManager] Database connection ready (assuming tables exist)
+2025-10-30 16:39:42 - BinanceScanner - INFO - [db_manager.py:62] - 🔧 [DatabaseManager] Initializing async database connection pool...
+2025-10-30 16:39:42 - BinanceScanner - INFO - [db_manager.py:75] - ✅ [DatabaseManager] Async database pool created successfully (2-10 connections)
+2025-10-30 16:39:42 - BinanceScanner - INFO - [redis_manager.py:19] - 🔧 [RedisManager] Connecting to Redis...
+2025-10-30 16:39:42 - BinanceScanner - INFO - [redis_manager.py:30] - ✅ [RedisManager] Connected to Redis successfully
+2025-10-30 16:39:42 - BinanceScanner - INFO - [binance_client.py:33] - 🔧 [BinanceClient] Initializing synchronous client with proxy...
+2025-10-30 16:39:44 - BinanceScanner - INFO - [binance_client.py:45] - ✅ [BinanceClient] Connected to Binance Futures API, 625 symbols available
+2025-10-30 16:39:44 - BinanceScanner - INFO - [binance_client.py:53] - 🔧 [BinanceClient] Initializing async session with proxy...
+2025-10-30 16:39:44 - BinanceScanner - INFO - [binance_client.py:70] - ✅ [BinanceClient] Async session initialized with optimized connector (limit=50, force_close=True)
+2025-10-30 16:39:44 - BinanceScanner - INFO - [telegram_dispatcher.py:28] - ✅ [TelegramDispatcher] Connected as @EBinFut_bot
+2025-10-30 16:39:44 - BinanceScanner - INFO - [telegram_bot.py:22] - 🚀 [TelegramBotHandler] Starting Telegram bot...
+2025-10-30 16:39:44 - BinanceScanner - ERROR - [telegram_bot.py:38] - ❌ [TelegramBotHandler] Error starting bot: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:39:44 - BinanceScanner - ERROR - [main.py:57] - ❌ [Main] Initialization failed: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:39:44 - BinanceScanner - ERROR - [main.py:319] - ❌ Fatal error: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7e533b176a50>
+2025-10-30 16:39:55 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-30 16:39:55 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-30 16:39:55 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-30 16:39:55 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.28
+2025-10-30 16:39:55 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+2025-10-30 16:39:55 - BinanceScanner - INFO - [signal_generator.py:20] - 🔧 [SignalGenerator] Initialized
+2025-10-30 16:39:55 - BinanceScanner - INFO - [risk_manager.py:21] - 🔧 [RiskManager] Initialized - Daily limit: 80, Concurrent limit: 5, Correlation threshold: 0.6
+2025-10-30 16:39:56 - BinanceScanner - INFO - [telegram_dispatcher.py:18] - 🔧 [TelegramDispatcher] Initialized with chat_id=436451652
+2025-10-30 16:39:56 - BinanceScanner - INFO - [signal_tracker.py:18] - 🔧 [SignalTracker] Initialized
+2025-10-30 16:39:56 - BinanceScanner - INFO - [data_collector.py:24] - 🔧 [DataCollector] Initialized
+2025-10-30 16:39:56 - BinanceScanner - INFO - [performance_monitor.py:16] - 🔧 [PerformanceMonitor] Initialized
+2025-10-30 16:39:56 - BinanceScanner - INFO - [telegram_bot.py:18] - 🔧 [TelegramBotHandler] Initialized
+2025-10-30 16:39:56 - BinanceScanner - INFO - [main.py:32] - ================================================================================
+2025-10-30 16:39:56 - BinanceScanner - INFO - [main.py:33] - 🚀 Binance Futures Scanner Bot Initializing...
+2025-10-30 16:39:56 - BinanceScanner - INFO - [main.py:34] - ================================================================================
+2025-10-30 16:39:56 - BinanceScanner - INFO - [main.py:38] - 🔧 [Main] Starting initialization...
+2025-10-30 16:39:56 - BinanceScanner - INFO - [db_manager.py:22] - 🔧 [DatabaseManager] Initializing synchronous database connection...
+2025-10-30 16:39:56 - BinanceScanner - INFO - [db_manager.py:41] - ✅ [DatabaseManager] Database connection ready (assuming tables exist)
+2025-10-30 16:39:56 - BinanceScanner - INFO - [db_manager.py:62] - 🔧 [DatabaseManager] Initializing async database connection pool...
+2025-10-30 16:39:56 - BinanceScanner - INFO - [db_manager.py:75] - ✅ [DatabaseManager] Async database pool created successfully (2-10 connections)
+2025-10-30 16:39:56 - BinanceScanner - INFO - [redis_manager.py:19] - 🔧 [RedisManager] Connecting to Redis...
+2025-10-30 16:39:56 - BinanceScanner - INFO - [redis_manager.py:30] - ✅ [RedisManager] Connected to Redis successfully
+2025-10-30 16:39:56 - BinanceScanner - INFO - [binance_client.py:33] - 🔧 [BinanceClient] Initializing synchronous client with proxy...
+2025-10-30 16:39:57 - BinanceScanner - INFO - [binance_client.py:45] - ✅ [BinanceClient] Connected to Binance Futures API, 625 symbols available
+2025-10-30 16:39:57 - BinanceScanner - INFO - [binance_client.py:53] - 🔧 [BinanceClient] Initializing async session with proxy...
+2025-10-30 16:39:57 - BinanceScanner - INFO - [binance_client.py:70] - ✅ [BinanceClient] Async session initialized with optimized connector (limit=50, force_close=True)
+2025-10-30 16:39:57 - BinanceScanner - INFO - [telegram_dispatcher.py:28] - ✅ [TelegramDispatcher] Connected as @EBinFut_bot
+2025-10-30 16:39:57 - BinanceScanner - INFO - [telegram_bot.py:22] - 🚀 [TelegramBotHandler] Starting Telegram bot...
+2025-10-30 16:39:57 - BinanceScanner - ERROR - [telegram_bot.py:38] - ❌ [TelegramBotHandler] Error starting bot: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:39:57 - BinanceScanner - ERROR - [main.py:57] - ❌ [Main] Initialization failed: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:39:57 - BinanceScanner - ERROR - [main.py:319] - ❌ Fatal error: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7afc16d92a50>
+2025-10-30 16:40:08 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-30 16:40:08 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-30 16:40:09 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-30 16:40:09 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.28
+2025-10-30 16:40:09 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+2025-10-30 16:40:09 - BinanceScanner - INFO - [signal_generator.py:20] - 🔧 [SignalGenerator] Initialized
+2025-10-30 16:40:09 - BinanceScanner - INFO - [risk_manager.py:21] - 🔧 [RiskManager] Initialized - Daily limit: 80, Concurrent limit: 5, Correlation threshold: 0.6
+2025-10-30 16:40:09 - BinanceScanner - INFO - [telegram_dispatcher.py:18] - 🔧 [TelegramDispatcher] Initialized with chat_id=436451652
+2025-10-30 16:40:09 - BinanceScanner - INFO - [signal_tracker.py:18] - 🔧 [SignalTracker] Initialized
+2025-10-30 16:40:09 - BinanceScanner - INFO - [data_collector.py:24] - 🔧 [DataCollector] Initialized
+2025-10-30 16:40:09 - BinanceScanner - INFO - [performance_monitor.py:16] - 🔧 [PerformanceMonitor] Initialized
+2025-10-30 16:40:09 - BinanceScanner - INFO - [telegram_bot.py:18] - 🔧 [TelegramBotHandler] Initialized
+2025-10-30 16:40:09 - BinanceScanner - INFO - [main.py:32] - ================================================================================
+2025-10-30 16:40:09 - BinanceScanner - INFO - [main.py:33] - 🚀 Binance Futures Scanner Bot Initializing...
+2025-10-30 16:40:09 - BinanceScanner - INFO - [main.py:34] - ================================================================================
+2025-10-30 16:40:09 - BinanceScanner - INFO - [main.py:38] - 🔧 [Main] Starting initialization...
+2025-10-30 16:40:09 - BinanceScanner - INFO - [db_manager.py:22] - 🔧 [DatabaseManager] Initializing synchronous database connection...
+2025-10-30 16:40:09 - BinanceScanner - INFO - [db_manager.py:41] - ✅ [DatabaseManager] Database connection ready (assuming tables exist)
+2025-10-30 16:40:09 - BinanceScanner - INFO - [db_manager.py:62] - 🔧 [DatabaseManager] Initializing async database connection pool...
+2025-10-30 16:40:09 - BinanceScanner - INFO - [db_manager.py:75] - ✅ [DatabaseManager] Async database pool created successfully (2-10 connections)
+2025-10-30 16:40:09 - BinanceScanner - INFO - [redis_manager.py:19] - 🔧 [RedisManager] Connecting to Redis...
+2025-10-30 16:40:09 - BinanceScanner - INFO - [redis_manager.py:30] - ✅ [RedisManager] Connected to Redis successfully
+2025-10-30 16:40:09 - BinanceScanner - INFO - [binance_client.py:33] - 🔧 [BinanceClient] Initializing synchronous client with proxy...
+2025-10-30 16:40:10 - BinanceScanner - INFO - [binance_client.py:45] - ✅ [BinanceClient] Connected to Binance Futures API, 625 symbols available
+2025-10-30 16:40:10 - BinanceScanner - INFO - [binance_client.py:53] - 🔧 [BinanceClient] Initializing async session with proxy...
+2025-10-30 16:40:10 - BinanceScanner - INFO - [binance_client.py:70] - ✅ [BinanceClient] Async session initialized with optimized connector (limit=50, force_close=True)
+2025-10-30 16:40:10 - BinanceScanner - INFO - [telegram_dispatcher.py:28] - ✅ [TelegramDispatcher] Connected as @EBinFut_bot
+2025-10-30 16:40:10 - BinanceScanner - INFO - [telegram_bot.py:22] - 🚀 [TelegramBotHandler] Starting Telegram bot...
+2025-10-30 16:40:10 - BinanceScanner - ERROR - [telegram_bot.py:38] - ❌ [TelegramBotHandler] Error starting bot: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:40:10 - BinanceScanner - ERROR - [main.py:57] - ❌ [Main] Initialization failed: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:40:10 - BinanceScanner - ERROR - [main.py:319] - ❌ Fatal error: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7afe58196a50>
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# 
