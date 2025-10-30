@@ -151,6 +151,14 @@ class DataCollector:
                 best_bid = float(bids[0][0]) if bids else 0
                 best_ask = float(asks[0][0]) if asks else 0
                 logger.warning(f"🔍 [PRICE CHECK] {symbol} from WebSocket: BID=${best_bid:,.2f}, ASK=${best_ask:,.2f}")
+                
+                # EXTRA: Log first 3 bid/ask levels to see RAW data structure
+                if not hasattr(self, '_depth_raw_logged'):
+                    self._depth_raw_logged = set()
+                if symbol not in self._depth_raw_logged:
+                    logger.error(f"🔍 [RAW DEPTH DATA] {symbol} BIDS (first 3): {bids[:3]}")
+                    logger.error(f"🔍 [RAW DEPTH DATA] {symbol} ASKS (first 3): {asks[:3]}")
+                    self._depth_raw_logged.add(symbol)
             
             orderbook = {
                 'bids': bids,
