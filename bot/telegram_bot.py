@@ -51,20 +51,23 @@ class TelegramBotHandler:
         try:
             logger.info(f"📥 [TelegramBotHandler] Received /status command from user {update.effective_user.id}")
             
-            # Get symbol count from cache (non-blocking)
-            active_symbols = redis_manager.get('active_symbols')
-            symbol_count = len(active_symbols) if active_symbols else 0
+            # Get symbol count from cache (run in thread to avoid blocking event loop)
+            def get_symbol_count():
+                active_symbols = redis_manager.get('active_symbols')
+                return len(active_symbols) if active_symbols else 0
             
-            # Get open signals count with timeout protection
-            open_signals = 0
-            try:
-                with db_manager.get_session() as session:
-                    open_signals = session.query(Signal).filter(
-                        Signal.status == 'OPEN'
-                    ).count()
-            except Exception as db_error:
-                logger.warning(f"⚠️ [TelegramBotHandler] DB query failed in status command: {db_error}")
-                open_signals = 0  # Fallback to 0 if DB unavailable
+            symbol_count = await asyncio.to_thread(get_symbol_count)
+            
+            # Get open signals count (run in thread to avoid blocking event loop)
+            def get_open_signals():
+                try:
+                    with db_manager.get_session() as session:
+                        return session.query(Signal).filter(Signal.status == 'OPEN').count()
+                except Exception as db_error:
+                    logger.warning(f"⚠️ [TelegramBotHandler] DB query failed: {db_error}")
+                    return 0
+            
+            open_signals = await asyncio.to_thread(get_open_signals)
             
             message = f"""
 📊 **Bot Status**
@@ -89,15 +92,18 @@ class TelegramBotHandler:
         try:
             logger.info(f"📥 [TelegramBotHandler] Received /stats command from user {update.effective_user.id}")
             
-            # Get stats with error protection
-            stats = None
-            try:
-                stats = performance_monitor.get_stats_for_telegram()
-            except Exception as stats_error:
-                logger.warning(f"⚠️ [TelegramBotHandler] Failed to get stats: {stats_error}")
+            # Get stats (run in thread to avoid blocking event loop)
+            def get_stats():
+                try:
+                    return performance_monitor.get_stats_for_telegram()
+                except Exception as stats_error:
+                    logger.warning(f"⚠️ [TelegramBotHandler] Failed to get stats: {stats_error}")
+                    return None
+            
+            stats = await asyncio.to_thread(get_stats)
             
             if not stats:
-                update.message.reply_text("No statistics available yet")
+                await update.message.reply_text("No statistics available yet")
                 return
             
             message = f"""
