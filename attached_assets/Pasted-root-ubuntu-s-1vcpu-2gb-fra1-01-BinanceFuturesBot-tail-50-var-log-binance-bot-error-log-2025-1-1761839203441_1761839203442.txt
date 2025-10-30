@@ -1,0 +1,51 @@
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# tail -50 /var/log/binance-bot-error.log
+2025-10-30 15:46:21 - BinanceScanner - INFO - [performance_monitor.py:16] - 🔧 [PerformanceMonitor] Initialized
+2025-10-30 15:46:21 - BinanceScanner - INFO - [telegram_bot.py:17] - 🔧 [TelegramBotHandler] Initialized
+2025-10-30 15:46:21 - BinanceScanner - INFO - [main.py:32] - ================================================================================
+2025-10-30 15:46:21 - BinanceScanner - INFO - [main.py:33] - 🚀 Binance Futures Scanner Bot Initializing...
+2025-10-30 15:46:21 - BinanceScanner - INFO - [main.py:34] - ================================================================================
+2025-10-30 15:46:21 - BinanceScanner - INFO - [main.py:38] - 🔧 [Main] Starting initialization...
+2025-10-30 15:46:21 - BinanceScanner - INFO - [db_manager.py:22] - 🔧 [DatabaseManager] Initializing synchronous database connection...
+2025-10-30 15:46:21 - BinanceScanner - INFO - [db_manager.py:41] - ✅ [DatabaseManager] Database connection ready (assuming tables exist)
+2025-10-30 15:46:21 - BinanceScanner - INFO - [db_manager.py:62] - 🔧 [DatabaseManager] Initializing async database connection pool...
+2025-10-30 15:46:21 - BinanceScanner - ERROR - [db_manager.py:77] - ❌ [DatabaseManager] Failed to create async pool: password authentication failed for user "bot_user"
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/bot/database/db_manager.py", line 68, in init_async_pool
+    self.async_pool = await asyncpg.create_pool(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/pool.py", line 418, in _async__init__
+    await self._initialize()
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/pool.py", line 445, in _initialize
+    await first_ch.connect()
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/pool.py", line 132, in connect
+    self._con = await self._pool._get_new_connection()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/pool.py", line 517, in _get_new_connection
+    con = await self._connect(
+          ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/connection.py", line 2421, in connect
+    return await connect_utils._connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<20 lines>...
+    )
+    ^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 1049, in _connect
+    conn = await _connect_addr(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 891, in _connect_addr
+    return await __connect_addr(params_retry, False, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/BinanceFuturesBot/venv/lib/python3.13/site-packages/asyncpg/connect_utils.py", line 934, in __connect_addr
+    await connected
+asyncpg.exceptions.InvalidPasswordError: password authentication failed for user "bot_user"
+2025-10-30 15:46:21 - BinanceScanner - ERROR - [main.py:57] - ❌ [Main] Initialization failed: password authentication failed for user "bot_user"
+2025-10-30 15:46:21 - BinanceScanner - ERROR - [main.py:319] - ❌ Fatal error: password authentication failed for user "bot_user"
