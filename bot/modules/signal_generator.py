@@ -165,7 +165,8 @@ class SignalGenerator:
             imbalance = orderbook_data.get('imbalance', 0)
             large_buys = trade_flow.get('large_buys', 0)
             large_sells = trade_flow.get('large_sells', 0)
-            volume_intensity = trade_flow.get('volume_per_minute', 0) / 1_000_000
+            # Use volume_intensity already calculated in main.py (current_volume / avg_volume_15m)
+            volume_intensity = trade_flow.get('volume_intensity', 0)
             
             signal_data = {
                 'orderbook_imbalance': imbalance,

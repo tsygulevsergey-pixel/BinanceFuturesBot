@@ -8,7 +8,7 @@ from typing import Dict, List, Optional
 from datetime import datetime, timedelta
 from bot.config import Config
 from bot.utils import logger
-from bot.utils.binance_client import binance_client
+from bot.utils.redis_manager import redis_manager
 from bot.database import db_manager, Signal, Trade
 from bot.modules.telegram_dispatcher import telegram_dispatcher
 from decimal import Decimal
@@ -40,18 +40,19 @@ class SignalTracker:
     
     async def check_signal(self, signal: Signal, session):
         try:
-            ticker = await binance_client._make_request(
-                'GET',
-                '/fapi/v1/ticker/price',
-                params={'symbol': signal.symbol},
-                weight=1
-            )
+            # Get real-time price from Redis (populated by bookTicker WebSocket)
+            price_data = redis_manager.get(f'price:{signal.symbol}')
             
-            if not ticker:
-                logger.warning(f"⚠️ [SignalTracker] Failed to get price for {signal.symbol}")
+            if not price_data:
+                logger.warning(f"⚠️ [SignalTracker] No price data in Redis for {signal.symbol}")
                 return
             
-            current_price = float(ticker['price'])
+            # Use mid price (average of best bid/ask) for more accurate tracking
+            current_price = float(price_data.get('mid', 0))
+            
+            if current_price == 0:
+                logger.warning(f"⚠️ [SignalTracker] Invalid price for {signal.symbol}")
+                return
             
             entry_price = float(signal.entry_price)
             stop_loss = float(signal.stop_loss)
