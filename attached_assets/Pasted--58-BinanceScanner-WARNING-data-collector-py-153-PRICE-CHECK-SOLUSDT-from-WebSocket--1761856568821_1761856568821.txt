@@ -1,0 +1,23 @@
+:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$144.41, ASK=$180.52
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$200.00, ASK=$3,722.98
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] BTCUSDT from WebSocket: BID=$5,000.00, ASK=$107,256.90
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$178.55, ASK=$180.52
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$1,702.97, ASK=$3,722.98
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] BTCUSDT from WebSocket: BID=$1,000.00, ASK=$107,256.90
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$144.41, ASK=$180.53
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$1,702.97, ASK=$3,722.98
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] BTCUSDT from WebSocket: BID=$5,000.00, ASK=$107,256.90
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$180.17, ASK=$180.52
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$200.00, ASK=$3,722.98
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] BTCUSDT from WebSocket: BID=$5,000.00, ASK=$107,256.90
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$170.65, ASK=$180.52
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$1,702.97, ASK=$3,722.98
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] BTCUSDT from WebSocket: BID=$1,000.00, ASK=$107,256.90
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$144.41, ASK=$180.52
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$1,702.97, ASK=$3,722.98
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] BTCUSDT from WebSocket: BID=$5,000.00, ASK=$107,256.90
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$200.00, ASK=$3,221.49
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$144.41, ASK=$180.52
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] BTCUSDT from WebSocket: BID=$5,000.00, ASK=$107,264.30
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] ETHUSDT from WebSocket: BID=$1,697.97, ASK=$3,722.98
+2025-10-30 20:35:58 - BinanceScanner - WARNING - [data_collector.py:153] - 🔍 [PRICE CHECK] SOLUSDT from WebSocket: BID=$144.41, ASK=$180.52

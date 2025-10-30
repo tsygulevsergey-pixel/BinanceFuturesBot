@@ -29,7 +29,7 @@ class DataCollector:
             self.running = True
             
             logger.info(f"🚀 [DataCollector] Starting data collection for {len(symbols)} symbols...")
-            logger.info(f"📊 [DataCollector] Total streams: {len(symbols) * 3} (limit: 1024)")
+            logger.info(f"📊 [DataCollector] Total streams: {len(symbols) * 4} (bookTicker+depth20+aggTrade+kline_15m, limit: 1024)")
             
             # Use ONE combined WebSocket connection for ALL symbols (efficient!)
             await self.collect_all_symbols_combined(symbols)
@@ -45,7 +45,8 @@ class DataCollector:
         for symbol in symbols:
             symbol_lower = symbol.lower()
             all_streams.extend([
-                f"{symbol_lower}@depth@100ms",
+                f"{symbol_lower}@bookTicker",  # Best bid/ask ONLY (accurate pricing!)
+                f"{symbol_lower}@depth20@100ms",  # Top 20 levels for orderbook analysis
                 f"{symbol_lower}@aggTrade",
                 f"{symbol_lower}@kline_15m"
             ])
@@ -112,7 +113,9 @@ class DataCollector:
             # Extract symbol from stream name (e.g., "btcusdt@depth@100ms" -> "BTCUSDT")
             symbol = stream.split('@')[0].upper()
             
-            if 'depth' in stream:
+            if 'bookTicker' in stream:
+                await self.process_book_ticker(symbol, event_data)
+            elif 'depth' in stream:
                 await self.process_depth(symbol, event_data)
             elif 'aggTrade' in stream:
                 await self.process_trade(symbol, event_data)
@@ -138,28 +141,41 @@ class DataCollector:
         except Exception as e:
             logger.error(f"❌ [DataCollector] Error processing message for {symbol}: {e}")
     
-    async def process_depth(self, symbol: str, data: Dict):
+    async def process_book_ticker(self, symbol: str, data: Dict):
+        """Process bookTicker stream - provides best bid/ask prices in real-time"""
         try:
-            bids = data.get('b', [])
-            asks = data.get('a', [])
+            best_bid = float(data.get('b', 0))  # Best bid price
+            best_ask = float(data.get('a', 0))  # Best ask price
+            
+            if not best_bid or not best_ask:
+                return
+            
+            # DIAGNOSTIC: Log prices from bookTicker for BTC, ETH, SOL
+            if symbol in ['BTCUSDT', 'ETHUSDT', 'SOLUSDT']:
+                logger.warning(f"📊 [BOOK TICKER] {symbol}: BID=${best_bid:,.2f}, ASK=${best_ask:,.2f}")
+            
+            # Store best prices in Redis for signal generation
+            price_data = {
+                'bid': best_bid,
+                'ask': best_ask,
+                'mid': (best_bid + best_ask) / 2,
+                'timestamp': data.get('E', 0)
+            }
+            redis_manager.set(f'price:{symbol}', price_data, expiry=10)
+            
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error processing bookTicker for {symbol}: {e}")
+    
+    async def process_depth(self, symbol: str, data: Dict):
+        """Process depth20 stream - provides top 20 bid/ask levels for orderbook analysis"""
+        try:
+            bids = data.get('bids', data.get('b', []))  # Support both formats
+            asks = data.get('asks', data.get('a', []))
             
             if not bids or not asks:
                 return
             
-            # DIAGNOSTIC: Log prices from WebSocket for BTC, ETH, SOL
-            if symbol in ['BTCUSDT', 'ETHUSDT', 'SOLUSDT'] and bids and asks:
-                best_bid = float(bids[0][0]) if bids else 0
-                best_ask = float(asks[0][0]) if asks else 0
-                logger.warning(f"🔍 [PRICE CHECK] {symbol} from WebSocket: BID=${best_bid:,.2f}, ASK=${best_ask:,.2f}")
-                
-                # EXTRA: Log first 3 bid/ask levels to see RAW data structure
-                if not hasattr(self, '_depth_raw_logged'):
-                    self._depth_raw_logged = set()
-                if symbol not in self._depth_raw_logged:
-                    logger.error(f"🔍 [RAW DEPTH DATA] {symbol} BIDS (first 3): {bids[:3]}")
-                    logger.error(f"🔍 [RAW DEPTH DATA] {symbol} ASKS (first 3): {asks[:3]}")
-                    self._depth_raw_logged.add(symbol)
-            
+            # Store full orderbook for imbalance calculation
             orderbook = {
                 'bids': bids,
                 'asks': asks,
@@ -168,6 +184,7 @@ class DataCollector:
             
             redis_manager.set(f'orderbook:{symbol}', orderbook, expiry=10)
             
+            # Calculate orderbook metrics
             imbalance = orderbook_analyzer.calculate_imbalance(bids, asks)
             large_orders = orderbook_analyzer.detect_large_orders(orderbook)
             

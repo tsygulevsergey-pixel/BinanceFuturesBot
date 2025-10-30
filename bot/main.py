@@ -194,8 +194,13 @@ class BinanceFuturesScanner:
             
             trade_flow['volume_intensity'] = volume_intensity
             
-            # Get price and VWAP
-            price = float(orderbook['bids'][0][0]) if orderbook.get('bids') else 0
+            # Get ACCURATE price from bookTicker (NOT from orderbook deltas!)
+            price_info = redis_manager.get(f'price:{symbol}')
+            if not price_info:
+                # Fallback to mid-price if bookTicker not available yet
+                return
+            
+            price = price_info.get('mid', 0)  # Use mid price (average of bid/ask)
             vwap = trade_flow.get('vwap', price)
             
             price_data = {
