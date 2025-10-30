@@ -1,0 +1,84 @@
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# pip uninstall -y python-telegram-bot
+Found existing installation: python-telegram-bot 20.7
+Uninstalling python-telegram-bot-20.7:
+  Successfully uninstalled python-telegram-bot-20.7
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# pip cache purge
+Files removed: 38 (7.5 MB)
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# pip install 'python-telegram-bot==20.7'
+Collecting python-telegram-bot==20.7
+  Downloading python_telegram_bot-20.7-py3-none-any.whl.metadata (15 kB)
+Requirement already satisfied: httpx~=0.25.2 in ./venv/lib/python3.13/site-packages (from python-telegram-bot==20.7) (0.25.2)
+Requirement already satisfied: anyio in ./venv/lib/python3.13/site-packages (from httpx~=0.25.2->python-telegram-bot==20.7) (4.11.0)
+Requirement already satisfied: certifi in ./venv/lib/python3.13/site-packages (from httpx~=0.25.2->python-telegram-bot==20.7) (2025.10.5)
+Requirement already satisfied: httpcore==1.* in ./venv/lib/python3.13/site-packages (from httpx~=0.25.2->python-telegram-bot==20.7) (1.0.9)
+Requirement already satisfied: idna in ./venv/lib/python3.13/site-packages (from httpx~=0.25.2->python-telegram-bot==20.7) (3.11)
+Requirement already satisfied: sniffio in ./venv/lib/python3.13/site-packages (from httpx~=0.25.2->python-telegram-bot==20.7) (1.3.1)
+Requirement already satisfied: h11>=0.16 in ./venv/lib/python3.13/site-packages (from httpcore==1.*->httpx~=0.25.2->python-telegram-bot==20.7) (0.16.0)
+Downloading python_telegram_bot-20.7-py3-none-any.whl (552 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 552.6/552.6 kB 2.4 MB/s  0:00:00
+Installing collected packages: python-telegram-bot
+Successfully installed python-telegram-bot-20.7
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# pip show python-telegram-bot
+Name: python-telegram-bot
+Version: 20.7
+Summary: We have made you a wrapper you can't refuse
+Home-page: https://python-telegram-bot.org/
+Author: Leandro Toledo
+Author-email: devs@python-telegram-bot.org
+License: LGPLv3
+Location: /root/BinanceFuturesBot/venv/lib/python3.13/site-packages
+Requires: httpx
+Required-by: 
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# pip list | grep -E "httpx|telegram"
+httpx               0.25.2
+python-telegram-bot 20.7
+(venv) root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# deactivate
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# find /root/BinanceFuturesBot -type f -name "*.pyc" -delete
+find /root/BinanceFuturesBot -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null
+rm -rf ~/.cache/pip
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# systemctl restart binance-bot
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# tail -f /var/log/binance-bot-error.log
+2025-10-30 16:52:53 - BinanceScanner - INFO - [binance_client.py:45] - ✅ [BinanceClient] Connected to Binance Futures API, 625 symbols available
+2025-10-30 16:52:53 - BinanceScanner - INFO - [binance_client.py:53] - 🔧 [BinanceClient] Initializing async session with proxy...
+2025-10-30 16:52:53 - BinanceScanner - INFO - [binance_client.py:70] - ✅ [BinanceClient] Async session initialized with optimized connector (limit=50, force_close=True)
+2025-10-30 16:52:53 - BinanceScanner - INFO - [telegram_dispatcher.py:28] - ✅ [TelegramDispatcher] Connected as @EBinFut_bot
+2025-10-30 16:52:53 - BinanceScanner - INFO - [telegram_bot.py:22] - 🚀 [TelegramBotHandler] Starting Telegram bot...
+2025-10-30 16:52:53 - BinanceScanner - ERROR - [telegram_bot.py:38] - ❌ [TelegramBotHandler] Error starting bot: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:52:53 - BinanceScanner - ERROR - [main.py:57] - ❌ [Main] Initialization failed: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:52:53 - BinanceScanner - ERROR - [main.py:319] - ❌ Fatal error: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x72be5af42a50>
+2025-10-30 16:53:05 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-30 16:53:05 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-30 16:53:05 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-30 16:53:05 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.28
+2025-10-30 16:53:05 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+2025-10-30 16:53:05 - BinanceScanner - INFO - [signal_generator.py:20] - 🔧 [SignalGenerator] Initialized
+2025-10-30 16:53:05 - BinanceScanner - INFO - [risk_manager.py:21] - 🔧 [RiskManager] Initialized - Daily limit: 80, Concurrent limit: 5, Correlation threshold: 0.6
+2025-10-30 16:53:06 - BinanceScanner - INFO - [telegram_dispatcher.py:18] - 🔧 [TelegramDispatcher] Initialized with chat_id=436451652
+2025-10-30 16:53:06 - BinanceScanner - INFO - [signal_tracker.py:18] - 🔧 [SignalTracker] Initialized
+2025-10-30 16:53:06 - BinanceScanner - INFO - [data_collector.py:24] - 🔧 [DataCollector] Initialized
+2025-10-30 16:53:06 - BinanceScanner - INFO - [performance_monitor.py:16] - 🔧 [PerformanceMonitor] Initialized
+2025-10-30 16:53:06 - BinanceScanner - INFO - [telegram_bot.py:18] - 🔧 [TelegramBotHandler] Initialized
+2025-10-30 16:53:06 - BinanceScanner - INFO - [main.py:32] - ================================================================================
+2025-10-30 16:53:06 - BinanceScanner - INFO - [main.py:33] - 🚀 Binance Futures Scanner Bot Initializing...
+2025-10-30 16:53:06 - BinanceScanner - INFO - [main.py:34] - ================================================================================
+2025-10-30 16:53:06 - BinanceScanner - INFO - [main.py:38] - 🔧 [Main] Starting initialization...
+2025-10-30 16:53:06 - BinanceScanner - INFO - [db_manager.py:22] - 🔧 [DatabaseManager] Initializing synchronous database connection...
+2025-10-30 16:53:06 - BinanceScanner - INFO - [db_manager.py:41] - ✅ [DatabaseManager] Database connection ready (assuming tables exist)
+2025-10-30 16:53:06 - BinanceScanner - INFO - [db_manager.py:62] - 🔧 [DatabaseManager] Initializing async database connection pool...
+2025-10-30 16:53:06 - BinanceScanner - INFO - [db_manager.py:75] - ✅ [DatabaseManager] Async database pool created successfully (2-10 connections)
+2025-10-30 16:53:06 - BinanceScanner - INFO - [redis_manager.py:19] - 🔧 [RedisManager] Connecting to Redis...
+2025-10-30 16:53:06 - BinanceScanner - INFO - [redis_manager.py:30] - ✅ [RedisManager] Connected to Redis successfully
+2025-10-30 16:53:06 - BinanceScanner - INFO - [binance_client.py:33] - 🔧 [BinanceClient] Initializing synchronous client with proxy...
+2025-10-30 16:53:07 - BinanceScanner - INFO - [binance_client.py:45] - ✅ [BinanceClient] Connected to Binance Futures API, 625 symbols available
+2025-10-30 16:53:07 - BinanceScanner - INFO - [binance_client.py:53] - 🔧 [BinanceClient] Initializing async session with proxy...
+2025-10-30 16:53:07 - BinanceScanner - INFO - [binance_client.py:70] - ✅ [BinanceClient] Async session initialized with optimized connector (limit=50, force_close=True)
+2025-10-30 16:53:07 - BinanceScanner - INFO - [telegram_dispatcher.py:28] - ✅ [TelegramDispatcher] Connected as @EBinFut_bot
+2025-10-30 16:53:07 - BinanceScanner - INFO - [telegram_bot.py:22] - 🚀 [TelegramBotHandler] Starting Telegram bot...
+2025-10-30 16:53:07 - BinanceScanner - ERROR - [telegram_bot.py:38] - ❌ [TelegramBotHandler] Error starting bot: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:53:07 - BinanceScanner - ERROR - [main.py:57] - ❌ [Main] Initialization failed: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+2025-10-30 16:53:07 - BinanceScanner - ERROR - [main.py:319] - ❌ Fatal error: 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7cc02926ea50>
+2025-10-30 1
