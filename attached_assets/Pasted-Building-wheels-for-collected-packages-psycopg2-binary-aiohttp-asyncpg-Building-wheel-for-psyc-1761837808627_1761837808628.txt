@@ -1,0 +1,336 @@
+Building wheels for collected packages: psycopg2-binary, aiohttp, asyncpg
+  Building wheel for psycopg2-binary (pyproject.toml) ... error
+  error: subprocess-exited-with-error
+  
+  × Building wheel for psycopg2-binary (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [48 lines of output]
+      /tmp/pip-build-env-of_6fhu9/overlay/lib/python3.13/site-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+      
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+      
+              License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        self._finalize_license_expression()
+      running bdist_wheel
+      running build
+      running build_py
+      creating build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/tz.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/sql.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/pool.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/extras.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/extensions.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/errors.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/errorcodes.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/_range.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/_json.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/_ipaddress.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      copying lib/__init__.py -> build/lib.linux-x86_64-cpython-313/psycopg2
+      running build_ext
+      building 'psycopg2._psycopg' extension
+      creating build/temp.linux-x86_64-cpython-313/psycopg
+      x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC "-DPSYCOPG_VERSION=2.9.9 (dt dec pq3 ext lo64)" -DPSYCOPG_DEBUG=1 -DPG_VERSION_NUM=170006 -DHAVE_LO64=1 -DPSYCOPG_DEBUG=1 -I/root/BinanceFuturesBot/venv/include -I/usr/include/python3.13 -I. -I/usr/include/postgresql -I/usr/include/postgresql/17/server -I/usr/include/libxml2 -c psycopg/adapter_asis.c -o build/temp.linux-x86_64-cpython-313/psycopg/adapter_asis.o -Wdeclaration-after-statement
+      In file included from psycopg/adapter_asis.c:28:
+      ./psycopg/psycopg.h:36:10: fatal error: libpq-fe.h: No such file or directory
+         36 | #include <libpq-fe.h>
+            |          ^~~~~~~~~~~~
+      compilation terminated.
+      
+      It appears you are missing some prerequisite to build the package from source.
+      
+      You may install a binary package by installing 'psycopg2-binary' from PyPI.
+      If you want to install psycopg2 from source, please install the packages
+      required for the build and try again.
+      
+      For further information please check the 'doc/src/install.rst' file (also at
+      <https://www.psycopg.org/docs/install.html>).
+      
+      error: command '/usr/bin/x86_64-linux-gnu-gcc' failed with exit code 1
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for psycopg2-binary
+  Building wheel for aiohttp (pyproject.toml) ... done
+  Created wheel for aiohttp: filename=aiohttp-3.9.1-cp313-cp313-linux_x86_64.whl size=1227889 sha256=2c406b68ddee02e89c726746ac6ad1276d777a033577f23b1ae79f0bb0c34961
+  Stored in directory: /root/.cache/pip/wheels/2a/30/11/a42f442a97931ebbd86cc7cfb884ea2a917c762d777f00c94e
+  Building wheel for asyncpg (pyproject.toml) ... error
+  error: subprocess-exited-with-error
+  
+  × Building wheel for asyncpg (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [258 lines of output]
+      /tmp/pip-build-env-y87bqewn/overlay/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:82: SetuptoolsDeprecationWarning: `project.license` as a TOML table is deprecated
+      !!
+      
+              ********************************************************************************
+              Please use a simple string containing a SPDX expression for `project.license`. You can also use `project.license-files`. (Both options available on setuptools>=77.0.0).
+      
+              By 2026-Feb-18, you need to update your project and remove deprecated calls
+              or your builds will no longer be supported.
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        corresp(dist, value, root_dir)
+      /tmp/pip-build-env-y87bqewn/overlay/lib/python3.13/site-packages/setuptools/config/_apply_pyprojecttoml.py:61: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+      
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+      
+              License :: OSI Approved :: Apache Software License
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        dist._finalize_license_expression()
+      /tmp/pip-build-env-y87bqewn/overlay/lib/python3.13/site-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+      !!
+      
+              ********************************************************************************
+              Please consider removing the following classifiers in favor of a SPDX license expression:
+      
+              License :: OSI Approved :: Apache Software License
+      
+              See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+              ********************************************************************************
+      
+      !!
+        self._finalize_license_expression()
+      running bdist_wheel
+      running build
+      running build_py
+      creating build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/utils.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/types.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/transaction.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/serverversion.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/prepared_stmt.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/pool.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/introspection.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/cursor.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/connresource.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/connection.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/connect_utils.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/compat.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/cluster.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/_version.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/_asyncio_compat.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      copying asyncpg/__init__.py -> build/lib.linux-x86_64-cpython-313/asyncpg
+      creating build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/__init__.py -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      creating build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/types.py -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/__init__.py -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      creating build/lib.linux-x86_64-cpython-313/asyncpg/exceptions
+      copying asyncpg/exceptions/_base.py -> build/lib.linux-x86_64-cpython-313/asyncpg/exceptions
+      copying asyncpg/exceptions/__init__.py -> build/lib.linux-x86_64-cpython-313/asyncpg/exceptions
+      creating build/lib.linux-x86_64-cpython-313/asyncpg/_testbase
+      copying asyncpg/_testbase/fuzzer.py -> build/lib.linux-x86_64-cpython-313/asyncpg/_testbase
+      copying asyncpg/_testbase/__init__.py -> build/lib.linux-x86_64-cpython-313/asyncpg/_testbase
+      creating build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      copying asyncpg/protocol/codecs/__init__.py -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      running egg_info
+      writing asyncpg.egg-info/PKG-INFO
+      writing dependency_links to asyncpg.egg-info/dependency_links.txt
+      writing requirements to asyncpg.egg-info/requires.txt
+      writing top-level names to asyncpg.egg-info/top_level.txt
+      reading manifest file 'asyncpg.egg-info/SOURCES.txt'
+      reading manifest template 'MANIFEST.in'
+      warning: no files found matching '*.py' under directory 'examples'
+      adding license file 'LICENSE'
+      adding license file 'AUTHORS'
+      writing manifest file 'asyncpg.egg-info/SOURCES.txt'
+      copying asyncpg/protocol/consts.pxi -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/coreproto.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/coreproto.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/cpythonx.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/encodings.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/pgtypes.pxi -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/prepared_stmt.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/prepared_stmt.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/protocol.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/protocol.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/scram.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/scram.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/settings.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/protocol/settings.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol
+      copying asyncpg/pgproto/__init__.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/buffer.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/buffer.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/consts.pxi -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/cpythonx.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/debug.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/frb.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/frb.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/hton.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/pgproto.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/pgproto.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/tohex.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      copying asyncpg/pgproto/uuid.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto
+      creating build/lib.linux-x86_64-cpython-313/asyncpg/protocol/record
+      copying asyncpg/protocol/record/__init__.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/record
+      copying asyncpg/protocol/codecs/array.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      copying asyncpg/protocol/codecs/base.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      copying asyncpg/protocol/codecs/base.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      copying asyncpg/protocol/codecs/pgproto.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      copying asyncpg/protocol/codecs/range.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      copying asyncpg/protocol/codecs/record.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      copying asyncpg/protocol/codecs/textutils.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/protocol/codecs
+      creating build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/__init__.pxd -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/bits.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/bytea.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/context.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/datetime.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/float.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/geometry.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/hstore.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/int.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/json.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/jsonpath.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/misc.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/network.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/numeric.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/pg_snapshot.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/text.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/tid.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      copying asyncpg/pgproto/codecs/uuid.pyx -> build/lib.linux-x86_64-cpython-313/asyncpg/pgproto/codecs
+      running build_ext
+      building 'asyncpg.pgproto.pgproto' extension
+      creating build/temp.linux-x86_64-cpython-313/asyncpg/pgproto
+      x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -I/root/BinanceFuturesBot/venv/include -I/usr/include/python3.13 -c asyncpg/pgproto/pgproto.c -o build/temp.linux-x86_64-cpython-313/asyncpg/pgproto/pgproto.o -O2 -fsigned-char -Wall -Wsign-compare -Wconversion
+      asyncpg/pgproto/pgproto.c:864:1: warning: ‘Py_UNICODE’ is deprecated [-Wdeprecated-declarations]
+        864 | static CYTHON_INLINE size_t __Pyx_Py_UNICODE_strlen(const Py_UNICODE *u) {
+            | ^~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_Py_UNICODE_strlen’:
+      asyncpg/pgproto/pgproto.c:865:5: warning: ‘Py_UNICODE’ is deprecated [-Wdeprecated-declarations]
+        865 |     const Py_UNICODE *u_end = u;
+            |     ^~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_init_assertions_enabled’:
+      asyncpg/pgproto/pgproto.c:1667:39: error: implicit declaration of function ‘_PyInterpreterState_GetConfig’; did you mean ‘PyInterpreterState_GetID’? [-Wimplicit-function-declaration]
+       1667 |     __pyx_assertions_enabled_flag = ! _PyInterpreterState_GetConfig(__Pyx_PyThreadState_Current->interp)->optimization_level;
+            |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            |                                       PyInterpreterState_GetID
+      asyncpg/pgproto/pgproto.c:1667:105: error: invalid type argument of ‘->’ (have ‘int’)
+       1667 |     __pyx_assertions_enabled_flag = ! _PyInterpreterState_GetConfig(__Pyx_PyThreadState_Current->interp)->optimization_level;
+            |                                                                                                         ^~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyUnicode_Join’:
+      asyncpg/pgproto/pgproto.c:38932:13: error: implicit declaration of function ‘_PyUnicode_FastCopyCharacters’; did you mean ‘PyUnicode_CopyCharacters’? [-Wimplicit-function-declaration]
+      38932 |             _PyUnicode_FastCopyCharacters(result_uval, char_pos, uval, 0, ulength);
+            |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            |             PyUnicode_CopyCharacters
+      In file included from /usr/include/python3.13/internal/pycore_code.h:12,
+                       from /usr/include/python3.13/internal/pycore_frame.h:13,
+                       from asyncpg/pgproto/pgproto.c:41520:
+      /usr/include/python3.13/internal/pycore_backoff.h: In function ‘make_backoff_counter’:
+      /usr/include/python3.13/internal/pycore_backoff.h:60:20: warning: conversion from ‘uint16_t’ {aka ‘short unsigned int’} to ‘short unsigned int:12’ may change value [-Wconversion]
+         60 |     result.value = value;
+            |                    ^~~~~
+      /usr/include/python3.13/internal/pycore_backoff.h:61:22: warning: conversion from ‘uint16_t’ {aka ‘short unsigned int’} to ‘unsigned char:4’ may change value [-Wconversion]
+         61 |     result.backoff = backoff;
+            |                      ^~~~~~~
+      /usr/include/python3.13/internal/pycore_backoff.h: In function ‘restart_backoff_counter’:
+      /usr/include/python3.13/internal/pycore_backoff.h:78:66: warning: conversion from ‘int’ to ‘uint16_t’ {aka ‘short unsigned int’} may change value [-Wconversion]
+         78 |         return make_backoff_counter((1 << (counter.backoff + 1)) - 1, counter.backoff + 1);
+            |                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_int’:
+      asyncpg/pgproto/pgproto.c:41809:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      41809 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      In file included from /usr/include/python3.13/longobject.h:107,
+                       from /usr/include/python3.13/Python.h:81,
+                       from asyncpg/pgproto/pgproto.c:33:
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_int64_t’:
+      asyncpg/pgproto/pgproto.c:42043:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      42043 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_int32_t’:
+      asyncpg/pgproto/pgproto.c:42239:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      42239 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_long’:
+      asyncpg/pgproto/pgproto.c:42435:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      42435 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_unsigned_char’:
+      asyncpg/pgproto/pgproto.c:42745:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      42745 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_int16_t’:
+      asyncpg/pgproto/pgproto.c:43055:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      43055 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_char’:
+      asyncpg/pgproto/pgproto.c:43289:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      43289 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_int8_t’:
+      asyncpg/pgproto/pgproto.c:43485:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      43485 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_uint32_t’:
+      asyncpg/pgproto/pgproto.c:43719:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      43719 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: In function ‘__Pyx_PyInt_As_uint64_t’:
+      asyncpg/pgproto/pgproto.c:43915:27: error: too few arguments to function ‘_PyLong_AsByteArray’
+      43915 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /usr/include/python3.13/cpython/longobject.h:111:17: note: declared here
+        111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c: At top level:
+      asyncpg/pgproto/pgproto.c:23994:18: warning: ‘__pyx_f_7asyncpg_7pgproto_7pgproto_json_decode’ defined but not used [-Wunused-function]
+      23994 | static PyObject *__pyx_f_7asyncpg_7pgproto_7pgproto_json_decode(struct __pyx_obj_7asyncpg_7pgproto_7pgproto_CodecContext *__pyx_v_settings, struct __pyx_t_7asyncpg_7pgproto_7pgproto_FRBuffer *__pyx_v_buf) {
+            |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      asyncpg/pgproto/pgproto.c:23886:18: warning: ‘__pyx_f_7asyncpg_7pgproto_7pgproto_json_encode’ defined but not used [-Wunused-function]
+      23886 | static PyObject *__pyx_f_7asyncpg_7pgproto_7pgproto_json_encode(struct __pyx_obj_7asyncpg_7pgproto_7pgproto_CodecContext *__pyx_v_settings, struct __pyx_obj_7asyncpg_7pgproto_7pgproto_WriteBuffer *__pyx_v_buf, PyObject *__pyx_v_obj) {
+            |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      error: command '/usr/bin/x86_64-linux-gnu-gcc' failed with exit code 1
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for asyncpg
+Successfully built aiohttp
+Failed to build psycopg2-binary asyncpg
+error: failed-wheel-build-for-install
+
+× Failed to build installable wheels for some pyproject.toml based projects
+╰─> psycopg2-binary, asyncpg
