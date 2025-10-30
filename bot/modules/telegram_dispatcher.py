@@ -20,10 +20,10 @@ class TelegramDispatcher:
     async def initialize(self):
         try:
             self.bot = Bot(token=self.bot_token)
-            # In v13.x, get_me() is sync, so run it in executor
-            loop = asyncio.get_event_loop()
-            me = await loop.run_in_executor(None, self.bot.get_me)
-            logger.info(f"✅ [TelegramDispatcher] Connected as @{me.username}")
+            # In v20.x, get_me() is async
+            async with self.bot:
+                me = await self.bot.get_me()
+                logger.info(f"✅ [TelegramDispatcher] Connected as @{me.username}")
         except Exception as e:
             logger.error(f"❌ [TelegramDispatcher] Failed to initialize bot: {e}")
             raise
@@ -60,16 +60,13 @@ class TelegramDispatcher:
 ⏰ {signal['timestamp']}
 """
             
-            # In v13.x, send_message() is sync, so run it in executor
-            loop = asyncio.get_event_loop()
-            sent_message = await loop.run_in_executor(
-                None,
-                lambda: self.bot.send_message(
+            # In v20.x, send_message() is async
+            async with self.bot:
+                sent_message = await self.bot.send_message(
                     chat_id=self.chat_id,
                     text=message,
                     parse_mode='Markdown'
                 )
-            )
             
             logger.info(f"📤 [TelegramDispatcher] Sent {signal['priority']} {signal['direction']} signal for {signal['symbol']}, message_id={sent_message.message_id}")
             
@@ -106,27 +103,21 @@ class TelegramDispatcher:
 🆔 Signal ID: `{signal_id}`
 """
             
-            # In v13.x, send_message() is sync, so run it in executor
-            loop = asyncio.get_event_loop()
-            if original_message_id:
-                await loop.run_in_executor(
-                    None,
-                    lambda: self.bot.send_message(
+            # In v20.x, send_message() is async
+            async with self.bot:
+                if original_message_id:
+                    await self.bot.send_message(
                         chat_id=self.chat_id,
                         text=message,
                         parse_mode='Markdown',
                         reply_to_message_id=original_message_id
                     )
-                )
-            else:
-                await loop.run_in_executor(
-                    None,
-                    lambda: self.bot.send_message(
+                else:
+                    await self.bot.send_message(
                         chat_id=self.chat_id,
                         text=message,
                         parse_mode='Markdown'
                     )
-                )
             
             logger.info(f"📤 [TelegramDispatcher] Sent signal update for {symbol}: {exit_reason} {pnl_percent:+.2f}%")
             
@@ -138,16 +129,13 @@ class TelegramDispatcher:
     
     async def send_notification(self, message: str) -> bool:
         try:
-            # In v13.x, send_message() is sync, so run it in executor
-            loop = asyncio.get_event_loop()
-            await loop.run_in_executor(
-                None,
-                lambda: self.bot.send_message(
+            # In v20.x, send_message() is async
+            async with self.bot:
+                await self.bot.send_message(
                     chat_id=self.chat_id,
                     text=message,
                     parse_mode='Markdown'
                 )
-            )
             
             logger.info(f"📤 [TelegramDispatcher] Sent notification")
             
