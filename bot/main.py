@@ -125,6 +125,9 @@ class BinanceFuturesScanner:
             
             for symbol in symbols:
                 try:
+                    # Small delay to smooth out API load (150 weight over ~6 seconds instead of instant burst)
+                    await asyncio.sleep(0.2)
+                    
                     # Fetch last 30 1m candles from Binance
                     klines = await binance_client.get_klines(symbol, '1m', limit=30)
                     
