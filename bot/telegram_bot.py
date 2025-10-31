@@ -109,6 +109,9 @@ class TelegramBotHandler:
 ✅ **Win Rate:** {stats.get('win_rate', 0):.1f}%
 💰 **Total PnL:** {stats.get('total_pnl', 0):+.2f}%
 
+🏁 **Exit Reasons:**
+✨ **Imbalance Normalized:** {stats.get('imb_normalized_count', 0)} times
+🔄 **Imbalance Reversed:** {stats.get('imb_reversed_count', 0)} times
 🎯 **TP1 Hit:** {stats.get('tp1_count', 0)} times
 🎯 **TP2 Hit:** {stats.get('tp2_count', 0)} times
 🛑 **SL Hit:** {stats.get('sl_count', 0)} times
@@ -164,6 +167,9 @@ class TelegramBotHandler:
 📊 **Average PnL:** {stats.get('avg_pnl', 0):+.2f}%
 ⏱️ **Avg Hold Time:** {stats.get('avg_hold_time', 0):.0f} min
 
+🏁 **Exit Reasons:**
+✨ **Imbalance Normalized:** {stats.get('imb_normalized_count', 0)} times
+🔄 **Imbalance Reversed:** {stats.get('imb_reversed_count', 0)} times
 🎯 **TP1 Hit:** {stats.get('tp1_count', 0)} times
 🎯 **TP2 Hit:** {stats.get('tp2_count', 0)} times
 🛑 **SL Hit:** {stats.get('sl_count', 0)} times

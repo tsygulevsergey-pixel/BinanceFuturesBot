@@ -197,6 +197,10 @@ Status: **ACTIVE**
 
 ✅ **Win Rate:** {stats.get('win_rate', 0):.1f}%
 💰 **Total PnL:** {stats.get('total_pnl', 0):+.2f}%
+
+🏁 **Exit Reasons:**
+✨ **Imbalance Normalized:** {stats.get('imb_normalized_count', 0)}
+🔄 **Imbalance Reversed:** {stats.get('imb_reversed_count', 0)}
 🎯 **TP1 Hit:** {stats.get('tp1_count', 0)}
 🎯 **TP2 Hit:** {stats.get('tp2_count', 0)}
 🛑 **SL Hit:** {stats.get('sl_count', 0)}

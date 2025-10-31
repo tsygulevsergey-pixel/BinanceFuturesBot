@@ -49,6 +49,8 @@ class PerformanceMonitor:
                 tp1_count = sum(1 for t in closed_trades if t.exit_reason == 'TAKE_PROFIT_1')
                 tp2_count = sum(1 for t in closed_trades if t.exit_reason == 'TAKE_PROFIT_2')
                 sl_count = sum(1 for t in closed_trades if t.exit_reason == 'STOP_LOSS')
+                imb_normalized_count = sum(1 for t in closed_trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
+                imb_reversed_count = sum(1 for t in closed_trades if t.exit_reason == 'IMBALANCE_REVERSED')
                 
                 total_signals = session.query(Signal).filter(
                     Signal.created_at >= today_start
@@ -70,7 +72,9 @@ class PerformanceMonitor:
                     'max_drawdown': max_drawdown,
                     'tp1_hit_count': tp1_count,
                     'tp2_hit_count': tp2_count,
-                    'sl_hit_count': sl_count
+                    'sl_hit_count': sl_count,
+                    'imb_normalized_count': imb_normalized_count,
+                    'imb_reversed_count': imb_reversed_count
                 }
                 
                 logger.info(
@@ -181,6 +185,8 @@ class PerformanceMonitor:
                 tp1_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_1')
                 tp2_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_2')
                 sl_count = sum(1 for t in trades if t.exit_reason == 'STOP_LOSS')
+                imb_normalized_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
+                imb_reversed_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
                 
                 return {
                     'total_signals': len(signals),
@@ -191,7 +197,9 @@ class PerformanceMonitor:
                     'total_pnl': total_pnl,
                     'tp1_count': tp1_count,
                     'tp2_count': tp2_count,
-                    'sl_count': sl_count
+                    'sl_count': sl_count,
+                    'imb_normalized_count': imb_normalized_count,
+                    'imb_reversed_count': imb_reversed_count
                 }
                 
         except Exception as e:
@@ -225,6 +233,8 @@ class PerformanceMonitor:
                 tp1_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_1')
                 tp2_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_2')
                 sl_count = sum(1 for t in trades if t.exit_reason == 'STOP_LOSS')
+                imb_normalized_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
+                imb_reversed_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
                 
                 # Average PnL
                 avg_pnl = total_pnl / len(trades) if trades else 0
@@ -252,6 +262,8 @@ class PerformanceMonitor:
                     'tp1_count': tp1_count,
                     'tp2_count': tp2_count,
                     'sl_count': sl_count,
+                    'imb_normalized_count': imb_normalized_count,
+                    'imb_reversed_count': imb_reversed_count,
                     'first_date': first_date
                 }
                 
