@@ -60,15 +60,15 @@ class FastSignalTracker:
     
     async def check_signal_hybrid(self, signal_data: Dict) -> Optional[Dict]:
         """
-        Check one signal with simplified exit logic
+        Check one signal with simplified exit logic + minimum hold time protection
         
         Priority order:
-        1. Opposite imbalance > 0.3 → IMBALANCE_REVERSED (aggressive protection)
-        2. Stop-Loss hit → STOP_LOSS
-        3. Take-Profit hit → TAKE_PROFIT_1/TAKE_PROFIT_2
+        1. Stop-Loss hit → STOP_LOSS (always active)
+        2. Take-Profit hit → TAKE_PROFIT_1/TAKE_PROFIT_2 (always active)
+        3. Opposite imbalance > 0.4 → IMBALANCE_REVERSED (only after MIN_HOLD_TIME)
         
-        Note: IMBALANCE_NORMALIZED removed to prevent premature exits.
-        Positions now run naturally to SL/TP unless real threat detected (reversal).
+        Protection: Positions cannot exit via IMBALANCE_REVERSED in first 30 seconds.
+        This prevents noise-induced exits while allowing strong positions to develop.
         
         IMPORTANT: This method monitors ALL open signals, even if their symbol
         was removed from the active universe. Signals continue being tracked
@@ -83,6 +83,10 @@ class FastSignalTracker:
         try:
             symbol = signal_data['symbol']
             direction = signal_data['direction']
+            
+            # Calculate hold time
+            created_at = signal_data['created_at']
+            hold_time = (datetime.now() - created_at).total_seconds()
             
             # Get imbalance from Redis
             # Note: Even if symbol was removed from universe, Redis data may still be available
@@ -117,31 +121,8 @@ class FastSignalTracker:
             tp1 = signal_data['take_profit_1']
             tp2 = signal_data['take_profit_2']
             
-            # Priority 1: Imbalance reversed (aggressive protection only)
-            # Only exit if imbalance REVERSES to opposite direction (real threat)
-            if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
-                logger.info(
-                    f"🚨 [FastSignalTracker] {symbol} LONG: Imbalance REVERSED to SELL "
-                    f"({current_imbalance:.3f}) → EXIT"
-                )
-                return {
-                    'signal_id': signal_data['id'],
-                    'exit_reason': 'IMBALANCE_REVERSED',
-                    'exit_price': current_price
-                }
-            elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
-                logger.info(
-                    f"🚨 [FastSignalTracker] {symbol} SHORT: Imbalance REVERSED to BUY "
-                    f"({current_imbalance:.3f}) → EXIT"
-                )
-                return {
-                    'signal_id': signal_data['id'],
-                    'exit_reason': 'IMBALANCE_REVERSED',
-                    'exit_price': current_price
-                }
-            
-            # Priority 2 & 3: Price-based exits (SL/TP)
-            # Let positions reach natural targets unless imbalance reverses
+            # Priority 1 & 2: Price-based exits (ALWAYS ACTIVE - SL/TP)
+            # These exits work immediately, no hold time restriction
             exit_reason = None
             
             if direction == 'LONG':
@@ -162,13 +143,51 @@ class FastSignalTracker:
             if exit_reason:
                 logger.info(
                     f"⚡ [FastSignalTracker] {symbol} {direction}: {exit_reason} hit "
-                    f"@ ${current_price:.4f} → EXIT"
+                    f"@ ${current_price:.4f} (hold: {hold_time:.1f}s) → EXIT"
                 )
                 return {
                     'signal_id': signal_data['id'],
                     'exit_reason': exit_reason,
                     'exit_price': current_price
                 }
+            
+            # Priority 3: Imbalance reversed (ONLY AFTER MIN_HOLD_TIME)
+            # Protection: Don't exit on noise in first 30 seconds
+            if hold_time >= Config.MIN_HOLD_TIME_SECONDS:
+                if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
+                    logger.info(
+                        f"🚨 [FastSignalTracker] {symbol} LONG: Imbalance REVERSED to SELL "
+                        f"({current_imbalance:.3f}, hold: {hold_time:.1f}s) → EXIT"
+                    )
+                    return {
+                        'signal_id': signal_data['id'],
+                        'exit_reason': 'IMBALANCE_REVERSED',
+                        'exit_price': current_price
+                    }
+                elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
+                    logger.info(
+                        f"🚨 [FastSignalTracker] {symbol} SHORT: Imbalance REVERSED to BUY "
+                        f"({current_imbalance:.3f}, hold: {hold_time:.1f}s) → EXIT"
+                    )
+                    return {
+                        'signal_id': signal_data['id'],
+                        'exit_reason': 'IMBALANCE_REVERSED',
+                        'exit_price': current_price
+                    }
+            else:
+                # Log when we SKIP exit due to min hold time
+                if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
+                    logger.debug(
+                        f"⏳ [FastSignalTracker] {symbol} LONG: Imbalance reversed "
+                        f"({current_imbalance:.3f}) but PROTECTED (hold: {hold_time:.1f}s < "
+                        f"{Config.MIN_HOLD_TIME_SECONDS}s) → KEEPING OPEN"
+                    )
+                elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
+                    logger.debug(
+                        f"⏳ [FastSignalTracker] {symbol} SHORT: Imbalance reversed "
+                        f"({current_imbalance:.3f}) but PROTECTED (hold: {hold_time:.1f}s < "
+                        f"{Config.MIN_HOLD_TIME_SECONDS}s) → KEEPING OPEN"
+                    )
             
             # Signal should remain open
             return None
