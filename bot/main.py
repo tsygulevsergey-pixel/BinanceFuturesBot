@@ -105,11 +105,22 @@ class BinanceFuturesScanner:
             logger.error(f"❌ [Main] Error in initial universe scan: {e}")
     
     async def universe_scan_loop(self):
+        """
+        Rescan universe every hour to update active symbols list.
+        
+        IMPORTANT: Open signals for symbols that are removed from universe
+        are NOT automatically closed. They continue to be monitored by
+        FastSignalTracker and will close naturally when SL or TP is hit.
+        """
         while self.running:
             try:
                 await asyncio.sleep(Config.UNIVERSE_RESCAN_INTERVAL)
                 
                 logger.info("🔄 [Main] Rescanning universe...")
+                logger.info(
+                    "ℹ️ [Main] Note: Open signals for removed symbols will continue monitoring "
+                    "until SL/TP is reached"
+                )
                 
                 symbols = await universe_selector.scan_universe()
                 

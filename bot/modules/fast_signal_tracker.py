@@ -67,6 +67,12 @@ class FastSignalTracker:
         3. Stop-Loss hit → STOP_LOSS
         4. Take-Profit hit → TAKE_PROFIT_1/TAKE_PROFIT_2
         
+        IMPORTANT: This method monitors ALL open signals, even if their symbol
+        was removed from the active universe. Signals continue being tracked
+        as long as Redis data is available, and will close naturally when
+        SL or TP is reached. If Redis data is unavailable (symbol removed),
+        the check is skipped but the signal remains open.
+        
         Returns:
             Dict with exit_reason and exit_price if signal should be closed
             None if signal should remain open
@@ -76,9 +82,14 @@ class FastSignalTracker:
             direction = signal_data['direction']
             
             # Get imbalance from Redis
+            # Note: Even if symbol was removed from universe, Redis data may still be available
+            # for a short period, allowing SL/TP to execute naturally
             imbalance_data = redis_manager.get(f'imbalance:{symbol}')
             if imbalance_data is None:
-                logger.debug(f"⚠️ [FastSignalTracker] No imbalance data for {symbol}, skipping")
+                logger.debug(
+                    f"⚠️ [FastSignalTracker] No imbalance data for {symbol}, skipping check "
+                    f"(signal remains open, will retry in 100ms)"
+                )
                 return None
             
             current_imbalance = imbalance_data.get('imbalance', 0)
@@ -86,7 +97,10 @@ class FastSignalTracker:
             # Get current price from Redis
             price_data = redis_manager.get(f'price:{symbol}')
             if price_data is None:
-                logger.debug(f"⚠️ [FastSignalTracker] No price data for {symbol}, skipping")
+                logger.debug(
+                    f"⚠️ [FastSignalTracker] No price data for {symbol}, skipping check "
+                    f"(signal remains open, will retry in 100ms)"
+                )
                 return None
             
             current_price = float(price_data.get('mid', 0))
