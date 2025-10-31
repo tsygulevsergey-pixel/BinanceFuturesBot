@@ -46,8 +46,8 @@ class Config:
     # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
     FILTER_NON_ASCII = True
     
-    ORDERBOOK_IMBALANCE_THRESHOLD = 0.28  # ORIGINAL STRICT VALUE
-    MIN_LARGE_TRADES = 3                   # ORIGINAL STRICT VALUE
+    ORDERBOOK_IMBALANCE_THRESHOLD = 0.2   # Industry standard for MODERATE signals (was 0.28)
+    MIN_LARGE_TRADES = 2                  # Reduced from 3 to allow more signals
     
     # Large trade detection: DYNAMIC (percentile-based) approach
     USE_DYNAMIC_LARGE_TRADES = True        # Use percentile-based (top 1%) instead of fixed threshold
@@ -55,7 +55,7 @@ class Config:
     MIN_LARGE_TRADE_SIZE = 10_000          # Minimum threshold ($10K) as fallback for low-liquidity pairs
     LARGE_TRADE_SIZE = 50_000              # Legacy fixed threshold (used when USE_DYNAMIC_LARGE_TRADES=False)
     
-    VOLUME_CONFIRMATION_MULTIPLIER = 1.8   # ORIGINAL STRICT VALUE
+    VOLUME_CONFIRMATION_MULTIPLIER = 1.5   # Reduced from 1.8 for more realistic filtering
     
     PRIMARY_TF = '15m'
     CONTEXT_TF = '1h'
