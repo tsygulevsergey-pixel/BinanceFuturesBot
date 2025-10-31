@@ -46,15 +46,17 @@ class PerformanceMonitor:
                 sharpe_ratio = self._calculate_sharpe_ratio(pnl_list)
                 max_drawdown = self._calculate_max_drawdown(pnl_list)
                 
-                tp1_count = sum(1 for t in closed_trades if t.exit_reason == 'TAKE_PROFIT_1')
-                tp2_count = sum(1 for t in closed_trades if t.exit_reason == 'TAKE_PROFIT_2')
-                sl_count = sum(1 for t in closed_trades if t.exit_reason == 'STOP_LOSS')
-                imb_normalized_count = sum(1 for t in closed_trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
-                imb_reversed_count = sum(1 for t in closed_trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                tp1_partial_count = sum(1 for t in closed_trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_1_PARTIAL')
+                tp1_full_count = sum(1 for t in closed_trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_1')
+                tp2_count = sum(1 for t in closed_trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_2')
+                sl_count = sum(1 for t in closed_trades if getattr(t, 'exit_reason', '') == 'STOP_LOSS')
+                sl_breakeven_count = sum(1 for t in closed_trades if getattr(t, 'exit_reason', '') == 'STOP_LOSS_BREAKEVEN')
+                imb_normalized_count = sum(1 for t in closed_trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_NORMALIZED')
+                imb_reversed_count = sum(1 for t in closed_trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_REVERSED')
                 
                 # Calculate PnL for hybrid exit reasons (IMBALANCE_NORMALIZED and IMBALANCE_REVERSED)
-                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in closed_trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
-                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in closed_trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in closed_trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_NORMALIZED')
+                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in closed_trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_REVERSED')
                 
                 total_signals = session.query(Signal).filter(
                     Signal.created_at >= today_start
@@ -74,9 +76,11 @@ class PerformanceMonitor:
                     'average_hold_time': avg_hold_time,
                     'sharpe_ratio': sharpe_ratio,
                     'max_drawdown': max_drawdown,
-                    'tp1_hit_count': tp1_count,
+                    'tp1_partial_count': tp1_partial_count,
+                    'tp1_full_count': tp1_full_count,
                     'tp2_hit_count': tp2_count,
                     'sl_hit_count': sl_count,
+                    'sl_breakeven_count': sl_breakeven_count,
                     'imb_normalized_count': imb_normalized_count,
                     'imb_reversed_count': imb_reversed_count,
                     'imb_normalized_pnl': imb_normalized_pnl,
@@ -188,15 +192,15 @@ class PerformanceMonitor:
                 total_pnl = sum(float(t.pnl_percent or 0) for t in trades)
                 win_rate = (win_count / len(trades)) * 100 if trades else 0
                 
-                tp1_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_1')
-                tp2_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_2')
-                sl_count = sum(1 for t in trades if t.exit_reason == 'STOP_LOSS')
-                imb_normalized_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
-                imb_reversed_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                tp1_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_1')
+                tp2_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_2')
+                sl_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'STOP_LOSS')
+                imb_normalized_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_NORMALIZED')
+                imb_reversed_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_REVERSED')
                 
                 # Calculate PnL for hybrid exit reasons
-                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
-                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_NORMALIZED')
+                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_REVERSED')
                 
                 return {
                     'total_signals': len(signals),
@@ -242,15 +246,17 @@ class PerformanceMonitor:
                 win_rate = (win_count / len(trades)) * 100 if trades else 0
                 
                 # Exit reasons
-                tp1_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_1')
-                tp2_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_2')
-                sl_count = sum(1 for t in trades if t.exit_reason == 'STOP_LOSS')
-                imb_normalized_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
-                imb_reversed_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                tp1_partial_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_1_PARTIAL')
+                tp1_full_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_1')
+                tp2_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'TAKE_PROFIT_2')
+                sl_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'STOP_LOSS')
+                sl_breakeven_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'STOP_LOSS_BREAKEVEN')
+                imb_normalized_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_NORMALIZED')
+                imb_reversed_count = sum(1 for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_REVERSED')
                 
                 # Calculate PnL for hybrid exit reasons (ALL TIME)
-                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
-                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_NORMALIZED')
+                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in trades if getattr(t, 'exit_reason', '') == 'IMBALANCE_REVERSED')
                 
                 # Average PnL
                 avg_pnl = total_pnl / len(trades) if trades else 0
@@ -275,9 +281,11 @@ class PerformanceMonitor:
                     'total_pnl': total_pnl,
                     'avg_pnl': avg_pnl,
                     'avg_hold_time': avg_hold_time,
-                    'tp1_count': tp1_count,
+                    'tp1_partial_count': tp1_partial_count,
+                    'tp1_full_count': tp1_full_count,
                     'tp2_count': tp2_count,
                     'sl_count': sl_count,
+                    'sl_breakeven_count': sl_breakeven_count,
                     'imb_normalized_count': imb_normalized_count,
                     'imb_reversed_count': imb_reversed_count,
                     'imb_normalized_pnl': imb_normalized_pnl,

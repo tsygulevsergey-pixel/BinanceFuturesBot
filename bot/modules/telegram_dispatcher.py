@@ -91,16 +91,68 @@ class TelegramDispatcher:
         exit_price: float,
         pnl_percent: float,
         hold_time_minutes: int,
-        original_message_id: Optional[int] = None
+        original_message_id: Optional[int] = None,
+        tp1_pnl: Optional[float] = None,
+        tp2_pnl: Optional[float] = None
     ) -> bool:
         if not self.bot:
             logger.error("❌ [TelegramDispatcher] Bot not initialized")
             return False
             
         try:
-            emoji = "✅" if pnl_percent > 0 else "❌"
-            
-            message = f"""
+            # Partial close messages
+            if exit_reason == 'TAKE_PROFIT_1_PARTIAL':
+                emoji = "🎯"
+                message = f"""
+{emoji} **TP1 HIT - PARTIAL CLOSE**
+
+📊 **Symbol:** {symbol}
+📍 **Entry:** ${entry_price:.4f}
+📍 **TP1:** ${exit_price:.4f}
+💰 **Closed 50%:** +{pnl_percent:.2f}%
+🛡️ **SL → Breakeven** (entry price)
+⏱️ **Hold Time:** {hold_time_minutes} minutes
+
+🚀 **Waiting for TP2...** (remaining 50%)
+
+🆔 Signal ID: `{signal_id}`
+"""
+            elif exit_reason == 'TAKE_PROFIT_2':
+                emoji = "🎯🎯"
+                tp1_str = f" (TP1: +{tp1_pnl:.2f}%)" if tp1_pnl is not None else ""
+                tp2_str = f" (TP2: +{tp2_pnl:.2f}%)" if tp2_pnl is not None else ""
+                message = f"""
+{emoji} **TP2 HIT - FULLY CLOSED**
+
+📊 **Symbol:** {symbol}
+📍 **Entry:** ${entry_price:.4f}
+📍 **TP2:** ${exit_price:.4f}
+💰 **Total PnL:** +{pnl_percent:.2f}%{tp1_str}{tp2_str}
+⏱️ **Hold Time:** {hold_time_minutes} minutes
+
+✅ **Status:** FULLY CLOSED
+
+🆔 Signal ID: `{signal_id}`
+"""
+            elif exit_reason == 'STOP_LOSS_BREAKEVEN':
+                emoji = "🛡️"
+                tp1_str = f" (TP1: +{tp1_pnl:.2f}%)" if tp1_pnl is not None else ""
+                message = f"""
+{emoji} **SL BREAKEVEN - PROFIT PROTECTED**
+
+📊 **Symbol:** {symbol}
+📍 **Entry/Exit:** ${entry_price:.4f}
+💰 **Total PnL:** +{pnl_percent:.2f}%{tp1_str}
+⏱️ **Hold Time:** {hold_time_minutes} minutes
+
+✅ **Protected profit from TP1!**
+
+🆔 Signal ID: `{signal_id}`
+"""
+            else:
+                # Regular full close
+                emoji = "✅" if pnl_percent > 0 else "❌"
+                message = f"""
 {emoji} **SIGNAL CLOSED**
 
 📊 **Symbol:** {symbol}
