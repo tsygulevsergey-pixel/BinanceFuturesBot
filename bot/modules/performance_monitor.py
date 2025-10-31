@@ -155,6 +155,7 @@ class PerformanceMonitor:
             logger.error(f"❌ [PerformanceMonitor] Error saving metrics: {e}")
     
     def get_stats_for_telegram(self) -> Dict:
+        """Get statistics for today only"""
         try:
             today = datetime.now().date()
             today_start = datetime.combine(today, datetime.min.time())
@@ -195,6 +196,67 @@ class PerformanceMonitor:
                 
         except Exception as e:
             logger.error(f"❌ [PerformanceMonitor] Error getting stats: {e}")
+            return {}
+    
+    def get_alltime_stats_for_telegram(self) -> Dict:
+        """Get statistics for ALL TIME (all historical data)"""
+        try:
+            with db_manager.get_session() as session:
+                # Get ALL signals (no date filter)
+                signals = session.query(Signal).all()
+                
+                # Get ALL closed trades (no date filter)
+                trades = session.query(Trade).filter(
+                    Trade.status == 'CLOSED'
+                ).all()
+                
+                # Priority breakdown
+                high_count = sum(1 for s in signals if s.priority == 'HIGH')
+                medium_count = sum(1 for s in signals if s.priority == 'MEDIUM')
+                low_count = sum(1 for s in signals if s.priority == 'LOW')
+                
+                # Win/Loss metrics
+                win_count = sum(1 for t in trades if float(t.pnl_percent or 0) > 0)
+                loss_count = sum(1 for t in trades if float(t.pnl_percent or 0) <= 0)
+                total_pnl = sum(float(t.pnl_percent or 0) for t in trades)
+                win_rate = (win_count / len(trades)) * 100 if trades else 0
+                
+                # Exit reasons
+                tp1_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_1')
+                tp2_count = sum(1 for t in trades if t.exit_reason == 'TAKE_PROFIT_2')
+                sl_count = sum(1 for t in trades if t.exit_reason == 'STOP_LOSS')
+                
+                # Average PnL
+                avg_pnl = total_pnl / len(trades) if trades else 0
+                
+                # Average hold time
+                hold_times = [t.hold_time_minutes for t in trades if t.hold_time_minutes]
+                avg_hold_time = sum(hold_times) / len(hold_times) if hold_times else 0
+                
+                # Get date range
+                first_signal = session.query(Signal).order_by(Signal.created_at).first()
+                first_date = first_signal.created_at.date() if first_signal else datetime.now().date()
+                
+                return {
+                    'total_signals': len(signals),
+                    'total_trades': len(trades),
+                    'high_priority': high_count,
+                    'medium_priority': medium_count,
+                    'low_priority': low_count,
+                    'win_count': win_count,
+                    'loss_count': loss_count,
+                    'win_rate': win_rate,
+                    'total_pnl': total_pnl,
+                    'avg_pnl': avg_pnl,
+                    'avg_hold_time': avg_hold_time,
+                    'tp1_count': tp1_count,
+                    'tp2_count': tp2_count,
+                    'sl_count': sl_count,
+                    'first_date': first_date
+                }
+                
+        except Exception as e:
+            logger.error(f"❌ [PerformanceMonitor] Error getting alltime stats: {e}")
             return {}
 
 performance_monitor = PerformanceMonitor()
