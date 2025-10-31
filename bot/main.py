@@ -19,9 +19,9 @@ from bot.modules import (
     signal_generator,
     risk_manager,
     telegram_dispatcher,
-    signal_tracker,
     performance_monitor
 )
+from bot.modules.fast_signal_tracker import fast_signal_tracker
 from bot.telegram_bot import telegram_bot_handler
 
 class BinanceFuturesScanner:
@@ -73,7 +73,7 @@ class BinanceFuturesScanner:
             tasks = [
                 self.universe_scan_loop(),
                 self.signal_generation_loop(),
-                self.signal_tracking_loop(),
+                self.fast_signal_tracking_loop(),  # NEW: 100ms hybrid tracking
                 self.metrics_update_loop(),
                 data_collector.start_collecting(active_symbols) if active_symbols else asyncio.sleep(0)
             ]
@@ -297,18 +297,46 @@ class BinanceFuturesScanner:
             logger.error(f"❌ [Main] Error generating signal for {symbol}: {e}")
             return False
     
-    async def signal_tracking_loop(self):
-        logger.info("👁️ [Main] Starting signal tracking loop...")
+    async def fast_signal_tracking_loop(self):
+        """
+        Fast signal tracking with 100ms hybrid exit strategy
+        - Checks signals every 100ms from in-memory cache
+        - Hybrid exit: imbalance normalized/reversed → SL/TP
+        - Batch database operations for efficiency
+        """
+        logger.info("⚡ [Main] Starting 100ms fast signal tracking loop...")
+        
+        iteration = 0
         
         while self.running:
             try:
-                await signal_tracker.check_signals()
+                # Sync cache from DB every 5 seconds (50 iterations × 100ms)
+                if iteration % 50 == 0:
+                    await fast_signal_tracker.sync_cache_from_db()
                 
-                await asyncio.sleep(60)
+                # Check all open signals from cache
+                exit_signals = []
+                
+                for signal_id, signal_data in fast_signal_tracker.open_signals_cache.items():
+                    result = await fast_signal_tracker.check_signal_hybrid(signal_data)
+                    if result:
+                        exit_signals.append(result)
+                
+                # Batch close if any signals need to exit
+                if exit_signals:
+                    logger.info(f"⚡ [FastTracking] Found {len(exit_signals)} signals to close")
+                    await fast_signal_tracker.close_signals_batch(exit_signals)
+                    # Immediately refresh cache after closing
+                    await fast_signal_tracker.sync_cache_from_db()
+                
+                iteration += 1
+                
+                # Wait 100ms before next check
+                await asyncio.sleep(0.1)
                 
             except Exception as e:
-                logger.error(f"❌ [Main] Error in signal tracking loop: {e}")
-                await asyncio.sleep(60)
+                logger.error(f"❌ [Main] Error in fast signal tracking loop: {e}")
+                await asyncio.sleep(1)  # Pause on error
     
     async def metrics_update_loop(self):
         logger.info("📊 [Main] Starting metrics update loop...")
