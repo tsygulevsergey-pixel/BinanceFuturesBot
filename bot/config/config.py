@@ -46,8 +46,8 @@ class Config:
     # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
     FILTER_NON_ASCII = True
     
-    ORDERBOOK_IMBALANCE_THRESHOLD = 0.35  # RAISED from 0.2 to filter weak signals (was 0.28)
-    MIN_LARGE_TRADES = 2                  # Reduced from 3 to allow more signals
+    ORDERBOOK_IMBALANCE_THRESHOLD = 0.38  # RAISED from 0.35 for stricter entry filter
+    MIN_LARGE_TRADES = 3                  # RAISED from 2 for higher quality signals
     
     # Large trade detection: DYNAMIC (percentile-based) approach
     USE_DYNAMIC_LARGE_TRADES = True        # Use percentile-based (top 1%) instead of fixed threshold
@@ -112,9 +112,18 @@ class Config:
     IMBALANCE_EXIT_REVERSED = 0.4     # Exit when opposite imbalance > 0.4 (RAISED from 0.3 to reduce noise)
     MIN_HOLD_TIME_SECONDS = 30        # Minimum hold time before allowing IMBALANCE_REVERSED exit
     
-    # Persistence filter: require SUSTAINED reversal before exiting
+    # EXIT Persistence filter: require SUSTAINED reversal before exiting
     # This prevents exits on temporary imbalance spikes (noise)
-    IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES = 50  # 50 samples × 100ms = 5 seconds confirmation
+    IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES = 75  # 75 samples × 100ms = 7.5 seconds confirmation
+    
+    # ENTRY Persistence filter: require SUSTAINED confluence before creating signal
+    # This prevents signal creation on temporary spikes (noise filtering)
+    SIGNAL_ENTRY_PERSISTENCE_SAMPLES = 50  # 50 samples × 100ms = 5 seconds confirmation
+    
+    # Partial close settings
+    PARTIAL_CLOSE_TP1_PERCENT = 0.5  # Close 50% of position on TP1
+    PARTIAL_CLOSE_TP2_PERCENT = 0.5  # Close remaining 50% on TP2
+    MOVE_SL_TO_BREAKEVEN = True      # Move SL to entry price after TP1 hit
     
     LOG_LEVEL = 'INFO'
     LOG_FILE = 'bot/logs/bot.log'
