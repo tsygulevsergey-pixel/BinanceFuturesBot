@@ -69,9 +69,10 @@ class BinanceFuturesScanner:
             
             await self.scan_universe_initial()
             
-            # Start DataCollector for WebSocket data streaming
+            # Preload historical klines for ATR calculation (eliminates 20min wait!)
             active_symbols = universe_selector.get_active_symbols()
             if active_symbols:
+                await self.preload_historical_klines(active_symbols)
                 logger.info(f"🚀 [Main] Starting DataCollector for {len(active_symbols)} symbols...")
             
             tasks = [
@@ -107,6 +108,62 @@ class BinanceFuturesScanner:
                 
         except Exception as e:
             logger.error(f"❌ [Main] Error in initial universe scan: {e}")
+    
+    async def preload_historical_klines(self, symbols: list):
+        """
+        Preload last 30 1m klines for each symbol from Binance API
+        This eliminates the 20-minute wait for ATR calculation on bot restart
+        """
+        try:
+            logger.info(f"📥 [Main] Preloading historical klines for {len(symbols)} symbols...")
+            
+            from bot.database.models import Kline as KlineModel
+            from decimal import Decimal
+            
+            total_loaded = 0
+            failed = 0
+            
+            for symbol in symbols:
+                try:
+                    # Fetch last 30 1m candles from Binance
+                    klines = await binance_client.get_klines(symbol, '1m', limit=30)
+                    
+                    if not klines:
+                        logger.warning(f"⚠️ [Main] No klines data for {symbol}")
+                        failed += 1
+                        continue
+                    
+                    # Insert into database
+                    with db_manager.get_session() as session:
+                        for kline in klines:
+                            # Binance kline format: [timestamp, open, high, low, close, volume, ...]
+                            kline_obj = KlineModel(
+                                symbol=symbol,
+                                interval='1m',
+                                timestamp=datetime.fromtimestamp(kline[0] / 1000),  # Convert ms to seconds
+                                open=Decimal(str(kline[1])),
+                                high=Decimal(str(kline[2])),
+                                low=Decimal(str(kline[3])),
+                                close=Decimal(str(kline[4])),
+                                volume=Decimal(str(kline[5]))
+                            )
+                            session.merge(kline_obj)  # Use merge to avoid duplicates
+                        
+                        total_loaded += len(klines)
+                    
+                    logger.debug(f"✅ [Main] Loaded {len(klines)} klines for {symbol}")
+                    
+                except Exception as e:
+                    logger.error(f"❌ [Main] Failed to load klines for {symbol}: {e}")
+                    failed += 1
+                    continue
+            
+            logger.info(f"✅ [Main] Preloaded {total_loaded} klines for {len(symbols) - failed}/{len(symbols)} symbols")
+            
+        except Exception as e:
+            logger.error(f"❌ [Main] Error preloading historical klines: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
     
     async def universe_scan_loop(self):
         """

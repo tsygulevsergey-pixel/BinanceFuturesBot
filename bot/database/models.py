@@ -187,3 +187,23 @@ class DailyStats(Base):
     
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+
+class Kline(Base):
+    __tablename__ = 'klines'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    symbol = Column(String(20), nullable=False, index=True)
+    interval = Column(String(10), nullable=False)
+    timestamp = Column(DateTime, nullable=False, index=True)
+    
+    open = Column(Numeric(20, 8), nullable=False)
+    high = Column(Numeric(20, 8), nullable=False)
+    low = Column(Numeric(20, 8), nullable=False)
+    close = Column(Numeric(20, 8), nullable=False)
+    volume = Column(Numeric(20, 2), nullable=False)
+    
+    created_at = Column(DateTime, default=func.now())
+    
+    __table_args__ = (
+        Index('idx_kline_symbol_interval_time', 'symbol', 'interval', 'timestamp'),
+    )
