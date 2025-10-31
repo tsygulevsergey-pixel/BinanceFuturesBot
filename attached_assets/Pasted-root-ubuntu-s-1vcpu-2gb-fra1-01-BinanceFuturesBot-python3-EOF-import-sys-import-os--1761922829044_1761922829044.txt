@@ -1,0 +1,44 @@
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# python3 << 'EOF'
+import sys
+import os
+# Добавить путь к боту
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Импорт db_manager
+from bot.database import db_manager
+# ВАЖНО: Инициализировать db_manager
+db_manager.init_sync_db()
+# Теперь engine доступен
+with db_manager.get_session() as session:
+    # Удалить все записи
+    session.execute("TRUNCATE TABLE trades CASCADE")
+    session.execute("TRUNCATE TABLE signals CASCADE")
+    session.execute("TRUNCATE TABLE performance_metrics CASCADE")
+    session.commit()
+    print("✅ Все таблицы очищены!")
+EOF
+2025-10-31 14:59:37 - BinanceScanner - INFO - [db_manager.py:22] - 🔧 [DatabaseManager] Initializing synchronous database connection...
+2025-10-31 14:59:37 - BinanceScanner - INFO - [db_manager.py:42] - ✅ [DatabaseManager] Database connection ready, all tables created/verified
+2025-10-31 14:59:37 - BinanceScanner - ERROR - [db_manager.py:56] - ❌ [DatabaseManager] Session error: Textual SQL expression 'TRUNCATE TABLE trades CAS...' should be explicitly declared as text('TRUNCATE TABLE trades CAS...')
+Traceback (most recent call last):
+  File "<stdin>", line 12, in <module>
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2147, in _execute_internal
+    statement = coercions.expect(roles.StatementRole, statement)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 395, in expect
+    resolved = impl._literal_coercion(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 621, in _literal_coercion
+    return self._text_coercion(element, argname, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 614, in _text_coercion
+    return _no_text_coercion(element, argname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.12.0/lib/python3.12/site-packages/sqlalchemy/sql/coercions.py", line 584, in _no_text_coercion
+    raise exc_cls(
+sqlalchemy.exc.ArgumentError: Textual SQL expression 'TRUNCATE TABLE trades CAS...' should be explicitly declared as text('TRUNCATE TABLE trades CAS...')
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# source .env
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# psql $DATABASE_URL -c "TRUNCATE TABLE trades, signals, performance_metrics CASCADE; SELECT 'Database cleared!' as status;"
+-bash: !': event not found
