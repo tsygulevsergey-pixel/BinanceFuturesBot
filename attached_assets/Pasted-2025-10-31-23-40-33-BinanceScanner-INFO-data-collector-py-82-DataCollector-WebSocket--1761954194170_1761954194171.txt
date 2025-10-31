@@ -1,0 +1,15 @@
+2025-10-31 23:40:33 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 414250 messages processed
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:153] - 🔍 [Main] Analyzing ALL 70 symbols for signals...
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:194] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.198, large_buys=0, large_sells=3
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:208] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.198 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=3 (need ≥3)
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:194] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.550, large_buys=2, large_sells=1
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:208] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.550 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:194] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.191, large_buys=3, large_sells=1
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:208] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.191 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=1 (need ≥3)
+2025-10-31 23:40:33 - BinanceScanner - WARNING - [main.py:235] - ⚠️ [BTCUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=10.07 (current=1,007,405/min)
+2025-10-31 23:40:33 - BinanceScanner - WARNING - [main.py:235] - ⚠️ [ETHUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=8.10 (current=809,537/min)
+2025-10-31 23:40:33 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-10-31 23:40:33 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-10-31 23:40:33 - BinanceScanner - INFO - [main.py:163] - ✅ [Main] Completed signal check for 70 symbols - Generated 0 signals
+2025-10-31 23:40:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+^C
