@@ -167,10 +167,12 @@ class BinanceFuturesScanner:
         try:
             orderbook = redis_manager.get(f'orderbook:{symbol}')
             if not orderbook:
+                logger.debug(f"⚠️ [Main] No orderbook data for {symbol}")
                 return
             
             trade_flow = redis_manager.get(f'trade_flow:{symbol}')
             if not trade_flow:
+                logger.debug(f"⚠️ [Main] No trade_flow data for {symbol}")
                 return
             
             imbalance = orderbook_analyzer.calculate_imbalance(
@@ -182,12 +184,29 @@ class BinanceFuturesScanner:
                 'imbalance': imbalance
             }
             
+            # Log first 3 symbols for diagnostics
+            symbol_index = active_symbols.index(symbol) if symbol in active_symbols else -1
+            if symbol_index < 3:
+                logger.info(
+                    f"📊 [DIAGNOSTIC {symbol}] "
+                    f"imb={imbalance:.3f}, "
+                    f"large_buys={trade_flow.get('large_buys', 0)}, "
+                    f"large_sells={trade_flow.get('large_sells', 0)}"
+                )
+            
             # OPTIMIZATION: Quick pre-check (only imbalance + large_trades, no extra API calls)
             quick_long = signal_generator.quick_check_long(orderbook_data, trade_flow)
             quick_short = signal_generator.quick_check_short(orderbook_data, trade_flow)
             
             if not quick_long and not quick_short:
-                # Failed quick check - skip expensive volume/VWAP calculations
+                # Log first 3 quick_check failures for diagnostics
+                if symbol_index < 3:
+                    logger.info(
+                        f"❌ [DIAGNOSTIC {symbol}] Failed quick_check: "
+                        f"imb={imbalance:.3f} (need >0.28 for LONG or <-0.28 for SHORT), "
+                        f"large_buys={trade_flow.get('large_buys', 0)}, "
+                        f"large_sells={trade_flow.get('large_sells', 0)} (need ≥3)"
+                    )
                 return
             
             # Passed quick check! Now calculate volume_intensity with historical comparison
@@ -199,9 +218,20 @@ class BinanceFuturesScanner:
                 avg_volume_15m = kline_15m.get('volume', 0) / 15  # Convert 15m to per-minute
                 # volume_intensity = current / average (should be > 1.8x for signal)
                 volume_intensity = current_volume_per_minute / avg_volume_15m if avg_volume_15m > 0 else 0
+                logger.debug(
+                    f"📈 [{symbol}] volume_intensity={volume_intensity:.2f} "
+                    f"(current={current_volume_per_minute:,.0f}/min, avg={avg_volume_15m:,.0f}/min)"
+                )
             else:
-                # Fallback: use old method (divide by 1M)
-                volume_intensity = current_volume_per_minute / 1_000_000
+                # Fallback: If no 15m klines, use a more realistic baseline
+                # Assume minimum liquid symbol has ~100K volume per minute
+                # This is still strict but not impossible
+                baseline_volume = 100_000
+                volume_intensity = current_volume_per_minute / baseline_volume
+                logger.warning(
+                    f"⚠️ [{symbol}] No 15m kline data, using fallback baseline (100K/min): "
+                    f"volume_intensity={volume_intensity:.2f} (current={current_volume_per_minute:,.0f}/min)"
+                )
             
             trade_flow['volume_intensity'] = volume_intensity
             
