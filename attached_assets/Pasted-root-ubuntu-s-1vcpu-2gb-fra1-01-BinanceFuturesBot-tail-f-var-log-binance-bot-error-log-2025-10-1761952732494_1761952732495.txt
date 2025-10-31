@@ -1,0 +1,33 @@
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# tail -f /var/log/binance-bot-error.log
+2025-10-31 23:18:14 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-31 23:18:15 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-31 23:18:15 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.38
+2025-10-31 23:18:15 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/bot/main.py", line 14, in <module>
+    from bot.modules import (
+  File "/root/BinanceFuturesBot/bot/modules/__init__.py", line 4, in <module>
+    from .signal_generator import signal_generator
+ImportError: cannot import name 'signal_generator' from 'bot.modules.signal_generator' (/root/BinanceFuturesBot/bot/modules/signal_generator.py). Did you mean: 'SignalGenerator'?
+2025-10-31 23:18:26 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-31 23:18:26 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-31 23:18:26 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-31 23:18:26 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.38
+2025-10-31 23:18:26 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/bot/main.py", line 14, in <module>
+    from bot.modules import (
+  File "/root/BinanceFuturesBot/bot/modules/__init__.py", line 4, in <module>
+    from .signal_generator import signal_generator
+ImportError: cannot import name 'signal_generator' from 'bot.modules.signal_generator' (/root/BinanceFuturesBot/bot/modules/signal_generator.py). Did you mean: 'SignalGenerator'?
+2025-10-31 23:18:37 - BinanceScanner - INFO - [rate_limiter.py:35] - 🔧 [RateLimiter] Initialized with max_weight=2400/minute
+2025-10-31 23:18:37 - BinanceScanner - INFO - [binance_client.py:29] - 🔧 [BinanceClient] Initializing with proxy: http://fyplvqgw:04azcek13s9n@23.27.184.165:5766
+2025-10-31 23:18:38 - BinanceScanner - INFO - [universe_selector.py:30] - 🔧 [UniverseSelector] Initialized
+2025-10-31 23:18:38 - BinanceScanner - INFO - [orderbook_analyzer.py:13] - 🔧 [OrderBookAnalyzer] Initialized with imbalance threshold=0.38
+2025-10-31 23:18:38 - BinanceScanner - INFO - [trade_flow_analyzer.py:24] - 🔧 [TradeFlowAnalyzer] Initialized with window=5min, mode=DYNAMIC (top 1%, min $10,000)
+Traceback (most recent call last):
+  File "/root/BinanceFuturesBot/bot/main.py", line 14, in <module>
+    from bot.modules import (
+  File "/root/BinanceFuturesBot/bot/modules/__init__.py", line 4, in <module>
+    from .signal_generator import signal_generator
+ImportError: cannot import name 'signal_generator' from 'bot.modules.signal_generator' (/root/BinanceFuturesBot/bot/modules/signal_generator.py). Did you mean: 'SignalGenerator'?

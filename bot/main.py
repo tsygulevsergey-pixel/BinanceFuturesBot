@@ -16,7 +16,7 @@ from bot.modules import (
     data_collector,
     orderbook_analyzer,
     trade_flow_analyzer,
-    signal_generator,
+    SignalGenerator,
     risk_manager,
     telegram_dispatcher,
     performance_monitor
@@ -28,6 +28,7 @@ class BinanceFuturesScanner:
     def __init__(self):
         self.running = False
         self.last_universe_scan = None
+        self.signal_generator = None
         
         logger.info("="*80)
         logger.info("🚀 Binance Futures Scanner Bot Initializing...")
@@ -39,6 +40,9 @@ class BinanceFuturesScanner:
             
             db_manager.init_sync_db()
             await db_manager.init_async_pool()
+            
+            self.signal_generator = SignalGenerator(db_manager.async_pool)
+            logger.info("✅ [Main] SignalGenerator initialized with db_pool")
             
             redis_manager.connect()
             
@@ -195,8 +199,8 @@ class BinanceFuturesScanner:
                 )
             
             # OPTIMIZATION: Quick pre-check (only imbalance + large_trades, no extra API calls)
-            quick_long = signal_generator.quick_check_long(orderbook_data, trade_flow)
-            quick_short = signal_generator.quick_check_short(orderbook_data, trade_flow)
+            quick_long = self.signal_generator.quick_check_long(orderbook_data, trade_flow)
+            quick_short = self.signal_generator.quick_check_short(orderbook_data, trade_flow)
             
             if not quick_long and not quick_short:
                 # Log first 3 quick_check failures for diagnostics
@@ -252,17 +256,21 @@ class BinanceFuturesScanner:
                 'near_resistance': False
             }
             
-            # Full check with volume_intensity and VWAP
-            can_long, long_conditions = signal_generator.check_long_conditions(
+            # Full check with volume_intensity and VWAP (NOW ASYNC!)
+            can_long, long_conditions = await self.signal_generator.check_long_conditions(
+                symbol,
                 orderbook_data,
                 trade_flow,
-                price_data
+                price_data,
+                orderbook
             )
             
-            can_short, short_conditions = signal_generator.check_short_conditions(
+            can_short, short_conditions = await self.signal_generator.check_short_conditions(
+                symbol,
                 orderbook_data,
                 trade_flow,
-                price_data
+                price_data,
+                orderbook
             )
             
             # Debug log for EVERY 10th symbol to see why signals aren't generated
@@ -276,21 +284,25 @@ class BinanceFuturesScanner:
                     logger.info(f"📊 [DEBUG {symbol}] LONG failed: {failed_long}, SHORT failed: {failed_short}")
             
             direction = None
+            dynamic_data = None
             if can_long:
                 direction = 'LONG'
+                dynamic_data = long_conditions
             elif can_short:
                 direction = 'SHORT'
+                dynamic_data = short_conditions
             
-            if not direction:
+            if not direction or not dynamic_data:
                 return
             
-            signal_data = signal_generator.generate_signal(
+            signal_data = self.signal_generator.generate_signal(
                 symbol=symbol,
                 direction=direction,
                 entry_price=price,
                 orderbook_data=orderbook_data,
                 trade_flow=trade_flow,
-                price_data=price_data
+                price_data=price_data,
+                dynamic_data=dynamic_data
             )
             
             if not signal_data:
@@ -327,6 +339,11 @@ class BinanceFuturesScanner:
                     risk_reward_ratio=signal_data['risk_reward_ratio'],
                     expected_hold_time=signal_data['expected_hold_time'],
                     telegram_message_id=message_id,
+                    stop_loss_reason=signal_data.get('stop_loss_reason'),
+                    tp1_reason=signal_data.get('tp1_reason'),
+                    tp2_reason=signal_data.get('tp2_reason'),
+                    support_level=Decimal(str(signal_data['support_level'])) if signal_data.get('support_level') else None,
+                    resistance_level=Decimal(str(signal_data['resistance_level'])) if signal_data.get('resistance_level') else None,
                     status='OPEN'
                 )
                 session.add(signal_obj)
