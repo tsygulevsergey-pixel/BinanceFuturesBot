@@ -150,9 +150,9 @@ class DataCollector:
             if not best_bid or not best_ask:
                 return
             
-            # DIAGNOSTIC: Log prices from bookTicker for BTC, ETH, SOL
+            # DIAGNOSTIC: Log prices from bookTicker for BTC, ETH, SOL (DEBUG level to avoid spam)
             if symbol in ['BTCUSDT', 'ETHUSDT', 'SOLUSDT']:
-                logger.warning(f"📊 [BOOK TICKER] {symbol}: BID=${best_bid:,.2f}, ASK=${best_ask:,.2f}")
+                logger.debug(f"📊 [BOOK TICKER] {symbol}: BID=${best_bid:,.2f}, ASK=${best_ask:,.2f}")
             
             # Store best prices in Redis for signal generation
             price_data = {
@@ -188,7 +188,8 @@ class DataCollector:
             imbalance = orderbook_analyzer.calculate_imbalance(bids, asks)
             large_orders = orderbook_analyzer.detect_large_orders(orderbook)
             
-            redis_manager.set(f'imbalance:{symbol}', imbalance, expiry=10)
+            # IMPORTANT: Store imbalance as dict (not float) for FastSignalTracker compatibility
+            redis_manager.set(f'imbalance:{symbol}', {'imbalance': imbalance}, expiry=10)
             redis_manager.set(f'large_orders:{symbol}', large_orders, expiry=10)
             
         except Exception as e:
