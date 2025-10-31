@@ -52,8 +52,15 @@ class FastSignalTracker:
                 # Update cache
                 self.open_signals_cache = new_cache
                 
+                # Clean up reversal counters for closed signals
+                # Keep only counters for signals that are still open
+                closed_signal_ids = set(self.reversal_counters.keys()) - set(new_cache.keys())
+                for signal_id in closed_signal_ids:
+                    del self.reversal_counters[signal_id]
+                
                 logger.info(
-                    f"🔄 [FastSignalTracker] Cache synced: {len(self.open_signals_cache)} open signals"
+                    f"🔄 [FastSignalTracker] Cache synced: {len(self.open_signals_cache)} open signals, "
+                    f"{len(self.reversal_counters)} active reversal counters"
                 )
                 
         except Exception as e:
@@ -61,15 +68,20 @@ class FastSignalTracker:
     
     async def check_signal_hybrid(self, signal_data: Dict) -> Optional[Dict]:
         """
-        Check one signal with simplified exit logic + minimum hold time protection
+        Check one signal with TWO-LAYER protection against premature exits
         
         Priority order:
         1. Stop-Loss hit → STOP_LOSS (always active)
         2. Take-Profit hit → TAKE_PROFIT_1/TAKE_PROFIT_2 (always active)
-        3. Opposite imbalance > 0.4 → IMBALANCE_REVERSED (only after MIN_HOLD_TIME)
+        3. Opposite imbalance > 0.4 → IMBALANCE_REVERSED (with 2-layer protection)
         
-        Protection: Positions cannot exit via IMBALANCE_REVERSED in first 30 seconds.
-        This prevents noise-induced exits while allowing strong positions to develop.
+        TWO-LAYER PROTECTION:
+        - Layer 1 (Time): No exits in first 30 seconds (MIN_HOLD_TIME)
+        - Layer 2 (Persistence): After 30s, require 50 consecutive samples (5 sec) 
+          of sustained reversal before exit
+        
+        This prevents exits on temporary imbalance spikes (noise) and allows 
+        positions to reach TP1/TP2 targets naturally.
         
         IMPORTANT: This method monitors ALL open signals, even if their symbol
         was removed from the active universe. Signals continue being tracked
@@ -152,39 +164,68 @@ class FastSignalTracker:
                     'exit_price': current_price
                 }
             
-            # Priority 3: Imbalance reversed (ONLY AFTER MIN_HOLD_TIME)
-            # Protection: Don't exit on noise in first 30 seconds
+            # Priority 3: Imbalance reversed with PERSISTENCE FILTER
+            # After MIN_HOLD_TIME, require SUSTAINED reversal (50 consecutive samples = 5 seconds)
+            # This prevents exits on temporary imbalance spikes
+            
+            # Initialize persistence counter if not exists
+            signal_id = signal_data['id']
+            if signal_id not in self.reversal_counters:
+                self.reversal_counters[signal_id] = 0
+            
+            # Check if we're past the minimum hold time
             if hold_time >= Config.MIN_HOLD_TIME_SECONDS:
-                if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
-                    logger.info(
-                        f"🚨 [FastSignalTracker] {symbol} LONG: Imbalance REVERSED to SELL "
-                        f"({current_imbalance:.3f}, hold: {hold_time:.1f}s) → EXIT"
-                    )
-                    return {
-                        'signal_id': signal_data['id'],
-                        'exit_reason': 'IMBALANCE_REVERSED',
-                        'exit_price': current_price
-                    }
-                elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
-                    logger.info(
-                        f"🚨 [FastSignalTracker] {symbol} SHORT: Imbalance REVERSED to BUY "
-                        f"({current_imbalance:.3f}, hold: {hold_time:.1f}s) → EXIT"
-                    )
-                    return {
-                        'signal_id': signal_data['id'],
-                        'exit_reason': 'IMBALANCE_REVERSED',
-                        'exit_price': current_price
-                    }
+                # Check if imbalance is currently reversed
+                imbalance_is_reversed = (
+                    (direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED) or
+                    (direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED)
+                )
+                
+                if imbalance_is_reversed:
+                    # Increment persistence counter
+                    self.reversal_counters[signal_id] += 1
+                    counter = self.reversal_counters[signal_id]
+                    
+                    # Check if we've reached persistence threshold
+                    if counter >= Config.IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES:
+                        logger.info(
+                            f"🚨 [FastSignalTracker] {symbol} {direction}: Imbalance REVERSED "
+                            f"({current_imbalance:.3f}) CONFIRMED for {counter} samples "
+                            f"(hold: {hold_time:.1f}s) → EXIT"
+                        )
+                        # Reset counter before exit (cleanup)
+                        self.reversal_counters[signal_id] = 0
+                        return {
+                            'signal_id': signal_id,
+                            'exit_reason': 'IMBALANCE_REVERSED',
+                            'exit_price': current_price
+                        }
+                    else:
+                        # Still building confirmation
+                        logger.info(
+                            f"📊 [FastSignalTracker] {symbol} {direction}: Reversal confirmation "
+                            f"building {counter}/{Config.IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES} "
+                            f"(imbalance: {current_imbalance:.3f}, hold: {hold_time:.1f}s)"
+                        )
+                else:
+                    # Imbalance is NOT reversed - reset counter if it was building
+                    if self.reversal_counters[signal_id] > 0:
+                        logger.info(
+                            f"✅ [FastSignalTracker] {symbol} {direction}: Reversal dissipated, "
+                            f"resetting counter from {self.reversal_counters[signal_id]} "
+                            f"(imbalance: {current_imbalance:.3f}, hold: {hold_time:.1f}s)"
+                        )
+                        self.reversal_counters[signal_id] = 0
             else:
-                # Log when we SKIP exit due to min hold time
+                # Still within MIN_HOLD_TIME protection window
                 if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
-                    logger.debug(
+                    logger.info(
                         f"⏳ [FastSignalTracker] {symbol} LONG: Imbalance reversed "
                         f"({current_imbalance:.3f}) but PROTECTED (hold: {hold_time:.1f}s < "
                         f"{Config.MIN_HOLD_TIME_SECONDS}s) → KEEPING OPEN"
                     )
                 elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
-                    logger.debug(
+                    logger.info(
                         f"⏳ [FastSignalTracker] {symbol} SHORT: Imbalance reversed "
                         f"({current_imbalance:.3f}) but PROTECTED (hold: {hold_time:.1f}s < "
                         f"{Config.MIN_HOLD_TIME_SECONDS}s) → KEEPING OPEN"
