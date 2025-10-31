@@ -100,33 +100,36 @@ class FastSignalTracker:
             tp1 = signal_data['take_profit_1']
             tp2 = signal_data['take_profit_2']
             
-            # Priority 1: Imbalance normalized (|imbalance| < 0.2)
-            if abs(current_imbalance) < 0.2:
+            # Priority 1: Imbalance normalized
+            if abs(current_imbalance) < Config.IMBALANCE_EXIT_NORMALIZED:
                 logger.info(
                     f"⚡ [FastSignalTracker] {symbol} {direction}: Imbalance normalized "
                     f"({current_imbalance:.3f}) → EXIT"
                 )
                 return {
+                    'signal_id': signal_data['id'],
                     'exit_reason': 'IMBALANCE_NORMALIZED',
                     'exit_price': current_price
                 }
             
-            # Priority 2: Opposite imbalance > 0.3 (reversal)
-            if direction == 'LONG' and current_imbalance < -0.3:
+            # Priority 2: Imbalance reversed
+            if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
                 logger.info(
                     f"⚡ [FastSignalTracker] {symbol} LONG: Imbalance reversed "
                     f"({current_imbalance:.3f}) → EXIT"
                 )
                 return {
+                    'signal_id': signal_data['id'],
                     'exit_reason': 'IMBALANCE_REVERSED',
                     'exit_price': current_price
                 }
-            elif direction == 'SHORT' and current_imbalance > 0.3:
+            elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
                 logger.info(
                     f"⚡ [FastSignalTracker] {symbol} SHORT: Imbalance reversed "
                     f"({current_imbalance:.3f}) → EXIT"
                 )
                 return {
+                    'signal_id': signal_data['id'],
                     'exit_reason': 'IMBALANCE_REVERSED',
                     'exit_price': current_price
                 }
@@ -155,6 +158,7 @@ class FastSignalTracker:
                     f"@ ${current_price:.4f} → EXIT"
                 )
                 return {
+                    'signal_id': signal_data['id'],
                     'exit_reason': exit_reason,
                     'exit_price': current_price
                 }

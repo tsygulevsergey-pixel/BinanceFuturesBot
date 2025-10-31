@@ -306,21 +306,29 @@ class BinanceFuturesScanner:
         """
         logger.info("⚡ [Main] Starting 100ms fast signal tracking loop...")
         
+        # Initial cache sync BEFORE first iteration
+        await fast_signal_tracker.sync_cache_from_db()
+        
         iteration = 0
         
         while self.running:
             try:
-                # Sync cache from DB every 5 seconds (50 iterations × 100ms)
-                if iteration % 50 == 0:
+                # Sync cache from DB based on Config.CACHE_SYNC_INTERVAL
+                sync_iterations = int(Config.CACHE_SYNC_INTERVAL / Config.FAST_TRACKING_INTERVAL)
+                if iteration % sync_iterations == 0:
                     await fast_signal_tracker.sync_cache_from_db()
                 
                 # Check all open signals from cache
                 exit_signals = []
                 
-                for signal_id, signal_data in fast_signal_tracker.open_signals_cache.items():
-                    result = await fast_signal_tracker.check_signal_hybrid(signal_data)
-                    if result:
-                        exit_signals.append(result)
+                for signal_id, signal_data in list(fast_signal_tracker.open_signals_cache.items()):
+                    try:
+                        result = await fast_signal_tracker.check_signal_hybrid(signal_data)
+                        if result:
+                            exit_signals.append(result)
+                    except Exception as e:
+                        logger.error(f"❌ [FastTracking] Error checking signal {signal_id}: {e}")
+                        continue
                 
                 # Batch close if any signals need to exit
                 if exit_signals:
@@ -331,8 +339,8 @@ class BinanceFuturesScanner:
                 
                 iteration += 1
                 
-                # Wait 100ms before next check
-                await asyncio.sleep(0.1)
+                # Wait based on Config.FAST_TRACKING_INTERVAL
+                await asyncio.sleep(Config.FAST_TRACKING_INTERVAL)
                 
             except Exception as e:
                 logger.error(f"❌ [Main] Error in fast signal tracking loop: {e}")
