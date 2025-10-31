@@ -112,5 +112,9 @@ class Config:
     IMBALANCE_EXIT_REVERSED = 0.4     # Exit when opposite imbalance > 0.4 (RAISED from 0.3 to reduce noise)
     MIN_HOLD_TIME_SECONDS = 30        # Minimum hold time before allowing IMBALANCE_REVERSED exit
     
+    # Persistence filter: require SUSTAINED reversal before exiting
+    # This prevents exits on temporary imbalance spikes (noise)
+    IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES = 50  # 50 samples × 100ms = 5 seconds confirmation
+    
     LOG_LEVEL = 'INFO'
     LOG_FILE = 'bot/logs/bot.log'

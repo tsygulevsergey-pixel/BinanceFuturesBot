@@ -18,9 +18,10 @@ from decimal import Decimal
 
 class FastSignalTracker:
     def __init__(self):
-        """Initialize with empty in-memory cache"""
+        """Initialize with empty in-memory cache and persistence counters"""
         self.open_signals_cache = {}  # {signal_id: signal_data}
-        logger.info("🔧 [FastSignalTracker] Initialized with empty cache")
+        self.reversal_counters = {}   # {signal_id: consecutive_reversed_samples_count}
+        logger.info("🔧 [FastSignalTracker] Initialized with empty cache and persistence counters")
     
     async def sync_cache_from_db(self):
         """Synchronize open signals from PostgreSQL to in-memory cache"""
