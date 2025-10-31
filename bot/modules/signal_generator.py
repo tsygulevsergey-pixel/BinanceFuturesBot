@@ -178,13 +178,13 @@ class SignalGenerator:
             priority, quality_score = self.calculate_signal_quality(signal_data)
             
             if direction == 'LONG':
-                stop_loss = entry_price * 0.98
-                take_profit_1 = entry_price * 1.02
-                take_profit_2 = entry_price * 1.03
+                stop_loss = entry_price * 0.98        # -2.0%
+                take_profit_1 = entry_price * 1.01    # +1.0% (was +2.0%)
+                take_profit_2 = entry_price * 1.018   # +1.8% (was +3.0%)
             else:
-                stop_loss = entry_price * 1.02
-                take_profit_1 = entry_price * 0.98
-                take_profit_2 = entry_price * 0.97
+                stop_loss = entry_price * 1.02        # +2.0%
+                take_profit_1 = entry_price * 0.99    # -1.0% (was -2.0%)
+                take_profit_2 = entry_price * 0.982   # -1.8% (was -3.0%)
             
             risk = abs(entry_price - stop_loss) / entry_price
             reward_tp1 = abs(take_profit_1 - entry_price) / entry_price
