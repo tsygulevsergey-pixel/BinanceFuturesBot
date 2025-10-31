@@ -110,8 +110,8 @@ class TelegramBotHandler:
 💰 **Total PnL:** {stats.get('total_pnl', 0):+.2f}%
 
 🏁 **Exit Reasons:**
-✨ **Imbalance Normalized:** {stats.get('imb_normalized_count', 0)} times
-🔄 **Imbalance Reversed:** {stats.get('imb_reversed_count', 0)} times
+✨ **Imbalance Normalized:** {stats.get('imb_normalized_count', 0)} times (PnL: {stats.get('imb_normalized_pnl', 0):+.2f}%)
+🔄 **Imbalance Reversed:** {stats.get('imb_reversed_count', 0)} times (PnL: {stats.get('imb_reversed_pnl', 0):+.2f}%)
 🎯 **TP1 Hit:** {stats.get('tp1_count', 0)} times
 🎯 **TP2 Hit:** {stats.get('tp2_count', 0)} times
 🛑 **SL Hit:** {stats.get('sl_count', 0)} times
@@ -168,8 +168,8 @@ class TelegramBotHandler:
 ⏱️ **Avg Hold Time:** {stats.get('avg_hold_time', 0):.0f} min
 
 🏁 **Exit Reasons:**
-✨ **Imbalance Normalized:** {stats.get('imb_normalized_count', 0)} times
-🔄 **Imbalance Reversed:** {stats.get('imb_reversed_count', 0)} times
+✨ **Imbalance Normalized:** {stats.get('imb_normalized_count', 0)} times (PnL: {stats.get('imb_normalized_pnl', 0):+.2f}%)
+🔄 **Imbalance Reversed:** {stats.get('imb_reversed_count', 0)} times (PnL: {stats.get('imb_reversed_pnl', 0):+.2f}%)
 🎯 **TP1 Hit:** {stats.get('tp1_count', 0)} times
 🎯 **TP2 Hit:** {stats.get('tp2_count', 0)} times
 🛑 **SL Hit:** {stats.get('sl_count', 0)} times

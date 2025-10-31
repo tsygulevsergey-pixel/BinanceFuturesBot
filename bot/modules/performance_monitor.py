@@ -52,6 +52,10 @@ class PerformanceMonitor:
                 imb_normalized_count = sum(1 for t in closed_trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
                 imb_reversed_count = sum(1 for t in closed_trades if t.exit_reason == 'IMBALANCE_REVERSED')
                 
+                # Calculate PnL for hybrid exit reasons (IMBALANCE_NORMALIZED and IMBALANCE_REVERSED)
+                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in closed_trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
+                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in closed_trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                
                 total_signals = session.query(Signal).filter(
                     Signal.created_at >= today_start
                 ).count()
@@ -74,7 +78,9 @@ class PerformanceMonitor:
                     'tp2_hit_count': tp2_count,
                     'sl_hit_count': sl_count,
                     'imb_normalized_count': imb_normalized_count,
-                    'imb_reversed_count': imb_reversed_count
+                    'imb_reversed_count': imb_reversed_count,
+                    'imb_normalized_pnl': imb_normalized_pnl,
+                    'imb_reversed_pnl': imb_reversed_pnl
                 }
                 
                 logger.info(
@@ -188,6 +194,10 @@ class PerformanceMonitor:
                 imb_normalized_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
                 imb_reversed_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
                 
+                # Calculate PnL for hybrid exit reasons
+                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
+                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                
                 return {
                     'total_signals': len(signals),
                     'high_priority': high_count,
@@ -199,7 +209,9 @@ class PerformanceMonitor:
                     'tp2_count': tp2_count,
                     'sl_count': sl_count,
                     'imb_normalized_count': imb_normalized_count,
-                    'imb_reversed_count': imb_reversed_count
+                    'imb_reversed_count': imb_reversed_count,
+                    'imb_normalized_pnl': imb_normalized_pnl,
+                    'imb_reversed_pnl': imb_reversed_pnl
                 }
                 
         except Exception as e:
@@ -236,6 +248,10 @@ class PerformanceMonitor:
                 imb_normalized_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
                 imb_reversed_count = sum(1 for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
                 
+                # Calculate PnL for hybrid exit reasons (ALL TIME)
+                imb_normalized_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_NORMALIZED')
+                imb_reversed_pnl = sum(float(t.pnl_percent or 0) for t in trades if t.exit_reason == 'IMBALANCE_REVERSED')
+                
                 # Average PnL
                 avg_pnl = total_pnl / len(trades) if trades else 0
                 
@@ -264,6 +280,8 @@ class PerformanceMonitor:
                     'sl_count': sl_count,
                     'imb_normalized_count': imb_normalized_count,
                     'imb_reversed_count': imb_reversed_count,
+                    'imb_normalized_pnl': imb_normalized_pnl,
+                    'imb_reversed_pnl': imb_reversed_pnl,
                     'first_date': first_date
                 }
                 

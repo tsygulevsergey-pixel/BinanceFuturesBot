@@ -61,7 +61,7 @@ class Config:
     CONTEXT_TF = '1h'
     
     MAX_DAILY_SIGNALS = 80
-    MAX_CONCURRENT_SIGNALS = 5
+    MAX_CONCURRENT_SIGNALS = 10  # Increased from 5 to allow more opportunities
     CORRELATION_THRESHOLD = 0.6
     
     ORDERBOOK_DEPTH = 20
