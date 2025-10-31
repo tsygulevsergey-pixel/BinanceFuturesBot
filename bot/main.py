@@ -111,9 +111,27 @@ class BinanceFuturesScanner:
                 
                 logger.info("🔄 [Main] Rescanning universe...")
                 
+                # Get old symbols before rescan
+                old_symbols = set(universe_selector.get_active_symbols())
+                
+                # Rescan universe
                 symbols = await universe_selector.scan_universe()
                 
                 if symbols:
+                    # Find removed symbols
+                    new_symbols = set(symbols)
+                    removed_symbols = old_symbols - new_symbols
+                    
+                    if removed_symbols:
+                        logger.warning(
+                            f"⚠️ [Main] {len(removed_symbols)} symbols removed from universe: "
+                            f"{', '.join(list(removed_symbols)[:5])}..."
+                        )
+                        # Close any open signals for removed symbols
+                        await fast_signal_tracker.close_signals_for_removed_symbols(
+                            list(removed_symbols)
+                        )
+                    
                     await telegram_dispatcher.send_universe_update(len(symbols), symbols)
                     self.last_universe_scan = datetime.now()
                     
