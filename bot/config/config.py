@@ -25,7 +25,7 @@ class Config:
     
     PROXY_URL = 'http://fyplvqgw:04azcek13s9n@23.27.184.165:5766'
     
-    UNIVERSE_RESCAN_INTERVAL = 6 * 3600
+    UNIVERSE_RESCAN_INTERVAL = 1 * 3600  # 1 hour for faster universe updates
     
     MIN_24H_VOLUME = 30_000_000  # Stage 1: Initial volume filter
     MIN_OPEN_INTEREST = 1_000_000  # Stage 2: Open interest filter ($1M)
