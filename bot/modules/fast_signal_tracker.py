@@ -201,8 +201,8 @@ class FastSignalTracker:
                             'exit_price': current_price
                         }
                     else:
-                        # Still building confirmation
-                        logger.info(
+                        # Still building confirmation (logged at DEBUG to avoid spam every 100ms)
+                        logger.debug(
                             f"📊 [FastSignalTracker] {symbol} {direction}: Reversal confirmation "
                             f"building {counter}/{Config.IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES} "
                             f"(imbalance: {current_imbalance:.3f}, hold: {hold_time:.1f}s)"
@@ -217,15 +217,15 @@ class FastSignalTracker:
                         )
                         self.reversal_counters[signal_id] = 0
             else:
-                # Still within MIN_HOLD_TIME protection window
+                # Still within MIN_HOLD_TIME protection window (logged at DEBUG to avoid spam)
                 if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
-                    logger.info(
+                    logger.debug(
                         f"⏳ [FastSignalTracker] {symbol} LONG: Imbalance reversed "
                         f"({current_imbalance:.3f}) but PROTECTED (hold: {hold_time:.1f}s < "
                         f"{Config.MIN_HOLD_TIME_SECONDS}s) → KEEPING OPEN"
                     )
                 elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
-                    logger.info(
+                    logger.debug(
                         f"⏳ [FastSignalTracker] {symbol} SHORT: Imbalance reversed "
                         f"({current_imbalance:.3f}) but PROTECTED (hold: {hold_time:.1f}s < "
                         f"{Config.MIN_HOLD_TIME_SECONDS}s) → KEEPING OPEN"
