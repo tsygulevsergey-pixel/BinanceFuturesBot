@@ -1,7 +1,8 @@
 """
-Fast Signal Tracker - monitors and closes signals with 100ms hybrid exit strategy
+Fast Signal Tracker - monitors and closes signals with 100ms exit strategy
 Uses in-memory cache for ultra-fast signal checks
-Hybrid exit logic: imbalance normalization, reversal, SL/TP
+Exit logic: imbalance reversal (aggressive protection), SL/TP
+Note: IMBALANCE_NORMALIZED removed - let positions reach natural SL/TP targets
 """
 import asyncio
 import time
@@ -59,13 +60,15 @@ class FastSignalTracker:
     
     async def check_signal_hybrid(self, signal_data: Dict) -> Optional[Dict]:
         """
-        Check one signal with hybrid exit logic
+        Check one signal with simplified exit logic
         
         Priority order:
-        1. |imbalance| < 0.2 → IMBALANCE_NORMALIZED
-        2. Opposite imbalance > 0.3 → IMBALANCE_REVERSED
-        3. Stop-Loss hit → STOP_LOSS
-        4. Take-Profit hit → TAKE_PROFIT_1/TAKE_PROFIT_2
+        1. Opposite imbalance > 0.3 → IMBALANCE_REVERSED (aggressive protection)
+        2. Stop-Loss hit → STOP_LOSS
+        3. Take-Profit hit → TAKE_PROFIT_1/TAKE_PROFIT_2
+        
+        Note: IMBALANCE_NORMALIZED removed to prevent premature exits.
+        Positions now run naturally to SL/TP unless real threat detected (reversal).
         
         IMPORTANT: This method monitors ALL open signals, even if their symbol
         was removed from the active universe. Signals continue being tracked
@@ -114,22 +117,11 @@ class FastSignalTracker:
             tp1 = signal_data['take_profit_1']
             tp2 = signal_data['take_profit_2']
             
-            # Priority 1: Imbalance normalized
-            if abs(current_imbalance) < Config.IMBALANCE_EXIT_NORMALIZED:
-                logger.info(
-                    f"⚡ [FastSignalTracker] {symbol} {direction}: Imbalance normalized "
-                    f"({current_imbalance:.3f}) → EXIT"
-                )
-                return {
-                    'signal_id': signal_data['id'],
-                    'exit_reason': 'IMBALANCE_NORMALIZED',
-                    'exit_price': current_price
-                }
-            
-            # Priority 2: Imbalance reversed
+            # Priority 1: Imbalance reversed (aggressive protection only)
+            # Only exit if imbalance REVERSES to opposite direction (real threat)
             if direction == 'LONG' and current_imbalance < -Config.IMBALANCE_EXIT_REVERSED:
                 logger.info(
-                    f"⚡ [FastSignalTracker] {symbol} LONG: Imbalance reversed "
+                    f"🚨 [FastSignalTracker] {symbol} LONG: Imbalance REVERSED to SELL "
                     f"({current_imbalance:.3f}) → EXIT"
                 )
                 return {
@@ -139,7 +131,7 @@ class FastSignalTracker:
                 }
             elif direction == 'SHORT' and current_imbalance > Config.IMBALANCE_EXIT_REVERSED:
                 logger.info(
-                    f"⚡ [FastSignalTracker] {symbol} SHORT: Imbalance reversed "
+                    f"🚨 [FastSignalTracker] {symbol} SHORT: Imbalance REVERSED to BUY "
                     f"({current_imbalance:.3f}) → EXIT"
                 )
                 return {
@@ -148,7 +140,8 @@ class FastSignalTracker:
                     'exit_price': current_price
                 }
             
-            # Priority 3 & 4: Price-based exits (SL/TP)
+            # Priority 2 & 3: Price-based exits (SL/TP)
+            # Let positions reach natural targets unless imbalance reverses
             exit_reason = None
             
             if direction == 'LONG':

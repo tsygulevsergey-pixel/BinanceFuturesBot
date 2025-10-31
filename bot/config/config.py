@@ -108,8 +108,8 @@ class Config:
     CACHE_SYNC_INTERVAL = 5        # Sync cache from DB every 5 seconds
     
     # Hybrid exit thresholds
-    IMBALANCE_EXIT_NORMALIZED = 0.2   # Exit when |imbalance| < 0.2
-    IMBALANCE_EXIT_REVERSED = 0.3     # Exit when opposite imbalance > 0.3
+    # IMBALANCE_EXIT_NORMALIZED = 0.2   # DISABLED - was causing premature exits with -PnL
+    IMBALANCE_EXIT_REVERSED = 0.3     # Exit when opposite imbalance > 0.3 (aggressive protection)
     
     LOG_LEVEL = 'INFO'
     LOG_FILE = 'bot/logs/bot.log'
