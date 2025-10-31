@@ -133,23 +133,30 @@ class BinanceFuturesScanner:
                         failed += 1
                         continue
                     
-                    # Insert into database
-                    with db_manager.get_session() as session:
-                        for kline in klines:
-                            # Binance kline format: [timestamp, open, high, low, close, volume, ...]
-                            kline_obj = KlineModel(
-                                symbol=symbol,
-                                interval='1m',
-                                timestamp=datetime.fromtimestamp(kline[0] / 1000),  # Convert ms to seconds
-                                open=Decimal(str(kline[1])),
-                                high=Decimal(str(kline[2])),
-                                low=Decimal(str(kline[3])),
-                                close=Decimal(str(kline[4])),
-                                volume=Decimal(str(kline[5]))
-                            )
-                            session.merge(kline_obj)  # Use merge to avoid duplicates
+                    # Insert into database with UPSERT to avoid duplicates
+                    for kline in klines:
+                        # Binance kline format: [timestamp, open, high, low, close, volume, ...]
+                        timestamp = datetime.fromtimestamp(kline[0] / 1000)
                         
-                        total_loaded += len(klines)
+                        query = """
+                        INSERT INTO klines (symbol, interval, timestamp, open, high, low, close, volume)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                        ON CONFLICT (symbol, interval, timestamp) DO NOTHING
+                        """
+                        
+                        await db_manager.execute_async(
+                            query,
+                            symbol,
+                            '1m',
+                            timestamp,
+                            Decimal(str(kline[1])),  # open
+                            Decimal(str(kline[2])),  # high
+                            Decimal(str(kline[3])),  # low
+                            Decimal(str(kline[4])),  # close
+                            Decimal(str(kline[5]))   # volume
+                        )
+                    
+                    total_loaded += len(klines)
                     
                     logger.debug(f"✅ [Main] Loaded {len(klines)} klines for {symbol}")
                     

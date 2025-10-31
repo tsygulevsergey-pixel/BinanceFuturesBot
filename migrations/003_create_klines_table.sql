@@ -16,7 +16,10 @@ CREATE TABLE IF NOT EXISTS klines (
     close NUMERIC(20, 8) NOT NULL,
     volume NUMERIC(20, 2) NOT NULL,
     
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    
+    -- Enforce uniqueness to prevent duplicate klines on restart
+    UNIQUE(symbol, interval, timestamp)
 );
 
 -- Create indexes for efficient querying
