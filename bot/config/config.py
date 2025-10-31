@@ -46,7 +46,7 @@ class Config:
     # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
     FILTER_NON_ASCII = True
     
-    ORDERBOOK_IMBALANCE_THRESHOLD = 0.2   # Industry standard for MODERATE signals (was 0.28)
+    ORDERBOOK_IMBALANCE_THRESHOLD = 0.35  # RAISED from 0.2 to filter weak signals (was 0.28)
     MIN_LARGE_TRADES = 2                  # Reduced from 3 to allow more signals
     
     # Large trade detection: DYNAMIC (percentile-based) approach
@@ -109,7 +109,8 @@ class Config:
     
     # Hybrid exit thresholds
     # IMBALANCE_EXIT_NORMALIZED = 0.2   # DISABLED - was causing premature exits with -PnL
-    IMBALANCE_EXIT_REVERSED = 0.3     # Exit when opposite imbalance > 0.3 (aggressive protection)
+    IMBALANCE_EXIT_REVERSED = 0.4     # Exit when opposite imbalance > 0.4 (RAISED from 0.3 to reduce noise)
+    MIN_HOLD_TIME_SECONDS = 30        # Minimum hold time before allowing IMBALANCE_REVERSED exit
     
     LOG_LEVEL = 'INFO'
     LOG_FILE = 'bot/logs/bot.log'
