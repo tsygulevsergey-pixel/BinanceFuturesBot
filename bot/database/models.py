@@ -59,6 +59,19 @@ class Signal(Base):
     status = Column(String(20), default='OPEN', index=True)
     telegram_message_id = Column(Integer, nullable=True)
     
+    # Partial close tracking (NEW - for 50/50 TP1/TP2 strategy)
+    tp1_hit_price = Column(Numeric(20, 8), nullable=True)
+    tp1_hit_time = Column(DateTime, nullable=True)
+    tp1_pnl = Column(Numeric(10, 4), nullable=True)  # PnL from TP1 (50% of position)
+    
+    tp2_hit_price = Column(Numeric(20, 8), nullable=True)
+    tp2_hit_time = Column(DateTime, nullable=True)
+    tp2_pnl = Column(Numeric(10, 4), nullable=True)  # PnL from TP2 (remaining 50%)
+    
+    partial_close_status = Column(String(20), default='NONE')  # 'NONE', 'TP1_CLOSED', 'FULLY_CLOSED'
+    breakeven_moved = Column(Boolean, default=False)  # True if SL moved to breakeven after TP1
+    current_stop_loss = Column(Numeric(20, 8), nullable=True)  # Updated SL (breakeven or original)
+    
     created_at = Column(DateTime, default=func.now(), index=True)
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
     
@@ -82,9 +95,20 @@ class Trade(Base):
     take_profit_1 = Column(Numeric(20, 8), nullable=False)
     take_profit_2 = Column(Numeric(20, 8), nullable=False)
     
-    exit_reason = Column(String(20), nullable=True)
+    exit_reason = Column(String(30), nullable=True)  # Extended for 'STOP_LOSS_BREAKEVEN'
     pnl = Column(Numeric(20, 8), nullable=True)
     pnl_percent = Column(Float, nullable=True)
+    
+    # Partial close tracking (NEW - for Trade history)
+    tp1_hit_price = Column(Numeric(20, 8), nullable=True)
+    tp1_hit_time = Column(DateTime, nullable=True)
+    tp1_pnl = Column(Numeric(10, 4), nullable=True)
+    
+    tp2_hit_price = Column(Numeric(20, 8), nullable=True)
+    tp2_hit_time = Column(DateTime, nullable=True)
+    tp2_pnl = Column(Numeric(10, 4), nullable=True)
+    
+    partial_close_status = Column(String(20), nullable=True)  # Final status when closed
     
     hold_time_minutes = Column(Integer, nullable=True)
     
