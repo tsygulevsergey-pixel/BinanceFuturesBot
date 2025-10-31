@@ -56,6 +56,13 @@ class Signal(Base):
     risk_reward_ratio = Column(Float, default=0.0)
     expected_hold_time = Column(String(20), default='')
     
+    # Dynamic SL/TP reasoning (NEW - orderbook-based levels)
+    stop_loss_reason = Column(String(200), nullable=True)  # "Below support at 42800"
+    tp1_reason = Column(String(200), nullable=True)  # "First resistance at 43800"
+    tp2_reason = Column(String(200), nullable=True)  # "Second resistance at 44500"
+    support_level = Column(Numeric(20, 8), nullable=True)  # Ближайший support (для LONG)
+    resistance_level = Column(Numeric(20, 8), nullable=True)  # Ближайший resistance (для SHORT)
+    
     status = Column(String(20), default='OPEN', index=True)
     telegram_message_id = Column(Integer, nullable=True)
     
@@ -109,6 +116,13 @@ class Trade(Base):
     tp2_pnl = Column(Numeric(10, 4), nullable=True)
     
     partial_close_status = Column(String(20), nullable=True)  # Final status when closed
+    
+    # Dynamic SL/TP reasoning (копия из Signal для исторических данных)
+    stop_loss_reason = Column(String(200), nullable=True)
+    tp1_reason = Column(String(200), nullable=True)
+    tp2_reason = Column(String(200), nullable=True)
+    support_level = Column(Numeric(20, 8), nullable=True)
+    resistance_level = Column(Numeric(20, 8), nullable=True)
     
     hold_time_minutes = Column(Integer, nullable=True)
     

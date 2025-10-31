@@ -125,5 +125,38 @@ class Config:
     PARTIAL_CLOSE_TP2_PERCENT = 0.5  # Close remaining 50% on TP2
     MOVE_SL_TO_BREAKEVEN = True      # Move SL to entry price after TP1 hit
     
+    # === DYNAMIC SL/TP SYSTEM (Orderbook-based levels) ===
+    
+    # Stop Loss Settings
+    MAX_STOP_DISTANCE_PCT = 1.5  # Максимальное расстояние стопа от входа (%)
+    
+    # Take Profit Settings
+    MIN_RR_RATIO = 0.8  # Минимальный Risk/Reward ratio для принятия сигнала
+    
+    # Orderbook Analysis Settings
+    ORDERBOOK_DEPTH_LEVELS = 50  # Глубина анализа стакана (уровней)
+    CLUSTER_THRESHOLD_MULTIPLIER = 2.0  # Объем > среднего в 2x = кластер
+    LOW_VOLUME_THRESHOLD = 0.5  # Объем < среднего в 2x = зона низкого объема
+    MIN_VOLUME_PCT_FOR_LEVEL = 10.0  # Минимум 10% от макс объема для значимого уровня
+    
+    # Volume Profile Settings (объемные зоны)
+    VOLUME_PROFILE_HOURS = 6  # Анализировать объем за последние 6 часов (актуальные данные)
+    
+    # Volatility Settings
+    ATR_PERIOD = 14  # Количество свечей для расчета ATR
+    WORKING_RANGE_ATR_MULTIPLIER = 3.0  # Рабочий диапазон = ±3 ATR от цены
+    
+    # Volatility Categories (для адаптации ширины стопа)
+    VOLATILITY_CATEGORIES = {
+        'LOW': 0.3,      # <0.3% ATR - BTC, ETH
+        'MEDIUM': 0.7,   # 0.3-0.7% ATR - большинство альтов
+        'HIGH': float('inf')  # >0.7% ATR - мемкоины
+    }
+    
+    # Priority Thresholds (для приоритизации сигналов)
+    PRIORITY_HIGH_THRESHOLD = 0.35   # Имбаланс >= 0.35
+    PRIORITY_MEDIUM_THRESHOLD = 0.30  # Имбаланс >= 0.30
+    # LOW priority = 0.25-0.29
+    
     LOG_LEVEL = 'INFO'
     LOG_FILE = 'bot/logs/bot.log'
