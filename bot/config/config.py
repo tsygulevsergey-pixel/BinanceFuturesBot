@@ -103,5 +103,13 @@ class Config:
     REDIS_PORT = 6379
     REDIS_DB = 0
     
+    # Fast Signal Tracker - 100ms hybrid exit strategy
+    FAST_TRACKING_INTERVAL = 0.1  # 100ms check interval
+    CACHE_SYNC_INTERVAL = 5        # Sync cache from DB every 5 seconds
+    
+    # Hybrid exit thresholds
+    IMBALANCE_EXIT_NORMALIZED = 0.2   # Exit when |imbalance| < 0.2
+    IMBALANCE_EXIT_REVERSED = 0.3     # Exit when opposite imbalance > 0.3
+    
     LOG_LEVEL = 'INFO'
     LOG_FILE = 'bot/logs/bot.log'

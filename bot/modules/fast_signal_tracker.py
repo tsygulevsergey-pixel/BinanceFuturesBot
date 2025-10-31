@@ -21,7 +21,7 @@ class FastSignalTracker:
         self.open_signals_cache = {}  # {signal_id: signal_data}
         logger.info("🔧 [FastSignalTracker] Initialized with empty cache")
     
-    def sync_cache_from_db(self):
+    async def sync_cache_from_db(self):
         """Synchronize open signals from PostgreSQL to in-memory cache"""
         try:
             logger.debug("🔄 [FastSignalTracker] Syncing cache from database...")
@@ -57,7 +57,7 @@ class FastSignalTracker:
         except Exception as e:
             logger.error(f"❌ [FastSignalTracker] Error syncing cache from DB: {e}")
     
-    def check_signal_hybrid(self, signal_data: Dict) -> Optional[Dict]:
+    async def check_signal_hybrid(self, signal_data: Dict) -> Optional[Dict]:
         """
         Check one signal with hybrid exit logic
         
