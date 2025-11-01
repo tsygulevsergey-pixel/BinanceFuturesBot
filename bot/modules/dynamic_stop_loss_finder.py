@@ -59,9 +59,11 @@ class DynamicStopLossFinder:
                 'support_level': None
             }
         
-        # Размещение: За strongest_support минус половина ATR
-        # Это гарантирует, что стоп за зоной поддержки, а не внутри неё
-        stop_loss_price = strongest_support - (atr * 0.5)
+        # Размещение: За strongest_support минус 1.5 ATR (было 0.5)
+        # УВЕЛИЧЕНО: защита от микро-волатильности, стоп ДАЛЬШЕ от уровня
+        # Если уровень слабый, он пробьётся → стоп срабатывает
+        # Если уровень сильный, цена отскочит → стоп не задевается
+        stop_loss_price = strongest_support - (atr * 1.5)
         
         # Рассчитать расстояние от входа
         stop_distance_usd = entry_price - stop_loss_price
@@ -126,8 +128,9 @@ class DynamicStopLossFinder:
                 'resistance_level': None
             }
         
-        # Размещение: За strongest_resistance плюс половина ATR
-        stop_loss_price = strongest_resistance + (atr * 0.5)
+        # Размещение: За strongest_resistance плюс 1.5 ATR (было 0.5)
+        # УВЕЛИЧЕНО: защита от микро-волатильности, стоп ДАЛЬШЕ от уровня
+        stop_loss_price = strongest_resistance + (atr * 1.5)
         
         # Рассчитать расстояние от входа
         stop_distance_usd = stop_loss_price - entry_price

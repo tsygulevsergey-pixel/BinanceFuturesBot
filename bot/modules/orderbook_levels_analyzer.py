@@ -19,7 +19,7 @@ class OrderbookLevelsAnalyzer:
     def __init__(
         self, 
         db_pool: asyncpg.Pool,
-        cluster_threshold: float = 2.0,  # объем > среднего в 2x = кластер
+        cluster_threshold: float = 3.0,  # объем > среднего в 3x = STRONG кластер (было 2.0)
         min_volume_pct: float = 10.0,    # минимум 10% от макс объема
         relevant_hours: int = 6          # последние 6 часов
     ):
@@ -135,10 +135,10 @@ class OrderbookLevelsAnalyzer:
         bids = orderbook.get('bids', [])
         asks = orderbook.get('asks', [])
         
-        # Bin size = 0.2% from price (optimized for 500-level deep analysis)
-        # 0.1% too narrow (over-fragmentation), 1.0% too wide (lost precision)
-        # 0.2% is sweet spot: BTC $90K → $180 bins (good granularity)
-        bin_size = current_price * 0.002  # 0.2%
+        # Bin size = 0.5% from price (find STRONG clusters, not micro-levels)
+        # 0.2% was too narrow (found weak micro-clusters that get broken easily)
+        # 0.5% finds major accumulation zones: BTC $90K → $450 bins, DASH $70 → $0.35 bins
+        bin_size = current_price * 0.005  # 0.5% (2.5x wider than before)
         
         bid_clusters = defaultdict(float)
         ask_clusters = defaultdict(float)
