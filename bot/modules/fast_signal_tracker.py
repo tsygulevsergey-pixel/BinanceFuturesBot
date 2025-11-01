@@ -13,6 +13,7 @@ from bot.utils import logger
 from bot.utils.redis_manager import redis_manager
 from bot.database import db_manager, Signal, Trade
 from bot.modules.telegram_dispatcher import telegram_dispatcher
+from bot.utils.binance_client import binance_client
 from decimal import Decimal
 
 
@@ -142,7 +143,6 @@ class FastSignalTracker:
                 )
                 # Fallback: fetch price from Binance API
                 try:
-                    from bot.modules.binance_client import binance_client
                     ticker = await binance_client.get_symbol_ticker_async(symbol)
                     if ticker and 'price' in ticker:
                         current_price = float(ticker['price'])
