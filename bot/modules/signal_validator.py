@@ -17,15 +17,16 @@ class SignalValidator:
         Args:
             config: Конфиг с параметрами фильтрации
         """
-        self.min_imbalance = config.get('ORDERBOOK_IMBALANCE_THRESHOLD', 0.25)
+        # GLOBAL imbalance thresholds (200 levels, more smoothed than local 10 levels)
+        self.min_imbalance = config.get('ORDERBOOK_IMBALANCE_THRESHOLD', 0.15)  # was 0.25 for local
         self.min_large_trades = config.get('MIN_LARGE_TRADES', 2)
         self.min_volume_intensity = config.get('VOLUME_INTENSITY_THRESHOLD', 1.5)
         self.min_rr_ratio = config.get('MIN_RR_RATIO', 0.8)
         self.max_stop_distance = config.get('MAX_STOP_DISTANCE_PCT', 1.5)
         
-        # Пороги для приоритизации
-        self.priority_high = config.get('PRIORITY_HIGH_THRESHOLD', 0.35)
-        self.priority_medium = config.get('PRIORITY_MEDIUM_THRESHOLD', 0.30)
+        # Priority thresholds for GLOBAL imbalance (200 levels)
+        self.priority_high = config.get('PRIORITY_HIGH_THRESHOLD', 0.25)    # was 0.35 for local
+        self.priority_medium = config.get('PRIORITY_MEDIUM_THRESHOLD', 0.20) # was 0.30 for local
     
     def validate(
         self,
@@ -173,15 +174,15 @@ class SignalValidator:
         """
         score = 0.0
         
-        # 1. Imbalance (0-30)
-        if imbalance >= 0.35:
+        # 1. Imbalance (0-30) - GLOBAL thresholds (200 levels)
+        if imbalance >= 0.25:  # HIGH: ≥25% (was 0.35 for local)
             score += 30
-        elif imbalance >= 0.30:
+        elif imbalance >= 0.20:  # MEDIUM: ≥20% (was 0.30 for local)
             score += 25
-        elif imbalance >= 0.25:
+        elif imbalance >= 0.15:  # LOW: ≥15% (was 0.25 for local)
             score += 15
         else:
-            score += max(0, imbalance * 40)  # пропорционально
+            score += max(0, imbalance * 60)  # пропорционально (adjusted multiplier)
         
         # 2. Large trades (0-20)
         if large_trades_count >= 5:

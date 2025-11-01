@@ -1,17 +1,24 @@
 """
-Signal Generator - generates LONG/SHORT signals based on orderbook imbalance and trade flow
+Signal Generator - generates LONG/SHORT signals based on GLOBAL orderbook imbalance (200 levels) and trade flow
 NOW WITH DYNAMIC SL/TP based on orderbook levels and volatility
 
-Quality classification: HIGH (80+), MEDIUM (65-79), LOW (50-64)
-Scoring: 
-  - Orderbook imbalance (35 points): ≥0.35→35pts, >0.30→25pts, ≤0.30→15pts
-  - Volume confirmation (30 points): ≥2.0x→30pts, ≥1.5x→20pts, <1.5x→10pts
-  - Large trades (35 points): 8 points per large trade (max 35)
+Uses depth=500 REST API for deep analysis:
+  - Global imbalance: calculated on first 200 bid + 200 ask levels (more smoothed than local 10 levels)
+  - Cluster analysis: all 500 bid + 500 ask levels for resistance/support detection
 
-Minimum entry requirements:
-  - imbalance ≥ 0.25
+Quality classification: HIGH (80+), MEDIUM (65-79), LOW (50-64)
+Scoring (adjusted for GLOBAL imbalance): 
+  - Orderbook imbalance (30 points): ≥0.25→30pts, ≥0.20→25pts, ≥0.15→15pts (was 0.35/0.30/0.25 for local)
+  - Volume confirmation (20 points): ≥3.0x→20pts, ≥2.0x→15pts, ≥1.5x→10pts
+  - Large trades (20 points): 5+→20pts, 3+→15pts, 2+→10pts
+  - R/R ratio (20 points): ≥2.0→20pts, ≥1.5→15pts, ≥1.0→10pts, ≥0.8→5pts
+  - Levels clarity (10 points): 5+→10pts, 3+→7pts, 1+→5pts
+
+Minimum entry requirements (GLOBAL thresholds):
+  - global_imbalance ≥ 0.15 (was 0.25 for local)
   - large_trades ≥ 2
   - volume ≥ 1.5x average
+  - TP ≥ 0.5% (MIN_TP_DISTANCE_PCT)
 """
 import uuid
 from typing import Dict, Optional, Tuple

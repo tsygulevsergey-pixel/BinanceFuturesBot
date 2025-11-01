@@ -46,7 +46,9 @@ class Config:
     # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
     FILTER_NON_ASCII = True
     
-    ORDERBOOK_IMBALANCE_THRESHOLD = 0.25  # Minimum imbalance for signal creation (LOW tier starts here)
+    # GLOBAL IMBALANCE (200 levels): thresholds LOWERED by ~40% compared to local (10 levels)
+    # Global imbalance is more smoothed, typically 0.05-0.20 vs local 0.25-0.50
+    ORDERBOOK_IMBALANCE_THRESHOLD = 0.15  # Minimum GLOBAL imbalance for signal (was 0.25 for local)
     MIN_LARGE_TRADES = 2                  # Minimum large trades required
     
     # Large trade detection: DYNAMIC (percentile-based) approach
@@ -120,6 +122,10 @@ class Config:
     # This prevents signal creation on temporary spikes (noise filtering)
     SIGNAL_ENTRY_PERSISTENCE_SAMPLES = 50  # 50 samples × 100ms = 5 seconds confirmation
     
+    # Priority thresholds for GLOBAL imbalance (200 levels)
+    PRIORITY_HIGH_THRESHOLD = 0.25     # HIGH: ≥25% global imbalance (was 0.35 for local)
+    PRIORITY_MEDIUM_THRESHOLD = 0.20   # MEDIUM: ≥20% global imbalance (was 0.30 for local)
+    
     # Partial close settings
     PARTIAL_CLOSE_TP1_PERCENT = 0.5  # Close 50% of position on TP1
     PARTIAL_CLOSE_TP2_PERCENT = 0.5  # Close remaining 50% on TP2
@@ -155,10 +161,9 @@ class Config:
         'HIGH': float('inf')  # >0.7% ATR - мемкоины
     }
     
-    # Priority Thresholds (для приоритизации сигналов)
-    PRIORITY_HIGH_THRESHOLD = 0.35   # Имбаланс >= 0.35
-    PRIORITY_MEDIUM_THRESHOLD = 0.30  # Имбаланс >= 0.30
-    # LOW priority = 0.25-0.29
+    # NOTE: Priority thresholds moved up (lines 128-130) - adjusted for GLOBAL imbalance (200 levels)
+    # PRIORITY_HIGH_THRESHOLD = 0.25 (was 0.35 for local 10 levels)
+    # PRIORITY_MEDIUM_THRESHOLD = 0.20 (was 0.30 for local 10 levels)
     
     LOG_LEVEL = 'INFO'
     LOG_FILE = 'bot/logs/bot.log'
