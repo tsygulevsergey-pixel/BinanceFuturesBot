@@ -1,7 +1,7 @@
 """
-Risk Manager - manages signal limits and correlation checks
-Limits: max 80 signals/day, max 5 concurrent, correlation <0.6
-Priority limits: HIGH (20/day), MEDIUM (40/day), LOW (20/day)
+Risk Manager - manages correlation checks and prevents duplicate symbols
+Limits: NO daily/concurrent limits (removed per user request)
+Correlation filter: Active (prevents duplicate symbols and high correlation)
 """
 from typing import List, Dict, Optional, Tuple
 from datetime import datetime, timedelta
@@ -27,48 +27,15 @@ class RiskManager:
     
     def can_send_signal(self, symbol: str, priority: str) -> Tuple[bool, str]:
         try:
-            today = datetime.now().date()
-            today_start = datetime.combine(today, datetime.min.time())
+            # Daily and concurrent limits removed (set to 999999)
+            # Only correlation check remains active
             
             with db_manager.get_session() as session:
-                daily_count = session.query(Signal).filter(
-                    Signal.created_at >= today_start,
-                    Signal.status == 'OPEN'
-                ).count()
-                
-                if daily_count >= self.max_daily_signals:
-                    logger.warning(f"⛔ [RiskManager] Daily signal limit reached: {daily_count}/{self.max_daily_signals}")
-                    return False, f"Daily limit reached ({daily_count}/{self.max_daily_signals})"
-                
-                priority_count = session.query(Signal).filter(
-                    Signal.created_at >= today_start,
-                    Signal.priority == priority,
-                    Signal.status == 'OPEN'
-                ).count()
-                
-                priority_limit = self.priority_limits[priority]['max_daily']
-                if priority_count >= priority_limit:
-                    logger.warning(f"⛔ [RiskManager] {priority} priority limit reached: {priority_count}/{priority_limit}")
-                    return False, f"{priority} priority limit reached ({priority_count}/{priority_limit})"
-                
-                concurrent_count = session.query(Signal).filter(
-                    Signal.status == 'OPEN'
-                ).count()
-                
-                if concurrent_count >= self.max_concurrent_signals:
-                    logger.warning(f"⛔ [RiskManager] Concurrent signal limit reached: {concurrent_count}/{self.max_concurrent_signals}")
-                    return False, f"Concurrent limit reached ({concurrent_count}/{self.max_concurrent_signals})"
-                
                 if not self.check_correlation(symbol, session):
                     logger.warning(f"⛔ [RiskManager] Correlation check failed for {symbol}")
                     return False, f"High correlation with existing signals"
                 
-                logger.debug(
-                    f"✅ [RiskManager] Signal approved - "
-                    f"Daily: {daily_count}/{self.max_daily_signals}, "
-                    f"{priority}: {priority_count}/{priority_limit}, "
-                    f"Concurrent: {concurrent_count}/{self.max_concurrent_signals}"
-                )
+                logger.debug(f"✅ [RiskManager] Signal approved - Correlation check passed")
                 
                 return True, "Approved"
                 
