@@ -117,29 +117,45 @@ class FastSignalTracker:
             created_at = signal_data['created_at']
             hold_time = (datetime.now() - created_at).total_seconds()
             
-            # Get imbalance from Redis
+            # Get imbalance from Redis (with fallback to assume 0.0 for SL/TP tracking)
             # Note: Even if symbol was removed from universe, Redis data may still be available
             # for a short period, allowing SL/TP to execute naturally
             imbalance_data = redis_manager.get(f'imbalance:{symbol}')
             if imbalance_data is None:
-                logger.debug(
-                    f"⚠️ [FastSignalTracker] No imbalance data for {symbol}, skipping check "
-                    f"(signal remains open, will retry in 100ms)"
+                logger.warning(
+                    f"⚠️ [FastSignalTracker] No imbalance data for {symbol} in Redis! "
+                    f"Using fallback: imbalance=0.0 (SL/TP tracking only, no imbalance exits). "
+                    f"Signal {signal_data['id']} (hold: {hold_time:.0f}s)"
                 )
-                return None
+                # Fallback: set imbalance to 0.0 - this allows SL/TP tracking to continue
+                # but prevents imbalance-based exits (which require fresh data)
+                current_imbalance = 0.0
+            else:
+                current_imbalance = imbalance_data.get('imbalance', 0)
             
-            current_imbalance = imbalance_data.get('imbalance', 0)
-            
-            # Get current price from Redis
+            # Get current price from Redis (with fallback to Binance API)
             price_data = redis_manager.get(f'price:{symbol}')
             if price_data is None:
-                logger.debug(
-                    f"⚠️ [FastSignalTracker] No price data for {symbol}, skipping check "
-                    f"(signal remains open, will retry in 100ms)"
+                logger.warning(
+                    f"⚠️ [FastSignalTracker] No price data for {symbol} in Redis! "
+                    f"Using fallback: fetching from Binance API directly..."
                 )
-                return None
+                # Fallback: fetch price from Binance API
+                try:
+                    from bot.modules.binance_client import binance_client
+                    ticker = await binance_client.get_symbol_ticker_async(symbol)
+                    if ticker and 'price' in ticker:
+                        current_price = float(ticker['price'])
+                        logger.info(f"✅ [FastSignalTracker] Fallback price for {symbol}: ${current_price:.4f}")
+                    else:
+                        logger.error(f"❌ [FastSignalTracker] Fallback failed for {symbol}")
+                        return None
+                except Exception as e:
+                    logger.error(f"❌ [FastSignalTracker] Fallback API error for {symbol}: {e}")
+                    return None
+            else:
+                current_price = float(price_data.get('mid', 0))
             
-            current_price = float(price_data.get('mid', 0))
             if current_price == 0:
                 logger.warning(f"⚠️ [FastSignalTracker] Invalid price for {symbol}")
                 return None

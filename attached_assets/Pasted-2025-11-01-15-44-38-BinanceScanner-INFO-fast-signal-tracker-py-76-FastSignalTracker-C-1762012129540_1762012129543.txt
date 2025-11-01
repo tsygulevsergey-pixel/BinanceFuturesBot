@@ -1,0 +1,1030 @@
+2025-11-01 15:44:38 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:44:39 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 779289 messages processed
+2025-11-01 15:44:43 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:44:49 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:44:54 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:00 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:05 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 58 symbols for signals...
+2025-11-01 15:45:05 - BinanceScanner - INFO - [main.py:267] - 📊 [DIAGNOSTIC XRPUSDT] large_buys=0, large_sells=1
+2025-11-01 15:45:05 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for XRPUSDT (REST API, weight=10)...
+2025-11-01 15:45:05 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XRPUSDT, limit=500
+2025-11-01 15:45:06 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:06 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0384
+2025-11-01 15:45:06 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for XRPUSDT
+2025-11-01 15:45:06 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for XRPUSDT (REST API, weight=10)...
+2025-11-01 15:45:06 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XRPUSDT, limit=500
+2025-11-01 15:45:06 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0394
+2025-11-01 15:45:06 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for XRPUSDT
+2025-11-01 15:45:06 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG XRPUSDT] global_imb=0.039, large_buys=0, large_sells=1, vol_int=0.75 (current=152,260, avg=202,182), vwap=$2.49, price=$2.50
+2025-11-01 15:45:06 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG XRPUSDT] LONG failed: ['orderbook_imbalance', 'large_buy_trades', 'volume_intensity'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity', 'price_below_vwap']
+2025-11-01 15:45:06 - BinanceScanner - INFO - [main.py:267] - 📊 [DIAGNOSTIC SOLUSDT] large_buys=3, large_sells=0
+2025-11-01 15:45:06 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for SOLUSDT (REST API, weight=10)...
+2025-11-01 15:45:06 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SOLUSDT, limit=500
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0507
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:149] - 📊 [SignalGenerator] Basic LONG conditions passed for SOLUSDT, calculating dynamic SL/TP...
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:164] -    ✓ Volatility: LOW (ATR: 0.19785714, 0.11%)
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:174] -    ✓ Levels: 2 support, 2 resistance
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:184] -    ✓ Stop: $185.3811 (0.08% away)
+2025-11-01 15:45:07 - BinanceScanner - WARNING - [signal_generator.py:191] - ⚠️ [SignalGenerator] Invalid targets for SOLUSDT: TP1 too close: 0.17% < 0.5% minimum (resistance at 185.83)
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for SOLUSDT (REST API, weight=10)...
+2025-11-01 15:45:07 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SOLUSDT, limit=500
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0521
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for SOLUSDT
+2025-11-01 15:45:07 - BinanceScanner - INFO - [main.py:267] - 📊 [DIAGNOSTIC DOGEUSDT] large_buys=0, large_sells=1
+2025-11-01 15:45:07 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for DOGEUSDT (REST API, weight=10)...
+2025-11-01 15:45:07 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for DOGEUSDT, limit=500
+2025-11-01 15:45:08 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0243
+2025-11-01 15:45:08 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for DOGEUSDT
+2025-11-01 15:45:08 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for DOGEUSDT (REST API, weight=10)...
+2025-11-01 15:45:08 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for DOGEUSDT, limit=500
+2025-11-01 15:45:08 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0230
+2025-11-01 15:45:08 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for DOGEUSDT
+2025-11-01 15:45:08 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for VIRTUALUSDT (REST API, weight=10)...
+2025-11-01 15:45:08 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for VIRTUALUSDT, limit=500
+2025-11-01 15:45:09 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0081
+2025-11-01 15:45:09 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for VIRTUALUSDT
+2025-11-01 15:45:09 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for VIRTUALUSDT (REST API, weight=10)...
+2025-11-01 15:45:09 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for VIRTUALUSDT, limit=500
+2025-11-01 15:45:09 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0216
+2025-11-01 15:45:09 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for VIRTUALUSDT
+2025-11-01 15:45:09 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ZENUSDT (REST API, weight=10)...
+2025-11-01 15:45:09 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZENUSDT, limit=500
+2025-11-01 15:45:09 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 832225 messages processed
+2025-11-01 15:45:10 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1015
+2025-11-01 15:45:10 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ZENUSDT
+2025-11-01 15:45:10 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ZENUSDT (REST API, weight=10)...
+2025-11-01 15:45:10 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZENUSDT, limit=500
+2025-11-01 15:45:10 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1294
+2025-11-01 15:45:10 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ZENUSDT
+2025-11-01 15:45:10 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for WLDUSDT (REST API, weight=10)...
+2025-11-01 15:45:10 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WLDUSDT, limit=500
+2025-11-01 15:45:11 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1694
+2025-11-01 15:45:11 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for WLDUSDT
+2025-11-01 15:45:11 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for WLDUSDT (REST API, weight=10)...
+2025-11-01 15:45:11 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WLDUSDT, limit=500
+2025-11-01 15:45:11 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:11 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1696
+2025-11-01 15:45:11 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for WLDUSDT
+2025-11-01 15:45:11 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LPTUSDT (REST API, weight=10)...
+2025-11-01 15:45:11 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LPTUSDT, limit=500
+2025-11-01 15:45:12 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.3671
+2025-11-01 15:45:12 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LPTUSDT
+2025-11-01 15:45:12 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LPTUSDT (REST API, weight=10)...
+2025-11-01 15:45:12 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LPTUSDT, limit=500
+2025-11-01 15:45:12 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.3631
+2025-11-01 15:45:12 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LPTUSDT
+2025-11-01 15:45:12 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LABUSDT (REST API, weight=10)...
+2025-11-01 15:45:12 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LABUSDT, limit=500
+2025-11-01 15:45:13 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.1642
+2025-11-01 15:45:13 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LABUSDT
+2025-11-01 15:45:13 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LABUSDT (REST API, weight=10)...
+2025-11-01 15:45:13 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LABUSDT, limit=500
+2025-11-01 15:45:13 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0795
+2025-11-01 15:45:13 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LABUSDT
+2025-11-01 15:45:13 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ADAUSDT (REST API, weight=10)...
+2025-11-01 15:45:13 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ADAUSDT, limit=500
+2025-11-01 15:45:14 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1289
+2025-11-01 15:45:14 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ADAUSDT
+2025-11-01 15:45:14 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ADAUSDT (REST API, weight=10)...
+2025-11-01 15:45:14 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ADAUSDT, limit=500
+2025-11-01 15:45:14 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1301
+2025-11-01 15:45:14 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ADAUSDT
+2025-11-01 15:45:14 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ZECUSDT (REST API, weight=10)...
+2025-11-01 15:45:14 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZECUSDT, limit=500
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.1978
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ZECUSDT
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ZECUSDT (REST API, weight=10)...
+2025-11-01 15:45:15 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZECUSDT, limit=500
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.1471
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:300] - 📊 [SignalGenerator] Basic SHORT conditions passed for ZECUSDT, calculating dynamic SL/TP...
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:315] -    ✓ Volatility: HIGH (ATR: 6.22857143, 1.48%)
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:325] -    ✓ Levels: 5 support, 5 resistance
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:335] -    ✓ Stop: $424.2004 (0.83% away)
+2025-11-01 15:45:15 - BinanceScanner - WARNING - [signal_generator.py:342] - ⚠️ [SignalGenerator] Invalid targets for ZECUSDT: TP1 too close: 0.10% < 0.5% minimum (support at 420.26)
+2025-11-01 15:45:15 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ETHUSDT (REST API, weight=10)...
+2025-11-01 15:45:15 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHUSDT, limit=500
+2025-11-01 15:45:16 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0841
+2025-11-01 15:45:16 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ETHUSDT
+2025-11-01 15:45:16 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ETHUSDT (REST API, weight=10)...
+2025-11-01 15:45:16 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHUSDT, limit=500
+2025-11-01 15:45:16 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0955
+2025-11-01 15:45:16 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ETHUSDT
+2025-11-01 15:45:16 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG ETHUSDT] global_imb=-0.095, large_buys=6, large_sells=3, vol_int=1296.12 (current=1,741,390, avg=1,344), vwap=$3882.38, price=$3884.14
+2025-11-01 15:45:16 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG ETHUSDT] LONG failed: ['orderbook_imbalance'], SHORT failed: ['price_below_vwap']
+2025-11-01 15:45:16 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TRUMPUSDT (REST API, weight=10)...
+2025-11-01 15:45:16 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRUMPUSDT, limit=500
+2025-11-01 15:45:17 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:17 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0868
+2025-11-01 15:45:17 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TRUMPUSDT
+2025-11-01 15:45:17 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TRUMPUSDT (REST API, weight=10)...
+2025-11-01 15:45:17 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRUMPUSDT, limit=500
+2025-11-01 15:45:17 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0895
+2025-11-01 15:45:17 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TRUMPUSDT
+2025-11-01 15:45:17 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for GIGGLEUSDT (REST API, weight=10)...
+2025-11-01 15:45:17 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for GIGGLEUSDT, limit=500
+2025-11-01 15:45:18 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.3126
+2025-11-01 15:45:18 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for GIGGLEUSDT
+2025-11-01 15:45:18 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for GIGGLEUSDT (REST API, weight=10)...
+2025-11-01 15:45:18 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for GIGGLEUSDT, limit=500
+2025-11-01 15:45:18 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.3130
+2025-11-01 15:45:18 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for GIGGLEUSDT
+2025-11-01 15:45:18 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BTCUSDT (REST API, weight=10)...
+2025-11-01 15:45:18 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BTCUSDT, limit=500
+2025-11-01 15:45:19 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.2467
+2025-11-01 15:45:19 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BTCUSDT
+2025-11-01 15:45:19 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BTCUSDT (REST API, weight=10)...
+2025-11-01 15:45:19 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BTCUSDT, limit=500
+2025-11-01 15:45:20 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.1354
+2025-11-01 15:45:20 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for BTCUSDT
+2025-11-01 15:45:20 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LTCUSDT (REST API, weight=10)...
+2025-11-01 15:45:20 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LTCUSDT, limit=500
+2025-11-01 15:45:20 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2055
+2025-11-01 15:45:20 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LTCUSDT
+2025-11-01 15:45:20 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LTCUSDT (REST API, weight=10)...
+2025-11-01 15:45:20 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LTCUSDT, limit=500
+2025-11-01 15:45:21 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2071
+2025-11-01 15:45:21 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LTCUSDT
+2025-11-01 15:45:21 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for PENGUUSDT (REST API, weight=10)...
+2025-11-01 15:45:21 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PENGUUSDT, limit=500
+2025-11-01 15:45:21 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0839
+2025-11-01 15:45:21 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for PENGUUSDT
+2025-11-01 15:45:21 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for PENGUUSDT (REST API, weight=10)...
+2025-11-01 15:45:21 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PENGUUSDT, limit=500
+2025-11-01 15:45:22 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0853
+2025-11-01 15:45:22 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for PENGUUSDT
+2025-11-01 15:45:22 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ASTERUSDT (REST API, weight=10)...
+2025-11-01 15:45:22 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ASTERUSDT, limit=500
+2025-11-01 15:45:22 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2115
+2025-11-01 15:45:22 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ASTERUSDT
+2025-11-01 15:45:22 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ASTERUSDT (REST API, weight=10)...
+2025-11-01 15:45:22 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ASTERUSDT, limit=500
+2025-11-01 15:45:22 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:23 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2255
+2025-11-01 15:45:23 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ASTERUSDT
+2025-11-01 15:45:23 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AIXBTUSDT (REST API, weight=10)...
+2025-11-01 15:45:23 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AIXBTUSDT, limit=500
+2025-11-01 15:45:23 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1050
+2025-11-01 15:45:23 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AIXBTUSDT
+2025-11-01 15:45:23 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AIXBTUSDT (REST API, weight=10)...
+2025-11-01 15:45:23 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AIXBTUSDT, limit=500
+2025-11-01 15:45:24 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1058
+2025-11-01 15:45:24 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AIXBTUSDT
+2025-11-01 15:45:24 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AVNTUSDT (REST API, weight=10)...
+2025-11-01 15:45:24 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVNTUSDT, limit=500
+2025-11-01 15:45:24 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1295
+2025-11-01 15:45:24 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AVNTUSDT
+2025-11-01 15:45:24 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AVNTUSDT (REST API, weight=10)...
+2025-11-01 15:45:24 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVNTUSDT, limit=500
+2025-11-01 15:45:25 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1220
+2025-11-01 15:45:25 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AVNTUSDT
+2025-11-01 15:45:25 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for SUIUSDT (REST API, weight=10)...
+2025-11-01 15:45:25 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SUIUSDT, limit=500
+2025-11-01 15:45:25 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0179
+2025-11-01 15:45:25 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for SUIUSDT
+2025-11-01 15:45:25 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for SUIUSDT (REST API, weight=10)...
+2025-11-01 15:45:25 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SUIUSDT, limit=500
+2025-11-01 15:45:26 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0247
+2025-11-01 15:45:26 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for SUIUSDT
+2025-11-01 15:45:26 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for HYPEUSDT (REST API, weight=10)...
+2025-11-01 15:45:26 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HYPEUSDT, limit=500
+2025-11-01 15:45:26 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.3468
+2025-11-01 15:45:26 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for HYPEUSDT
+2025-11-01 15:45:26 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for HYPEUSDT (REST API, weight=10)...
+2025-11-01 15:45:26 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HYPEUSDT, limit=500
+2025-11-01 15:45:27 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.3429
+2025-11-01 15:45:27 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for HYPEUSDT
+2025-11-01 15:45:27 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG HYPEUSDT] global_imb=-0.347, large_buys=2, large_sells=0, vol_int=13.60 (current=75,275, avg=5,536), vwap=$43.05, price=$43.06
+2025-11-01 15:45:27 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG HYPEUSDT] LONG failed: ['orderbook_imbalance'], SHORT failed: ['large_sell_trades', 'price_below_vwap']
+2025-11-01 15:45:27 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for HBARUSDT (REST API, weight=10)...
+2025-11-01 15:45:27 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HBARUSDT, limit=500
+2025-11-01 15:45:27 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1501
+2025-11-01 15:45:27 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for HBARUSDT
+2025-11-01 15:45:27 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for HBARUSDT (REST API, weight=10)...
+2025-11-01 15:45:27 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HBARUSDT, limit=500
+2025-11-01 15:45:28 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1500
+2025-11-01 15:45:28 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for HBARUSDT
+2025-11-01 15:45:28 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AAVEUSDT (REST API, weight=10)...
+2025-11-01 15:45:28 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AAVEUSDT, limit=500
+2025-11-01 15:45:28 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:28 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.3132
+2025-11-01 15:45:28 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AAVEUSDT
+2025-11-01 15:45:28 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AAVEUSDT (REST API, weight=10)...
+2025-11-01 15:45:28 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AAVEUSDT, limit=500
+2025-11-01 15:45:29 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.3216
+2025-11-01 15:45:29 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AAVEUSDT
+2025-11-01 15:45:29 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LINKUSDT (REST API, weight=10)...
+2025-11-01 15:45:29 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LINKUSDT, limit=500
+2025-11-01 15:45:29 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0131
+2025-11-01 15:45:29 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LINKUSDT
+2025-11-01 15:45:29 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LINKUSDT (REST API, weight=10)...
+2025-11-01 15:45:29 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LINKUSDT, limit=500
+2025-11-01 15:45:30 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0029
+2025-11-01 15:45:30 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LINKUSDT
+2025-11-01 15:45:30 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 1000PEPEUSDT (REST API, weight=10)...
+2025-11-01 15:45:30 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000PEPEUSDT, limit=500
+2025-11-01 15:45:30 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0490
+2025-11-01 15:45:30 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 1000PEPEUSDT
+2025-11-01 15:45:30 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 1000PEPEUSDT (REST API, weight=10)...
+2025-11-01 15:45:30 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000PEPEUSDT, limit=500
+2025-11-01 15:45:31 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0055
+2025-11-01 15:45:31 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 1000PEPEUSDT
+2025-11-01 15:45:31 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BNBUSDT (REST API, weight=10)...
+2025-11-01 15:45:31 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BNBUSDT, limit=500
+2025-11-01 15:45:31 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1665
+2025-11-01 15:45:31 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BNBUSDT
+2025-11-01 15:45:31 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BNBUSDT (REST API, weight=10)...
+2025-11-01 15:45:31 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BNBUSDT, limit=500
+2025-11-01 15:45:32 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1553
+2025-11-01 15:45:32 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for BNBUSDT
+2025-11-01 15:45:32 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AVAXUSDT (REST API, weight=10)...
+2025-11-01 15:45:32 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVAXUSDT, limit=500
+2025-11-01 15:45:32 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1204
+2025-11-01 15:45:32 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AVAXUSDT
+2025-11-01 15:45:32 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AVAXUSDT (REST API, weight=10)...
+2025-11-01 15:45:32 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVAXUSDT, limit=500
+2025-11-01 15:45:33 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1122
+2025-11-01 15:45:33 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AVAXUSDT
+2025-11-01 15:45:33 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TAOUSDT (REST API, weight=10)...
+2025-11-01 15:45:33 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TAOUSDT, limit=500
+2025-11-01 15:45:33 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0398
+2025-11-01 15:45:33 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TAOUSDT
+2025-11-01 15:45:33 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TAOUSDT (REST API, weight=10)...
+2025-11-01 15:45:33 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TAOUSDT, limit=500
+2025-11-01 15:45:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:34 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0343
+2025-11-01 15:45:34 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TAOUSDT
+2025-11-01 15:45:34 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for WIFUSDT (REST API, weight=10)...
+2025-11-01 15:45:34 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WIFUSDT, limit=500
+2025-11-01 15:45:34 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1910
+2025-11-01 15:45:34 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for WIFUSDT
+2025-11-01 15:45:34 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for WIFUSDT (REST API, weight=10)...
+2025-11-01 15:45:34 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WIFUSDT, limit=500
+2025-11-01 15:45:35 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1900
+2025-11-01 15:45:35 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for WIFUSDT
+2025-11-01 15:45:35 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for HUSDT (REST API, weight=10)...
+2025-11-01 15:45:35 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HUSDT, limit=500
+2025-11-01 15:45:35 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2451
+2025-11-01 15:45:35 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for HUSDT
+2025-11-01 15:45:35 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for HUSDT (REST API, weight=10)...
+2025-11-01 15:45:35 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HUSDT, limit=500
+2025-11-01 15:45:36 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2279
+2025-11-01 15:45:36 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for HUSDT
+2025-11-01 15:45:36 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 4USDT (REST API, weight=10)...
+2025-11-01 15:45:36 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 4USDT, limit=500
+2025-11-01 15:45:36 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2713
+2025-11-01 15:45:36 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 4USDT
+2025-11-01 15:45:36 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 4USDT (REST API, weight=10)...
+2025-11-01 15:45:36 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 4USDT, limit=500
+2025-11-01 15:45:37 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2729
+2025-11-01 15:45:37 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 4USDT
+2025-11-01 15:45:37 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG 4USDT] global_imb=0.273, large_buys=0, large_sells=0, vol_int=0.04 (current=32,002, avg=753,447), vwap=$0.08, price=$0.08
+2025-11-01 15:45:37 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG 4USDT] LONG failed: ['large_buy_trades', 'volume_intensity'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity', 'price_below_vwap']
+2025-11-01 15:45:37 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 1000BONKUSDT (REST API, weight=10)...
+2025-11-01 15:45:37 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000BONKUSDT, limit=500
+2025-11-01 15:45:37 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1671
+2025-11-01 15:45:37 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 1000BONKUSDT
+2025-11-01 15:45:37 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 1000BONKUSDT (REST API, weight=10)...
+2025-11-01 15:45:37 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000BONKUSDT, limit=500
+2025-11-01 15:45:38 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1649
+2025-11-01 15:45:38 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 1000BONKUSDT
+2025-11-01 15:45:38 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BCHUSDT (REST API, weight=10)...
+2025-11-01 15:45:38 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BCHUSDT, limit=500
+2025-11-01 15:45:38 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0232
+2025-11-01 15:45:38 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BCHUSDT
+2025-11-01 15:45:38 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BCHUSDT (REST API, weight=10)...
+2025-11-01 15:45:38 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BCHUSDT, limit=500
+2025-11-01 15:45:39 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0243
+2025-11-01 15:45:39 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for BCHUSDT
+2025-11-01 15:45:39 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ETHFIUSDT (REST API, weight=10)...
+2025-11-01 15:45:39 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHFIUSDT, limit=500
+2025-11-01 15:45:39 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:39 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1564
+2025-11-01 15:45:39 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ETHFIUSDT
+2025-11-01 15:45:39 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ETHFIUSDT (REST API, weight=10)...
+2025-11-01 15:45:39 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHFIUSDT, limit=500
+2025-11-01 15:45:39 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 873587 messages processed
+2025-11-01 15:45:40 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1662
+2025-11-01 15:45:40 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ETHFIUSDT
+2025-11-01 15:45:40 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for EIGENUSDT (REST API, weight=10)...
+2025-11-01 15:45:40 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for EIGENUSDT, limit=500
+2025-11-01 15:45:40 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2521
+2025-11-01 15:45:40 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for EIGENUSDT
+2025-11-01 15:45:40 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for EIGENUSDT (REST API, weight=10)...
+2025-11-01 15:45:40 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for EIGENUSDT, limit=500
+2025-11-01 15:45:41 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2537
+2025-11-01 15:45:41 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for EIGENUSDT
+2025-11-01 15:45:41 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for UNIUSDT (REST API, weight=10)...
+2025-11-01 15:45:41 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for UNIUSDT, limit=500
+2025-11-01 15:45:41 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1966
+2025-11-01 15:45:41 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for UNIUSDT
+2025-11-01 15:45:41 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for UNIUSDT (REST API, weight=10)...
+2025-11-01 15:45:41 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for UNIUSDT, limit=500
+2025-11-01 15:45:42 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1944
+2025-11-01 15:45:42 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for UNIUSDT
+2025-11-01 15:45:42 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 0GUSDT (REST API, weight=10)...
+2025-11-01 15:45:42 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 0GUSDT, limit=500
+2025-11-01 15:45:42 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0137
+2025-11-01 15:45:42 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 0GUSDT
+2025-11-01 15:45:42 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 0GUSDT (REST API, weight=10)...
+2025-11-01 15:45:42 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 0GUSDT, limit=500
+2025-11-01 15:45:43 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0132
+2025-11-01 15:45:43 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 0GUSDT
+2025-11-01 15:45:43 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for FUSDT (REST API, weight=10)...
+2025-11-01 15:45:43 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FUSDT, limit=500
+2025-11-01 15:45:43 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1704
+2025-11-01 15:45:43 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for FUSDT
+2025-11-01 15:45:43 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for FUSDT (REST API, weight=10)...
+2025-11-01 15:45:43 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FUSDT, limit=500
+2025-11-01 15:45:44 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1874
+2025-11-01 15:45:44 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for FUSDT
+2025-11-01 15:45:44 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for APRUSDT (REST API, weight=10)...
+2025-11-01 15:45:44 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APRUSDT, limit=500
+2025-11-01 15:45:44 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0808
+2025-11-01 15:45:44 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for APRUSDT
+2025-11-01 15:45:44 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for APRUSDT (REST API, weight=10)...
+2025-11-01 15:45:44 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APRUSDT, limit=500
+2025-11-01 15:45:45 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:45 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0770
+2025-11-01 15:45:45 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for APRUSDT
+2025-11-01 15:45:45 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for YBUSDT (REST API, weight=10)...
+2025-11-01 15:45:45 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for YBUSDT, limit=500
+2025-11-01 15:45:45 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2275
+2025-11-01 15:45:45 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for YBUSDT
+2025-11-01 15:45:45 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for YBUSDT (REST API, weight=10)...
+2025-11-01 15:45:45 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for YBUSDT, limit=500
+2025-11-01 15:45:46 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2264
+2025-11-01 15:45:46 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for YBUSDT
+2025-11-01 15:45:46 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 1000SHIBUSDT (REST API, weight=10)...
+2025-11-01 15:45:46 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000SHIBUSDT, limit=500
+2025-11-01 15:45:47 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1463
+2025-11-01 15:45:47 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 1000SHIBUSDT
+2025-11-01 15:45:47 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 1000SHIBUSDT (REST API, weight=10)...
+2025-11-01 15:45:47 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000SHIBUSDT, limit=500
+2025-11-01 15:45:47 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1464
+2025-11-01 15:45:47 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 1000SHIBUSDT
+2025-11-01 15:45:47 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG 1000SHIBUSDT] global_imb=0.146, large_buys=0, large_sells=0, vol_int=0.00 (current=8,058, avg=2,198,936), vwap=$0.01, price=$0.01
+2025-11-01 15:45:47 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG 1000SHIBUSDT] LONG failed: ['large_buy_trades', 'volume_intensity'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity', 'price_below_vwap']
+2025-11-01 15:45:47 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for APTUSDT (REST API, weight=10)...
+2025-11-01 15:45:47 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APTUSDT, limit=500
+2025-11-01 15:45:48 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0027
+2025-11-01 15:45:48 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for APTUSDT
+2025-11-01 15:45:48 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for APTUSDT (REST API, weight=10)...
+2025-11-01 15:45:48 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APTUSDT, limit=500
+2025-11-01 15:45:48 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0078
+2025-11-01 15:45:48 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for APTUSDT
+2025-11-01 15:45:48 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TIAUSDT (REST API, weight=10)...
+2025-11-01 15:45:48 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TIAUSDT, limit=500
+2025-11-01 15:45:49 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1859
+2025-11-01 15:45:49 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TIAUSDT
+2025-11-01 15:45:49 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TIAUSDT (REST API, weight=10)...
+2025-11-01 15:45:49 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TIAUSDT, limit=500
+2025-11-01 15:45:49 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1864
+2025-11-01 15:45:49 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TIAUSDT
+2025-11-01 15:45:49 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for FFUSDT (REST API, weight=10)...
+2025-11-01 15:45:49 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FFUSDT, limit=500
+2025-11-01 15:45:50 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0341
+2025-11-01 15:45:50 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for FFUSDT
+2025-11-01 15:45:50 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for FFUSDT (REST API, weight=10)...
+2025-11-01 15:45:50 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FFUSDT, limit=500
+2025-11-01 15:45:50 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0345
+2025-11-01 15:45:50 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for FFUSDT
+2025-11-01 15:45:50 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ETCUSDT (REST API, weight=10)...
+2025-11-01 15:45:50 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETCUSDT, limit=500
+2025-11-01 15:45:50 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:51 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1538
+2025-11-01 15:45:51 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ETCUSDT
+2025-11-01 15:45:51 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ETCUSDT (REST API, weight=10)...
+2025-11-01 15:45:51 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETCUSDT, limit=500
+2025-11-01 15:45:51 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1536
+2025-11-01 15:45:51 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ETCUSDT
+2025-11-01 15:45:51 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for KAITOUSDT (REST API, weight=10)...
+2025-11-01 15:45:51 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for KAITOUSDT, limit=500
+2025-11-01 15:45:52 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1558
+2025-11-01 15:45:52 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for KAITOUSDT
+2025-11-01 15:45:52 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for KAITOUSDT (REST API, weight=10)...
+2025-11-01 15:45:52 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for KAITOUSDT, limit=500
+2025-11-01 15:45:52 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1554
+2025-11-01 15:45:52 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for KAITOUSDT
+2025-11-01 15:45:52 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TONUSDT (REST API, weight=10)...
+2025-11-01 15:45:52 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TONUSDT, limit=500
+2025-11-01 15:45:53 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1177
+2025-11-01 15:45:53 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TONUSDT
+2025-11-01 15:45:53 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TONUSDT (REST API, weight=10)...
+2025-11-01 15:45:53 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TONUSDT, limit=500
+2025-11-01 15:45:53 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1177
+2025-11-01 15:45:53 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TONUSDT
+2025-11-01 15:45:53 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LDOUSDT (REST API, weight=10)...
+2025-11-01 15:45:53 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LDOUSDT, limit=500
+2025-11-01 15:45:54 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1498
+2025-11-01 15:45:54 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LDOUSDT
+2025-11-01 15:45:54 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LDOUSDT (REST API, weight=10)...
+2025-11-01 15:45:54 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LDOUSDT, limit=500
+2025-11-01 15:45:54 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1506
+2025-11-01 15:45:54 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LDOUSDT
+2025-11-01 15:45:54 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ONDOUSDT (REST API, weight=10)...
+2025-11-01 15:45:54 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ONDOUSDT, limit=500
+2025-11-01 15:45:55 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0977
+2025-11-01 15:45:55 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ONDOUSDT
+2025-11-01 15:45:55 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ONDOUSDT (REST API, weight=10)...
+2025-11-01 15:45:55 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ONDOUSDT, limit=500
+2025-11-01 15:45:55 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0953
+2025-11-01 15:45:55 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ONDOUSDT
+2025-11-01 15:45:55 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for XLMUSDT (REST API, weight=10)...
+2025-11-01 15:45:55 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XLMUSDT, limit=500
+2025-11-01 15:45:56 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0407
+2025-11-01 15:45:56 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for XLMUSDT
+2025-11-01 15:45:56 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for XLMUSDT (REST API, weight=10)...
+2025-11-01 15:45:56 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XLMUSDT, limit=500
+2025-11-01 15:45:56 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:45:56 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0455
+2025-11-01 15:45:56 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for XLMUSDT
+2025-11-01 15:45:56 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TRXUSDT (REST API, weight=10)...
+2025-11-01 15:45:56 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRXUSDT, limit=500
+2025-11-01 15:45:57 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1470
+2025-11-01 15:45:57 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TRXUSDT
+2025-11-01 15:45:57 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TRXUSDT (REST API, weight=10)...
+2025-11-01 15:45:57 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRXUSDT, limit=500
+2025-11-01 15:45:57 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1291
+2025-11-01 15:45:57 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TRXUSDT
+2025-11-01 15:45:57 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG TRXUSDT] global_imb=0.147, large_buys=0, large_sells=0, vol_int=0.15 (current=17,301, avg=114,441), vwap=$0.30, price=$0.30
+2025-11-01 15:45:57 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG TRXUSDT] LONG failed: ['large_buy_trades', 'volume_intensity'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity', 'price_below_vwap']
+2025-11-01 15:45:57 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for SPXUSDT (REST API, weight=10)...
+2025-11-01 15:45:57 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SPXUSDT, limit=500
+2025-11-01 15:45:58 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2815
+2025-11-01 15:45:58 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for SPXUSDT
+2025-11-01 15:45:58 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for SPXUSDT (REST API, weight=10)...
+2025-11-01 15:45:58 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SPXUSDT, limit=500
+2025-11-01 15:45:58 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2775
+2025-11-01 15:45:58 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for SPXUSDT
+2025-11-01 15:45:58 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for PAXGUSDT (REST API, weight=10)...
+2025-11-01 15:45:58 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PAXGUSDT, limit=500
+2025-11-01 15:45:59 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0284
+2025-11-01 15:45:59 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for PAXGUSDT
+2025-11-01 15:45:59 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for PAXGUSDT (REST API, weight=10)...
+2025-11-01 15:45:59 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PAXGUSDT, limit=500
+2025-11-01 15:45:59 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0282
+2025-11-01 15:45:59 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for PAXGUSDT
+2025-11-01 15:45:59 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BIOUSDT (REST API, weight=10)...
+2025-11-01 15:45:59 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BIOUSDT, limit=500
+2025-11-01 15:46:00 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1564
+2025-11-01 15:46:00 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BIOUSDT
+2025-11-01 15:46:00 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BIOUSDT (REST API, weight=10)...
+2025-11-01 15:46:00 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BIOUSDT, limit=500
+2025-11-01 15:46:00 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1490
+2025-11-01 15:46:00 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for BIOUSDT
+2025-11-01 15:46:00 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for INJUSDT (REST API, weight=10)...
+2025-11-01 15:46:00 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for INJUSDT, limit=500
+2025-11-01 15:46:01 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1312
+2025-11-01 15:46:01 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for INJUSDT
+2025-11-01 15:46:01 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for INJUSDT (REST API, weight=10)...
+2025-11-01 15:46:01 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for INJUSDT, limit=500
+2025-11-01 15:46:01 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1347
+2025-11-01 15:46:01 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for INJUSDT
+2025-11-01 15:46:01 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for XMRUSDT (REST API, weight=10)...
+2025-11-01 15:46:01 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XMRUSDT, limit=500
+2025-11-01 15:46:02 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:02 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1338
+2025-11-01 15:46:02 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for XMRUSDT
+2025-11-01 15:46:02 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for XMRUSDT (REST API, weight=10)...
+2025-11-01 15:46:02 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XMRUSDT, limit=500
+2025-11-01 15:46:02 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1320
+2025-11-01 15:46:02 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for XMRUSDT
+2025-11-01 15:46:02 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for CAKEUSDT (REST API, weight=10)...
+2025-11-01 15:46:02 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for CAKEUSDT, limit=500
+2025-11-01 15:46:03 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1587
+2025-11-01 15:46:03 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for CAKEUSDT
+2025-11-01 15:46:03 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for CAKEUSDT (REST API, weight=10)...
+2025-11-01 15:46:03 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for CAKEUSDT, limit=500
+2025-11-01 15:46:03 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1575
+2025-11-01 15:46:03 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for CAKEUSDT
+2025-11-01 15:46:03 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for PNUTUSDT (REST API, weight=10)...
+2025-11-01 15:46:03 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PNUTUSDT, limit=500
+2025-11-01 15:46:04 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1745
+2025-11-01 15:46:04 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for PNUTUSDT
+2025-11-01 15:46:04 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for PNUTUSDT (REST API, weight=10)...
+2025-11-01 15:46:04 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PNUTUSDT, limit=500
+2025-11-01 15:46:04 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1915
+2025-11-01 15:46:04 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for PNUTUSDT
+2025-11-01 15:46:04 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 58 symbols - Generated 0 signals
+2025-11-01 15:46:07 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:09 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 910162 messages processed
+2025-11-01 15:46:13 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:30 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:39 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 955404 messages processed
+2025-11-01 15:46:41 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:49 - BinanceScanner - INFO - [data_collector.py:76] - ✅ [DataCollector] Connected! Streaming 232 streams for 58 symbols
+2025-11-01 15:46:52 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:46:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:03 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:04 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 58 symbols for signals...
+2025-11-01 15:47:04 - BinanceScanner - INFO - [main.py:267] - 📊 [DIAGNOSTIC XRPUSDT] large_buys=1, large_sells=2
+2025-11-01 15:47:04 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for XRPUSDT (REST API, weight=10)...
+2025-11-01 15:47:04 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XRPUSDT, limit=500
+2025-11-01 15:47:05 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0290
+2025-11-01 15:47:05 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for XRPUSDT
+2025-11-01 15:47:05 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for XRPUSDT (REST API, weight=10)...
+2025-11-01 15:47:05 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XRPUSDT, limit=500
+2025-11-01 15:47:06 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0288
+2025-11-01 15:47:06 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for XRPUSDT
+2025-11-01 15:47:06 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG XRPUSDT] global_imb=0.029, large_buys=1, large_sells=2, vol_int=12.84 (current=201,439, avg=15,686), vwap=$2.49, price=$2.49
+2025-11-01 15:47:06 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG XRPUSDT] LONG failed: ['orderbook_imbalance', 'large_buy_trades', 'price_above_vwap'], SHORT failed: ['orderbook_imbalance']
+2025-11-01 15:47:06 - BinanceScanner - INFO - [main.py:267] - 📊 [DIAGNOSTIC SOLUSDT] large_buys=3, large_sells=2
+2025-11-01 15:47:06 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for SOLUSDT (REST API, weight=10)...
+2025-11-01 15:47:06 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SOLUSDT, limit=500
+2025-11-01 15:47:06 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0564
+2025-11-01 15:47:06 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for SOLUSDT
+2025-11-01 15:47:06 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for SOLUSDT (REST API, weight=10)...
+2025-11-01 15:47:06 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SOLUSDT, limit=500
+2025-11-01 15:47:07 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0559
+2025-11-01 15:47:07 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for SOLUSDT
+2025-11-01 15:47:07 - BinanceScanner - INFO - [main.py:267] - 📊 [DIAGNOSTIC DOGEUSDT] large_buys=0, large_sells=2
+2025-11-01 15:47:07 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for DOGEUSDT (REST API, weight=10)...
+2025-11-01 15:47:07 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for DOGEUSDT, limit=500
+2025-11-01 15:47:07 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0497
+2025-11-01 15:47:07 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for DOGEUSDT
+2025-11-01 15:47:07 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for DOGEUSDT (REST API, weight=10)...
+2025-11-01 15:47:07 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for DOGEUSDT, limit=500
+2025-11-01 15:47:08 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0507
+2025-11-01 15:47:08 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for DOGEUSDT
+2025-11-01 15:47:08 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for VIRTUALUSDT (REST API, weight=10)...
+2025-11-01 15:47:08 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for VIRTUALUSDT, limit=500
+2025-11-01 15:47:08 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0710
+2025-11-01 15:47:08 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for VIRTUALUSDT
+2025-11-01 15:47:08 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for VIRTUALUSDT (REST API, weight=10)...
+2025-11-01 15:47:08 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for VIRTUALUSDT, limit=500
+2025-11-01 15:47:09 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0414
+2025-11-01 15:47:09 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for VIRTUALUSDT
+2025-11-01 15:47:09 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ZENUSDT (REST API, weight=10)...
+2025-11-01 15:47:09 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZENUSDT, limit=500
+2025-11-01 15:47:09 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:09 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0516
+2025-11-01 15:47:09 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ZENUSDT
+2025-11-01 15:47:09 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ZENUSDT (REST API, weight=10)...
+2025-11-01 15:47:09 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZENUSDT, limit=500
+2025-11-01 15:47:09 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 984973 messages processed
+2025-11-01 15:47:10 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0714
+2025-11-01 15:47:10 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ZENUSDT
+2025-11-01 15:47:10 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for WLDUSDT (REST API, weight=10)...
+2025-11-01 15:47:10 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WLDUSDT, limit=500
+2025-11-01 15:47:10 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1700
+2025-11-01 15:47:10 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for WLDUSDT
+2025-11-01 15:47:10 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for WLDUSDT (REST API, weight=10)...
+2025-11-01 15:47:10 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WLDUSDT, limit=500
+2025-11-01 15:47:11 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1674
+2025-11-01 15:47:11 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for WLDUSDT
+2025-11-01 15:47:11 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LPTUSDT (REST API, weight=10)...
+2025-11-01 15:47:11 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LPTUSDT, limit=500
+2025-11-01 15:47:11 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.3466
+2025-11-01 15:47:11 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LPTUSDT
+2025-11-01 15:47:11 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LPTUSDT (REST API, weight=10)...
+2025-11-01 15:47:11 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LPTUSDT, limit=500
+2025-11-01 15:47:12 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.3439
+2025-11-01 15:47:12 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LPTUSDT
+2025-11-01 15:47:12 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LABUSDT (REST API, weight=10)...
+2025-11-01 15:47:12 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LABUSDT, limit=500
+2025-11-01 15:47:13 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.1561
+2025-11-01 15:47:13 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LABUSDT
+2025-11-01 15:47:13 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LABUSDT (REST API, weight=10)...
+2025-11-01 15:47:13 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LABUSDT, limit=500
+2025-11-01 15:47:13 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.1954
+2025-11-01 15:47:13 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LABUSDT
+2025-11-01 15:47:13 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ADAUSDT (REST API, weight=10)...
+2025-11-01 15:47:13 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ADAUSDT, limit=500
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1228
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ADAUSDT
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ADAUSDT (REST API, weight=10)...
+2025-11-01 15:47:14 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ADAUSDT, limit=500
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1223
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ADAUSDT
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ZECUSDT (REST API, weight=10)...
+2025-11-01 15:47:14 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZECUSDT, limit=500
+2025-11-01 15:47:14 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0316
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ZECUSDT
+2025-11-01 15:47:14 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ZECUSDT (REST API, weight=10)...
+2025-11-01 15:47:14 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ZECUSDT, limit=500
+2025-11-01 15:47:15 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1066
+2025-11-01 15:47:15 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ZECUSDT
+2025-11-01 15:47:15 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ETHUSDT (REST API, weight=10)...
+2025-11-01 15:47:15 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHUSDT, limit=500
+2025-11-01 15:47:15 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1198
+2025-11-01 15:47:15 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ETHUSDT
+2025-11-01 15:47:15 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ETHUSDT (REST API, weight=10)...
+2025-11-01 15:47:15 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHUSDT, limit=500
+2025-11-01 15:47:16 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0952
+2025-11-01 15:47:16 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ETHUSDT
+2025-11-01 15:47:16 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG ETHUSDT] global_imb=0.120, large_buys=9, large_sells=3, vol_int=19321.58 (current=1,863,065, avg=96), vwap=$3882.60, price=$3881.82
+2025-11-01 15:47:16 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG ETHUSDT] LONG failed: ['price_above_vwap'], SHORT failed: ['orderbook_imbalance']
+2025-11-01 15:47:16 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TRUMPUSDT (REST API, weight=10)...
+2025-11-01 15:47:16 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRUMPUSDT, limit=500
+2025-11-01 15:47:16 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1222
+2025-11-01 15:47:16 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TRUMPUSDT
+2025-11-01 15:47:16 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TRUMPUSDT (REST API, weight=10)...
+2025-11-01 15:47:16 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRUMPUSDT, limit=500
+2025-11-01 15:47:17 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1253
+2025-11-01 15:47:17 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TRUMPUSDT
+2025-11-01 15:47:17 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for GIGGLEUSDT (REST API, weight=10)...
+2025-11-01 15:47:17 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for GIGGLEUSDT, limit=500
+2025-11-01 15:47:17 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2376
+2025-11-01 15:47:17 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for GIGGLEUSDT
+2025-11-01 15:47:17 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for GIGGLEUSDT (REST API, weight=10)...
+2025-11-01 15:47:17 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for GIGGLEUSDT, limit=500
+2025-11-01 15:47:18 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2432
+2025-11-01 15:47:18 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for GIGGLEUSDT
+2025-11-01 15:47:18 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BTCUSDT (REST API, weight=10)...
+2025-11-01 15:47:18 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BTCUSDT, limit=500
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.1399
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BTCUSDT
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BTCUSDT (REST API, weight=10)...
+2025-11-01 15:47:19 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BTCUSDT, limit=500
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0756
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:300] - 📊 [SignalGenerator] Basic SHORT conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:315] -    ✓ Volatility: LOW (ATR: 39.28571429, 0.04%)
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:325] -    ✓ Levels: 1 support, 0 resistance
+2025-11-01 15:47:19 - BinanceScanner - WARNING - [signal_generator.py:332] - ⚠️ [SignalGenerator] Invalid stop for BTCUSDT: No resistance levels found in working range
+2025-11-01 15:47:19 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LTCUSDT (REST API, weight=10)...
+2025-11-01 15:47:19 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LTCUSDT, limit=500
+2025-11-01 15:47:20 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2823
+2025-11-01 15:47:20 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LTCUSDT
+2025-11-01 15:47:20 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LTCUSDT (REST API, weight=10)...
+2025-11-01 15:47:20 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LTCUSDT, limit=500
+2025-11-01 15:47:20 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2827
+2025-11-01 15:47:20 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LTCUSDT
+2025-11-01 15:47:20 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for PENGUUSDT (REST API, weight=10)...
+2025-11-01 15:47:20 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PENGUUSDT, limit=500
+2025-11-01 15:47:20 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:21 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0819
+2025-11-01 15:47:21 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for PENGUUSDT
+2025-11-01 15:47:21 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for PENGUUSDT (REST API, weight=10)...
+2025-11-01 15:47:21 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PENGUUSDT, limit=500
+2025-11-01 15:47:21 - BinanceScanner - INFO - [telegram_bot.py:130] - 📥 [TelegramBotHandler] Received /alltime command from user 436451652
+2025-11-01 15:47:21 - BinanceScanner - INFO - [telegram_bot.py:180] - 📤 [TelegramBotHandler] Sent alltime stats response
+2025-11-01 15:47:21 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0826
+2025-11-01 15:47:21 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for PENGUUSDT
+2025-11-01 15:47:21 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ASTERUSDT (REST API, weight=10)...
+2025-11-01 15:47:21 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ASTERUSDT, limit=500
+2025-11-01 15:47:22 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2283
+2025-11-01 15:47:22 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ASTERUSDT
+2025-11-01 15:47:22 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ASTERUSDT (REST API, weight=10)...
+2025-11-01 15:47:22 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ASTERUSDT, limit=500
+2025-11-01 15:47:22 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2281
+2025-11-01 15:47:22 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ASTERUSDT
+2025-11-01 15:47:22 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AIXBTUSDT (REST API, weight=10)...
+2025-11-01 15:47:22 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AIXBTUSDT, limit=500
+2025-11-01 15:47:23 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1322
+2025-11-01 15:47:23 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AIXBTUSDT
+2025-11-01 15:47:23 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AIXBTUSDT (REST API, weight=10)...
+2025-11-01 15:47:23 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AIXBTUSDT, limit=500
+2025-11-01 15:47:23 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1294
+2025-11-01 15:47:23 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AIXBTUSDT
+2025-11-01 15:47:23 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AVNTUSDT (REST API, weight=10)...
+2025-11-01 15:47:23 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVNTUSDT, limit=500
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1207
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AVNTUSDT
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AVNTUSDT (REST API, weight=10)...
+2025-11-01 15:47:24 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVNTUSDT, limit=500
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1265
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AVNTUSDT
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for SUIUSDT (REST API, weight=10)...
+2025-11-01 15:47:24 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SUIUSDT, limit=500
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0837
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for SUIUSDT
+2025-11-01 15:47:24 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for SUIUSDT (REST API, weight=10)...
+2025-11-01 15:47:24 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SUIUSDT, limit=500
+2025-11-01 15:47:25 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0816
+2025-11-01 15:47:25 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for SUIUSDT
+2025-11-01 15:47:25 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for HYPEUSDT (REST API, weight=10)...
+2025-11-01 15:47:25 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HYPEUSDT, limit=500
+2025-11-01 15:47:25 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.2961
+2025-11-01 15:47:25 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for HYPEUSDT
+2025-11-01 15:47:25 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for HYPEUSDT (REST API, weight=10)...
+2025-11-01 15:47:25 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HYPEUSDT, limit=500
+2025-11-01 15:47:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:26 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.2906
+2025-11-01 15:47:26 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for HYPEUSDT
+2025-11-01 15:47:26 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG HYPEUSDT] global_imb=-0.296, large_buys=1, large_sells=0, vol_int=157.46 (current=119,845, avg=761), vwap=$43.02, price=$42.97
+2025-11-01 15:47:26 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG HYPEUSDT] LONG failed: ['orderbook_imbalance', 'large_buy_trades', 'price_above_vwap'], SHORT failed: ['large_sell_trades']
+2025-11-01 15:47:26 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for HBARUSDT (REST API, weight=10)...
+2025-11-01 15:47:26 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HBARUSDT, limit=500
+2025-11-01 15:47:27 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1969
+2025-11-01 15:47:27 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for HBARUSDT
+2025-11-01 15:47:27 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for HBARUSDT (REST API, weight=10)...
+2025-11-01 15:47:27 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HBARUSDT, limit=500
+2025-11-01 15:47:27 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1964
+2025-11-01 15:47:27 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for HBARUSDT
+2025-11-01 15:47:27 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AAVEUSDT (REST API, weight=10)...
+2025-11-01 15:47:27 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AAVEUSDT, limit=500
+2025-11-01 15:47:28 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.4122
+2025-11-01 15:47:28 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AAVEUSDT
+2025-11-01 15:47:28 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AAVEUSDT (REST API, weight=10)...
+2025-11-01 15:47:28 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AAVEUSDT, limit=500
+2025-11-01 15:47:28 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.4095
+2025-11-01 15:47:28 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AAVEUSDT
+2025-11-01 15:47:28 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LINKUSDT (REST API, weight=10)...
+2025-11-01 15:47:28 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LINKUSDT, limit=500
+2025-11-01 15:47:29 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0378
+2025-11-01 15:47:29 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LINKUSDT
+2025-11-01 15:47:29 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LINKUSDT (REST API, weight=10)...
+2025-11-01 15:47:29 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LINKUSDT, limit=500
+2025-11-01 15:47:29 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0408
+2025-11-01 15:47:29 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LINKUSDT
+2025-11-01 15:47:29 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 1000PEPEUSDT (REST API, weight=10)...
+2025-11-01 15:47:29 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000PEPEUSDT, limit=500
+2025-11-01 15:47:30 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.1101
+2025-11-01 15:47:30 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 1000PEPEUSDT
+2025-11-01 15:47:30 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 1000PEPEUSDT (REST API, weight=10)...
+2025-11-01 15:47:30 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000PEPEUSDT, limit=500
+2025-11-01 15:47:30 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.1103
+2025-11-01 15:47:30 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 1000PEPEUSDT
+2025-11-01 15:47:30 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BNBUSDT (REST API, weight=10)...
+2025-11-01 15:47:30 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BNBUSDT, limit=500
+2025-11-01 15:47:31 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0949
+2025-11-01 15:47:31 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BNBUSDT
+2025-11-01 15:47:31 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BNBUSDT (REST API, weight=10)...
+2025-11-01 15:47:31 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BNBUSDT, limit=500
+2025-11-01 15:47:31 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0845
+2025-11-01 15:47:31 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for BNBUSDT
+2025-11-01 15:47:31 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for AVAXUSDT (REST API, weight=10)...
+2025-11-01 15:47:31 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVAXUSDT, limit=500
+2025-11-01 15:47:31 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:32 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1471
+2025-11-01 15:47:32 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for AVAXUSDT
+2025-11-01 15:47:32 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for AVAXUSDT (REST API, weight=10)...
+2025-11-01 15:47:32 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for AVAXUSDT, limit=500
+2025-11-01 15:47:32 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1462
+2025-11-01 15:47:32 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for AVAXUSDT
+2025-11-01 15:47:32 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TAOUSDT (REST API, weight=10)...
+2025-11-01 15:47:32 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TAOUSDT, limit=500
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.2151
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TAOUSDT
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TAOUSDT (REST API, weight=10)...
+2025-11-01 15:47:33 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TAOUSDT, limit=500
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.2416
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:300] - 📊 [SignalGenerator] Basic SHORT conditions passed for TAOUSDT, calculating dynamic SL/TP...
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:315] -    ✓ Volatility: MEDIUM (ATR: 1.97214286, 0.40%)
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:325] -    ✓ Levels: 5 support, 5 resistance
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:335] -    ✓ Stop: $499.3608 (0.34% away)
+2025-11-01 15:47:33 - BinanceScanner - WARNING - [signal_generator.py:342] - ⚠️ [SignalGenerator] Invalid targets for TAOUSDT: TP1 too close: 0.05% < 0.5% minimum (support at 497.39)
+2025-11-01 15:47:33 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for WIFUSDT (REST API, weight=10)...
+2025-11-01 15:47:33 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WIFUSDT, limit=500
+2025-11-01 15:47:34 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1841
+2025-11-01 15:47:34 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for WIFUSDT
+2025-11-01 15:47:34 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for WIFUSDT (REST API, weight=10)...
+2025-11-01 15:47:34 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for WIFUSDT, limit=500
+2025-11-01 15:47:34 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1859
+2025-11-01 15:47:34 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for WIFUSDT
+2025-11-01 15:47:34 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for HUSDT (REST API, weight=10)...
+2025-11-01 15:47:34 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HUSDT, limit=500
+2025-11-01 15:47:35 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2050
+2025-11-01 15:47:35 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for HUSDT
+2025-11-01 15:47:35 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for HUSDT (REST API, weight=10)...
+2025-11-01 15:47:35 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for HUSDT, limit=500
+2025-11-01 15:47:35 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2370
+2025-11-01 15:47:35 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for HUSDT
+2025-11-01 15:47:35 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 4USDT (REST API, weight=10)...
+2025-11-01 15:47:35 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 4USDT, limit=500
+2025-11-01 15:47:36 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.4310
+2025-11-01 15:47:36 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 4USDT
+2025-11-01 15:47:36 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 4USDT (REST API, weight=10)...
+2025-11-01 15:47:36 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 4USDT, limit=500
+2025-11-01 15:47:36 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.4402
+2025-11-01 15:47:36 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 4USDT
+2025-11-01 15:47:36 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG 4USDT] global_imb=0.440, large_buys=0, large_sells=1, vol_int=0.41 (current=35,231, avg=86,395), vwap=$0.08, price=$0.08
+2025-11-01 15:47:36 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG 4USDT] LONG failed: ['large_buy_trades', 'volume_intensity', 'price_above_vwap'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity']
+2025-11-01 15:47:36 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 1000BONKUSDT (REST API, weight=10)...
+2025-11-01 15:47:36 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000BONKUSDT, limit=500
+2025-11-01 15:47:37 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1835
+2025-11-01 15:47:37 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 1000BONKUSDT
+2025-11-01 15:47:37 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 1000BONKUSDT (REST API, weight=10)...
+2025-11-01 15:47:37 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000BONKUSDT, limit=500
+2025-11-01 15:47:37 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:37 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1835
+2025-11-01 15:47:37 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 1000BONKUSDT
+2025-11-01 15:47:37 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BCHUSDT (REST API, weight=10)...
+2025-11-01 15:47:37 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BCHUSDT, limit=500
+2025-11-01 15:47:38 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1369
+2025-11-01 15:47:38 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BCHUSDT
+2025-11-01 15:47:38 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BCHUSDT (REST API, weight=10)...
+2025-11-01 15:47:38 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BCHUSDT, limit=500
+2025-11-01 15:47:38 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1362
+2025-11-01 15:47:38 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for BCHUSDT
+2025-11-01 15:47:38 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ETHFIUSDT (REST API, weight=10)...
+2025-11-01 15:47:38 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHFIUSDT, limit=500
+2025-11-01 15:47:39 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2167
+2025-11-01 15:47:39 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ETHFIUSDT
+2025-11-01 15:47:39 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ETHFIUSDT (REST API, weight=10)...
+2025-11-01 15:47:39 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETHFIUSDT, limit=500
+2025-11-01 15:47:39 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2165
+2025-11-01 15:47:39 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ETHFIUSDT
+2025-11-01 15:47:39 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for EIGENUSDT (REST API, weight=10)...
+2025-11-01 15:47:39 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for EIGENUSDT, limit=500
+2025-11-01 15:47:40 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 1017459 messages processed
+2025-11-01 15:47:40 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2462
+2025-11-01 15:47:40 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for EIGENUSDT
+2025-11-01 15:47:40 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for EIGENUSDT (REST API, weight=10)...
+2025-11-01 15:47:40 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for EIGENUSDT, limit=500
+2025-11-01 15:47:40 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2321
+2025-11-01 15:47:40 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for EIGENUSDT
+2025-11-01 15:47:40 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for UNIUSDT (REST API, weight=10)...
+2025-11-01 15:47:40 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for UNIUSDT, limit=500
+2025-11-01 15:47:41 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1862
+2025-11-01 15:47:41 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for UNIUSDT
+2025-11-01 15:47:41 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for UNIUSDT (REST API, weight=10)...
+2025-11-01 15:47:41 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for UNIUSDT, limit=500
+2025-11-01 15:47:41 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1888
+2025-11-01 15:47:41 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for UNIUSDT
+2025-11-01 15:47:41 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 0GUSDT (REST API, weight=10)...
+2025-11-01 15:47:41 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 0GUSDT, limit=500
+2025-11-01 15:47:42 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0249
+2025-11-01 15:47:42 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 0GUSDT
+2025-11-01 15:47:42 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 0GUSDT (REST API, weight=10)...
+2025-11-01 15:47:42 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 0GUSDT, limit=500
+2025-11-01 15:47:42 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0183
+2025-11-01 15:47:42 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 0GUSDT
+2025-11-01 15:47:42 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for FUSDT (REST API, weight=10)...
+2025-11-01 15:47:42 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FUSDT, limit=500
+2025-11-01 15:47:43 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1141
+2025-11-01 15:47:43 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for FUSDT
+2025-11-01 15:47:43 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for FUSDT (REST API, weight=10)...
+2025-11-01 15:47:43 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FUSDT, limit=500
+2025-11-01 15:47:43 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:43 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1145
+2025-11-01 15:47:43 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for FUSDT
+2025-11-01 15:47:43 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for APRUSDT (REST API, weight=10)...
+2025-11-01 15:47:43 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APRUSDT, limit=500
+2025-11-01 15:47:44 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0653
+2025-11-01 15:47:44 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for APRUSDT
+2025-11-01 15:47:44 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for APRUSDT (REST API, weight=10)...
+2025-11-01 15:47:44 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APRUSDT, limit=500
+2025-11-01 15:47:44 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0629
+2025-11-01 15:47:44 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for APRUSDT
+2025-11-01 15:47:44 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for YBUSDT (REST API, weight=10)...
+2025-11-01 15:47:44 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for YBUSDT, limit=500
+2025-11-01 15:47:45 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1864
+2025-11-01 15:47:45 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for YBUSDT
+2025-11-01 15:47:45 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for YBUSDT (REST API, weight=10)...
+2025-11-01 15:47:45 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for YBUSDT, limit=500
+2025-11-01 15:47:45 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1919
+2025-11-01 15:47:45 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for YBUSDT
+2025-11-01 15:47:45 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for 1000SHIBUSDT (REST API, weight=10)...
+2025-11-01 15:47:45 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000SHIBUSDT, limit=500
+2025-11-01 15:47:46 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1758
+2025-11-01 15:47:46 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for 1000SHIBUSDT
+2025-11-01 15:47:46 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for 1000SHIBUSDT (REST API, weight=10)...
+2025-11-01 15:47:46 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for 1000SHIBUSDT, limit=500
+2025-11-01 15:47:46 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1738
+2025-11-01 15:47:46 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for 1000SHIBUSDT
+2025-11-01 15:47:46 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG 1000SHIBUSDT] global_imb=0.176, large_buys=0, large_sells=0, vol_int=0.04 (current=11,314, avg=282,833), vwap=$0.01, price=$0.01
+2025-11-01 15:47:46 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG 1000SHIBUSDT] LONG failed: ['large_buy_trades', 'volume_intensity', 'price_above_vwap'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity']
+2025-11-01 15:47:46 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for APTUSDT (REST API, weight=10)...
+2025-11-01 15:47:46 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APTUSDT, limit=500
+2025-11-01 15:47:47 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0621
+2025-11-01 15:47:47 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for APTUSDT
+2025-11-01 15:47:47 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for APTUSDT (REST API, weight=10)...
+2025-11-01 15:47:47 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for APTUSDT, limit=500
+2025-11-01 15:47:47 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0611
+2025-11-01 15:47:47 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for APTUSDT
+2025-11-01 15:47:47 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TIAUSDT (REST API, weight=10)...
+2025-11-01 15:47:47 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TIAUSDT, limit=500
+2025-11-01 15:47:48 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2014
+2025-11-01 15:47:48 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TIAUSDT
+2025-11-01 15:47:48 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TIAUSDT (REST API, weight=10)...
+2025-11-01 15:47:48 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TIAUSDT, limit=500
+2025-11-01 15:47:48 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2031
+2025-11-01 15:47:48 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TIAUSDT
+2025-11-01 15:47:48 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for FFUSDT (REST API, weight=10)...
+2025-11-01 15:47:48 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FFUSDT, limit=500
+2025-11-01 15:47:48 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:49 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0495
+2025-11-01 15:47:49 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for FFUSDT
+2025-11-01 15:47:49 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for FFUSDT (REST API, weight=10)...
+2025-11-01 15:47:49 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for FFUSDT, limit=500
+2025-11-01 15:47:49 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0444
+2025-11-01 15:47:49 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for FFUSDT
+2025-11-01 15:47:49 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ETCUSDT (REST API, weight=10)...
+2025-11-01 15:47:49 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETCUSDT, limit=500
+2025-11-01 15:47:50 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2082
+2025-11-01 15:47:50 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ETCUSDT
+2025-11-01 15:47:50 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ETCUSDT (REST API, weight=10)...
+2025-11-01 15:47:50 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ETCUSDT, limit=500
+2025-11-01 15:47:50 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2091
+2025-11-01 15:47:50 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ETCUSDT
+2025-11-01 15:47:50 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for KAITOUSDT (REST API, weight=10)...
+2025-11-01 15:47:50 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for KAITOUSDT, limit=500
+2025-11-01 15:47:51 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1402
+2025-11-01 15:47:51 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for KAITOUSDT
+2025-11-01 15:47:51 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for KAITOUSDT (REST API, weight=10)...
+2025-11-01 15:47:51 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for KAITOUSDT, limit=500
+2025-11-01 15:47:51 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1397
+2025-11-01 15:47:51 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for KAITOUSDT
+2025-11-01 15:47:51 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TONUSDT (REST API, weight=10)...
+2025-11-01 15:47:51 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TONUSDT, limit=500
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0247
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TONUSDT
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TONUSDT (REST API, weight=10)...
+2025-11-01 15:47:52 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TONUSDT, limit=500
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0223
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TONUSDT
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for LDOUSDT (REST API, weight=10)...
+2025-11-01 15:47:52 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LDOUSDT, limit=500
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1601
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for LDOUSDT
+2025-11-01 15:47:52 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for LDOUSDT (REST API, weight=10)...
+2025-11-01 15:47:52 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for LDOUSDT, limit=500
+2025-11-01 15:47:53 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1622
+2025-11-01 15:47:53 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for LDOUSDT
+2025-11-01 15:47:53 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for ONDOUSDT (REST API, weight=10)...
+2025-11-01 15:47:53 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ONDOUSDT, limit=500
+2025-11-01 15:47:53 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1161
+2025-11-01 15:47:53 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for ONDOUSDT
+2025-11-01 15:47:53 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for ONDOUSDT (REST API, weight=10)...
+2025-11-01 15:47:53 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for ONDOUSDT, limit=500
+2025-11-01 15:47:54 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:47:54 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1156
+2025-11-01 15:47:54 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for ONDOUSDT
+2025-11-01 15:47:54 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for XLMUSDT (REST API, weight=10)...
+2025-11-01 15:47:54 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XLMUSDT, limit=500
+2025-11-01 15:47:54 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.0808
+2025-11-01 15:47:54 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for XLMUSDT
+2025-11-01 15:47:54 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for XLMUSDT (REST API, weight=10)...
+2025-11-01 15:47:54 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XLMUSDT, limit=500
+2025-11-01 15:47:55 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.0805
+2025-11-01 15:47:55 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for XLMUSDT
+2025-11-01 15:47:55 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for TRXUSDT (REST API, weight=10)...
+2025-11-01 15:47:55 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRXUSDT, limit=500
+2025-11-01 15:47:55 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2015
+2025-11-01 15:47:55 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for TRXUSDT
+2025-11-01 15:47:55 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for TRXUSDT (REST API, weight=10)...
+2025-11-01 15:47:55 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for TRXUSDT, limit=500
+2025-11-01 15:47:56 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2034
+2025-11-01 15:47:56 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for TRXUSDT
+2025-11-01 15:47:56 - BinanceScanner - INFO - [main.py:347] - 📊 [DEBUG TRXUSDT] global_imb=0.203, large_buys=0, large_sells=0, vol_int=1.47 (current=21,946, avg=14,971), vwap=$0.30, price=$0.30
+2025-11-01 15:47:56 - BinanceScanner - INFO - [main.py:351] - 📊 [DEBUG TRXUSDT] LONG failed: ['large_buy_trades', 'volume_intensity'], SHORT failed: ['orderbook_imbalance', 'large_sell_trades', 'volume_intensity', 'price_below_vwap']
+2025-11-01 15:47:56 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for SPXUSDT (REST API, weight=10)...
+2025-11-01 15:47:56 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SPXUSDT, limit=500
+2025-11-01 15:47:57 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.2455
+2025-11-01 15:47:57 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for SPXUSDT
+2025-11-01 15:47:57 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for SPXUSDT (REST API, weight=10)...
+2025-11-01 15:47:57 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for SPXUSDT, limit=500
+2025-11-01 15:47:57 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.2413
+2025-11-01 15:47:57 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for SPXUSDT
+2025-11-01 15:47:57 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for PAXGUSDT (REST API, weight=10)...
+2025-11-01 15:47:57 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PAXGUSDT, limit=500
+2025-11-01 15:47:58 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): -0.0332
+2025-11-01 15:47:58 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for PAXGUSDT
+2025-11-01 15:47:58 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for PAXGUSDT (REST API, weight=10)...
+2025-11-01 15:47:58 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PAXGUSDT, limit=500
+2025-11-01 15:47:58 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): -0.0359
+2025-11-01 15:47:58 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for PAXGUSDT
+2025-11-01 15:47:58 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for BIOUSDT (REST API, weight=10)...
+2025-11-01 15:47:58 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BIOUSDT, limit=500
+2025-11-01 15:47:59 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1354
+2025-11-01 15:47:59 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for BIOUSDT
+2025-11-01 15:47:59 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for BIOUSDT (REST API, weight=10)...
+2025-11-01 15:47:59 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for BIOUSDT, limit=500
+2025-11-01 15:47:59 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1145
+2025-11-01 15:47:59 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for BIOUSDT
+2025-11-01 15:47:59 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for INJUSDT (REST API, weight=10)...
+2025-11-01 15:47:59 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for INJUSDT, limit=500
+2025-11-01 15:48:00 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:48:00 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1385
+2025-11-01 15:48:00 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for INJUSDT
+2025-11-01 15:48:00 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for INJUSDT (REST API, weight=10)...
+2025-11-01 15:48:00 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for INJUSDT, limit=500
+2025-11-01 15:48:00 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1382
+2025-11-01 15:48:00 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for INJUSDT
+2025-11-01 15:48:00 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for XMRUSDT (REST API, weight=10)...
+2025-11-01 15:48:00 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XMRUSDT, limit=500
+2025-11-01 15:48:01 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1139
+2025-11-01 15:48:01 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for XMRUSDT
+2025-11-01 15:48:01 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for XMRUSDT (REST API, weight=10)...
+2025-11-01 15:48:01 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for XMRUSDT, limit=500
+2025-11-01 15:48:01 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1144
+2025-11-01 15:48:01 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for XMRUSDT
+2025-11-01 15:48:01 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for CAKEUSDT (REST API, weight=10)...
+2025-11-01 15:48:01 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for CAKEUSDT, limit=500
+2025-11-01 15:48:02 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1714
+2025-11-01 15:48:02 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for CAKEUSDT
+2025-11-01 15:48:02 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for CAKEUSDT (REST API, weight=10)...
+2025-11-01 15:48:02 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for CAKEUSDT, limit=500
+2025-11-01 15:48:02 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1725
+2025-11-01 15:48:02 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for CAKEUSDT
+2025-11-01 15:48:02 - BinanceScanner - INFO - [signal_generator.py:104] - 📊 [SignalGenerator] Fetching depth=500 for PNUTUSDT (REST API, weight=10)...
+2025-11-01 15:48:02 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PNUTUSDT, limit=500
+2025-11-01 15:48:03 - BinanceScanner - INFO - [signal_generator.py:118] -    ✓ Global imbalance (200 levels): 0.1863
+2025-11-01 15:48:03 - BinanceScanner - INFO - [signal_generator.py:142] -    ✗ Basic conditions failed for PNUTUSDT
+2025-11-01 15:48:03 - BinanceScanner - INFO - [signal_generator.py:255] - 📊 [SignalGenerator] Fetching depth=500 for PNUTUSDT (REST API, weight=10)...
+2025-11-01 15:48:03 - BinanceScanner - INFO - [binance_client.py:204] - 📊 [BinanceClient] Fetching deep orderbook for PNUTUSDT, limit=500
+2025-11-01 15:48:03 - BinanceScanner - INFO - [signal_generator.py:269] -    ✓ Global imbalance (200 levels): 0.1887
+2025-11-01 15:48:03 - BinanceScanner - INFO - [signal_generator.py:293] -    ✗ Basic conditions failed for PNUTUSDT
+2025-11-01 15:48:03 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 58 symbols - Generated 0 signals
+2025-11-01 15:48:05 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:48:10 - BinanceScanner - INFO - [data_collector.py:91] - 💓 [DataCollector] WebSocket alive - 1044507 messages processed
+2025-11-01 15:48:11 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:48:15 - BinanceScanner - INFO - [data_collector.py:339] - 🧹 [DataCollector] Cleaned up 151 old klines (>1 hour)
+2025-11-01 15:48:16 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 5 open signals, 0 active reversal counters, 5 partial close states
+2025-11-01 15:48:22 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache 
