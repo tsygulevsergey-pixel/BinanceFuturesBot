@@ -8,7 +8,6 @@ from typing import Dict, List, Optional, Tuple
 from datetime import datetime, timedelta
 from collections import defaultdict
 import asyncpg
-from bot.utils.redis_manager import redis_manager
 
 
 class OrderbookLevelsAnalyzer:
@@ -67,8 +66,7 @@ class OrderbookLevelsAnalyzer:
             orderbook_snapshot,
             lower_bound,
             upper_bound,
-            current_price,
-            symbol
+            current_price
         )
         
         # 2. Построение объемного профиля (последние 6 часов)
@@ -129,8 +127,7 @@ class OrderbookLevelsAnalyzer:
         orderbook: Dict,
         lower_bound: float,
         upper_bound: float,
-        current_price: float,
-        symbol: str = None
+        current_price: float
     ) -> Dict:
         """
         Находит кластеры ордеров в стакане (зоны концентрации объема)
@@ -138,15 +135,9 @@ class OrderbookLevelsAnalyzer:
         bids = orderbook.get('bids', [])
         asks = orderbook.get('asks', [])
         
-        # Get tickSize for this symbol (dynamic aggregation!)
-        tick_size = 0.01  # Default fallback
-        if symbol:
-            tick_data = redis_manager.get(f'tick_size:{symbol}')
-            if tick_data and isinstance(tick_data, dict):
-                tick_size = tick_data.get('tick_size', 0.01)
-        
-        # Bin size = tickSize * 10 (1 level higher aggregation)
-        bin_size = tick_size * 10
+        # Bin size = 1.0% from price (10x wider than before = 1 level higher)
+        # Before: 0.1% (price * 0.001), Now: 1.0% (price * 0.01)
+        bin_size = current_price * 0.01  # 1.0%
         
         bid_clusters = defaultdict(float)
         ask_clusters = defaultdict(float)
@@ -225,14 +216,10 @@ class OrderbookLevelsAnalyzer:
             # Группировать объем по ценовым уровням
             volume_profile = defaultdict(float)
             
-            # Get tickSize for dynamic aggregation
-            tick_size = 0.01  # Default fallback
-            tick_data = redis_manager.get(f'tick_size:{symbol}')
-            if tick_data and isinstance(tick_data, dict):
-                tick_size = tick_data.get('tick_size', 0.01)
-            
-            # Bin size = tickSize * 10 (same as orderbook aggregation)
-            bin_size = tick_size * 10
+            # Bin size = 1.0% from average price (10x wider than before = 1 level higher)
+            # Before: 0.1% (avg_price * 0.001), Now: 1.0% (avg_price * 0.01)
+            avg_price = (lower_bound + upper_bound) / 2
+            bin_size = avg_price * 0.01  # 1.0%
             
             for row in rows:
                 low = float(row['low'])
