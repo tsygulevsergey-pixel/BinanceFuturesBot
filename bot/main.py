@@ -29,6 +29,7 @@ class BinanceFuturesScanner:
         self.running = False
         self.last_universe_scan = None
         self.signal_generator = None
+        self.previous_symbols = set()  # Track symbols for incremental preload
         
         logger.info("="*80)
         logger.info("🚀 Binance Futures Scanner Bot Initializing...")
@@ -99,6 +100,9 @@ class BinanceFuturesScanner:
             symbols = await universe_selector.scan_universe()
             
             if symbols:
+                # Store initial symbols for future comparison in rescan loop
+                self.previous_symbols = set(symbols)
+                
                 await telegram_dispatcher.send_universe_update(len(symbols), symbols)
                 self.last_universe_scan = datetime.now()
                 
@@ -196,6 +200,21 @@ class BinanceFuturesScanner:
                 symbols = await universe_selector.scan_universe()
                 
                 if symbols:
+                    # Determine NEW symbols that weren't in previous scan
+                    current_symbols = set(symbols)
+                    new_symbols = current_symbols - self.previous_symbols
+                    removed_symbols = self.previous_symbols - current_symbols
+                    
+                    if new_symbols:
+                        logger.info(f"🆕 [Main] Found {len(new_symbols)} new symbols: {', '.join(list(new_symbols)[:5])}")
+                        # Preload historical klines for new symbols only!
+                        await self.preload_historical_klines(list(new_symbols))
+                    
+                    if removed_symbols:
+                        logger.info(f"🗑️ [Main] Removed {len(removed_symbols)} symbols from universe: {', '.join(list(removed_symbols)[:5])}")
+                    
+                    self.previous_symbols = current_symbols
+                    
                     await telegram_dispatcher.send_universe_update(len(symbols), symbols)
                     self.last_universe_scan = datetime.now()
                     

@@ -3,6 +3,12 @@
 ## Overview
 This update adds historical klines preloading from Binance API to eliminate the 20-30 minute wait for ATR calculation on bot restart. The bot now fetches the last 30 1-minute candles for each symbol at startup and stores them in a new PostgreSQL table.
 
+**Key Features:**
+- ✅ Initial preload: Fetches 30 klines for all symbols on bot startup
+- ✅ Incremental preload: Automatically fetches klines for NEW symbols during hourly universe rescan
+- ✅ Smart rate limiting: 0.2s delay between requests to avoid API burst
+- ✅ UPSERT logic: Idempotent restarts with no duplicate data
+
 ## Changes Made
 
 ### 1. Database Model
@@ -23,7 +29,16 @@ This update adds historical klines preloading from Binance API to eliminate the 
   - Added `preload_historical_klines()` method
   - Fetches last 30 1m candles from Binance API for each active symbol
   - Uses UPSERT (INSERT ... ON CONFLICT DO NOTHING) to avoid duplicates
+  - 0.2s delay between requests to smooth API load
   - Called after initial universe scan, before starting data collection
+
+### 4. Incremental Preload (NEW!)
+- **File**: `bot/main.py` - `universe_scan_loop()`
+- **Changes**:
+  - Tracks previous symbols list across universe rescans
+  - Detects NEW symbols added to universe
+  - Automatically preloads klines ONLY for new symbols
+  - Logs added/removed symbols for transparency
 
 ## Deployment Steps
 
@@ -187,10 +202,25 @@ sudo systemctl start binance-bot
 
 ## Performance Impact
 
-- **Initial preload time**: ~5-10 seconds for 30 symbols (1-2 API calls per second)
+### Initial Startup
+- **Initial preload time**: ~8-12 seconds for 30 symbols (0.2s delay per request)
+- **API weight**: 150 weight for 30 symbols (5 weight × 30)
 - **Database size impact**: ~30 rows per symbol (negligible)
 - **ATR calculation**: Immediate (no 20-minute wait)
-- **Bot restart time**: +5-10 seconds (acceptable for 20-minute gain)
+- **Bot restart time**: +8-12 seconds (acceptable for 20-minute gain)
+
+### Hourly Universe Rescan
+- **Typical scenario**: 2-5 new symbols added per hour
+- **API weight**: 10-25 weight (5 weight × 2-5 symbols)
+- **Preload time**: ~1-2 seconds for 2-5 new symbols
+- **Zero impact**: Only new symbols are loaded, not all symbols
+
+### API Rate Limit Safety
+- **Binance limit**: 2400 weight/minute
+- **Initial preload**: ~150 weight = **6.25%** of limit
+- **Incremental preload**: ~10-25 weight = **0.4-1%** of limit
+- **Built-in protection**: RateLimiter automatically blocks at 90% usage
+- **Smoothing**: 0.2s delay between requests prevents burst
 
 ## Verification Checklist
 
