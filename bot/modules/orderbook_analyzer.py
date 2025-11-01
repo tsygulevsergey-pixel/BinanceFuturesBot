@@ -12,7 +12,7 @@ class OrderBookAnalyzer:
         self.imbalance_threshold = Config.ORDERBOOK_IMBALANCE_THRESHOLD
         logger.info(f"🔧 [OrderBookAnalyzer] Initialized with imbalance threshold={self.imbalance_threshold}")
     
-    def calculate_imbalance(self, bids: List, asks: List, depth: int = 10) -> float:
+    def calculate_imbalance(self, bids: List, asks: List, depth: int = 200) -> float:
         try:
             if not bids or not asks:
                 return 0.0

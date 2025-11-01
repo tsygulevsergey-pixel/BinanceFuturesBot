@@ -53,7 +53,8 @@ class DataCollector:
             symbol_lower = symbol.lower()
             all_streams.extend([
                 f"{symbol_lower}@bookTicker",  # Best bid/ask ONLY (accurate pricing!)
-                f"{symbol_lower}@depth20@100ms",  # Top 20 levels for orderbook analysis
+                # DISABLED: Switched to REST API depth=500 for global imbalance analysis
+                # f"{symbol_lower}@depth20@100ms",  # Top 20 levels for orderbook analysis
                 f"{symbol_lower}@aggTrade",
                 f"{symbol_lower}@kline_1m",   # 1m klines for ATR calculation (saved to PostgreSQL)
                 f"{symbol_lower}@kline_15m"   # 15m klines for volume analysis (saved to Redis)

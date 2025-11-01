@@ -18,6 +18,7 @@ from typing import Dict, Optional, Tuple
 from datetime import datetime, timedelta
 from bot.config import Config
 from bot.utils import logger
+from bot.utils.binance_client import binance_client
 from bot.modules.orderbook_analyzer import orderbook_analyzer
 from bot.modules.trade_flow_analyzer import trade_flow_analyzer
 from bot.modules.volatility_calculator import VolatilityCalculator
@@ -77,11 +78,11 @@ class SignalGenerator:
         symbol: str,
         orderbook_data: Dict,
         trade_flow: Dict,
-        price_data: Dict,
-        orderbook_snapshot: Dict
+        price_data: Dict
     ) -> Tuple[bool, Dict]:
         """
         Check LONG conditions with dynamic SL/TP calculation
+        NOW FETCHES depth=500 from REST API for global imbalance and cluster analysis
         
         Returns:
             (is_valid, data_dict) where data_dict contains:
@@ -92,14 +93,31 @@ class SignalGenerator:
             - validation results
         """
         try:
-            imbalance = orderbook_data.get('imbalance', 0)
+            # === STEP 1: Fetch deep orderbook (depth=500) from REST API ===
+            logger.info(f"📊 [SignalGenerator] Fetching depth=500 for {symbol} (REST API, weight=10)...")
+            orderbook_depth = await binance_client.get_orderbook_depth(symbol, limit=500)
+            
+            if not orderbook_depth or not orderbook_depth.get('bids') or not orderbook_depth.get('asks'):
+                logger.warning(f"⚠️ [SignalGenerator] Failed to fetch orderbook depth for {symbol}")
+                return False, {'error': 'No orderbook depth data'}
+            
+            # === STEP 2: Calculate GLOBAL imbalance (200 bid + 200 ask) ===
+            global_imbalance = orderbook_analyzer.calculate_imbalance(
+                orderbook_depth['bids'],
+                orderbook_depth['asks'],
+                depth=200  # Use first 200 levels for imbalance
+            )
+            
+            logger.info(f"   ✓ Global imbalance (200 levels): {global_imbalance:.4f}")
+            
+            # === STEP 3: Check basic conditions with GLOBAL imbalance ===
             large_buys = trade_flow.get('large_buys', 0)
             volume_intensity = trade_flow.get('volume_intensity', 0)
             price = price_data.get('price', 0)
             vwap = price_data.get('vwap', 0)
             
             required_conditions = {
-                'orderbook_imbalance': imbalance >= self.imbalance_threshold,
+                'orderbook_imbalance': global_imbalance >= self.imbalance_threshold,
                 'large_buy_trades': large_buys >= self.min_large_trades,
                 'volume_intensity': volume_intensity >= self.volume_multiplier,
                 'price_above_vwap': price > vwap if vwap > 0 else True
@@ -112,11 +130,13 @@ class SignalGenerator:
                 'support_level': price_data.get('near_support', False)
             }
             
-            # If basic conditions don't pass, return early
+            # If basic conditions don't pass, return early (NO API waste!)
             if not all_required:
+                logger.info(f"   ✗ Basic conditions failed for {symbol}")
                 return False, {
                     'required': required_conditions,
-                    'optional': optional_conditions
+                    'optional': optional_conditions,
+                    'global_imbalance': global_imbalance
                 }
             
             logger.info(f"📊 [SignalGenerator] Basic LONG conditions passed for {symbol}, calculating dynamic SL/TP...")
@@ -136,9 +156,9 @@ class SignalGenerator:
                 
                 logger.info(f"   ✓ Volatility: {volatility['category']} (ATR: {volatility['atr']:.8f}, {volatility['volatility_pct']:.2f}%)")
                 
-                # Analyze orderbook levels
+                # === STEP 4: Analyze orderbook levels using ALL 500 levels ===
                 levels = await self.levels_analyzer.analyze(
-                    symbol, price, working_range, orderbook_snapshot
+                    symbol, price, working_range, orderbook_depth  # Use depth=500 for clusters
                 )
                 if not levels:
                     logger.warning(f"⚠️ [SignalGenerator] Could not analyze levels for {symbol}")
@@ -169,7 +189,7 @@ class SignalGenerator:
                 
                 # Validate signal
                 validation = self.validator.validate(
-                    imbalance, large_buys, volume_intensity,
+                    global_imbalance, large_buys, volume_intensity,
                     stop_info, tp_info, levels
                 )
                 
@@ -209,11 +229,11 @@ class SignalGenerator:
         symbol: str,
         orderbook_data: Dict,
         trade_flow: Dict,
-        price_data: Dict,
-        orderbook_snapshot: Dict
+        price_data: Dict
     ) -> Tuple[bool, Dict]:
         """
         Check SHORT conditions with dynamic SL/TP calculation
+        NOW FETCHES depth=500 from REST API for global imbalance and cluster analysis
         
         Returns:
             (is_valid, data_dict) where data_dict contains:
@@ -224,14 +244,31 @@ class SignalGenerator:
             - validation results
         """
         try:
-            imbalance = orderbook_data.get('imbalance', 0)
+            # === STEP 1: Fetch deep orderbook (depth=500) from REST API ===
+            logger.info(f"📊 [SignalGenerator] Fetching depth=500 for {symbol} (REST API, weight=10)...")
+            orderbook_depth = await binance_client.get_orderbook_depth(symbol, limit=500)
+            
+            if not orderbook_depth or not orderbook_depth.get('bids') or not orderbook_depth.get('asks'):
+                logger.warning(f"⚠️ [SignalGenerator] Failed to fetch orderbook depth for {symbol}")
+                return False, {'error': 'No orderbook depth data'}
+            
+            # === STEP 2: Calculate GLOBAL imbalance (200 bid + 200 ask) ===
+            global_imbalance = orderbook_analyzer.calculate_imbalance(
+                orderbook_depth['bids'],
+                orderbook_depth['asks'],
+                depth=200  # Use first 200 levels for imbalance
+            )
+            
+            logger.info(f"   ✓ Global imbalance (200 levels): {global_imbalance:.4f}")
+            
+            # === STEP 3: Check basic conditions with GLOBAL imbalance ===
             large_sells = trade_flow.get('large_sells', 0)
             volume_intensity = trade_flow.get('volume_intensity', 0)
             price = price_data.get('price', 0)
             vwap = price_data.get('vwap', 0)
             
             required_conditions = {
-                'orderbook_imbalance': imbalance <= -self.imbalance_threshold,
+                'orderbook_imbalance': global_imbalance <= -self.imbalance_threshold,
                 'large_sell_trades': large_sells >= self.min_large_trades,
                 'volume_intensity': volume_intensity >= self.volume_multiplier,
                 'price_below_vwap': price < vwap if vwap > 0 else True
@@ -244,11 +281,13 @@ class SignalGenerator:
                 'resistance_level': price_data.get('near_resistance', False)
             }
             
-            # If basic conditions don't pass, return early
+            # If basic conditions don't pass, return early (NO API waste!)
             if not all_required:
+                logger.info(f"   ✗ Basic conditions failed for {symbol}")
                 return False, {
                     'required': required_conditions,
-                    'optional': optional_conditions
+                    'optional': optional_conditions,
+                    'global_imbalance': global_imbalance
                 }
             
             logger.info(f"📊 [SignalGenerator] Basic SHORT conditions passed for {symbol}, calculating dynamic SL/TP...")
@@ -268,9 +307,9 @@ class SignalGenerator:
                 
                 logger.info(f"   ✓ Volatility: {volatility['category']} (ATR: {volatility['atr']:.8f}, {volatility['volatility_pct']:.2f}%)")
                 
-                # Analyze orderbook levels
+                # === STEP 4: Analyze orderbook levels using ALL 500 levels ===
                 levels = await self.levels_analyzer.analyze(
-                    symbol, price, working_range, orderbook_snapshot
+                    symbol, price, working_range, orderbook_depth  # Use depth=500 for clusters
                 )
                 if not levels:
                     logger.warning(f"⚠️ [SignalGenerator] Could not analyze levels for {symbol}")
@@ -301,7 +340,7 @@ class SignalGenerator:
                 
                 # Validate signal
                 validation = self.validator.validate(
-                    imbalance, large_sells, volume_intensity,
+                    global_imbalance, large_sells, volume_intensity,
                     stop_info, tp_info, levels
                 )
                 

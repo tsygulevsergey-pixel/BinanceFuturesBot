@@ -132,7 +132,7 @@ class Config:
     MAX_STOP_DISTANCE_PCT = 1.5   # Максимальное расстояние стопа от входа (%)
     
     # Take Profit Settings
-    MIN_TP_DISTANCE_PCT = 0.20    # Минимальное расстояние TP от входа (%) - защита от комиссий
+    MIN_TP_DISTANCE_PCT = 0.50    # Минимальное расстояние TP от входа (%) - защита от комиссий
     MIN_RR_RATIO = 0.8            # Минимальный Risk/Reward ratio для принятия сигнала
     
     # Orderbook Analysis Settings

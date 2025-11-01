@@ -255,51 +255,27 @@ class BinanceFuturesScanner:
     
     async def check_and_generate_signal(self, symbol: str, active_symbols: list = []):
         try:
-            orderbook = redis_manager.get(f'orderbook:{symbol}')
-            if not orderbook:
-                logger.debug(f"⚠️ [Main] No orderbook data for {symbol}")
-                return
-            
+            # Get trade flow data (aggTrade stream - still active!)
             trade_flow = redis_manager.get(f'trade_flow:{symbol}')
             if not trade_flow:
                 logger.debug(f"⚠️ [Main] No trade_flow data for {symbol}")
                 return
-            
-            imbalance = orderbook_analyzer.calculate_imbalance(
-                orderbook.get('bids', []),
-                orderbook.get('asks', [])
-            )
-            
-            orderbook_data = {
-                'imbalance': imbalance
-            }
             
             # Log first 3 symbols for diagnostics
             symbol_index = active_symbols.index(symbol) if symbol in active_symbols else -1
             if symbol_index < 3:
                 logger.info(
                     f"📊 [DIAGNOSTIC {symbol}] "
-                    f"imb={imbalance:.3f}, "
                     f"large_buys={trade_flow.get('large_buys', 0)}, "
                     f"large_sells={trade_flow.get('large_sells', 0)}"
                 )
             
-            # OPTIMIZATION: Quick pre-check (only imbalance + large_trades, no extra API calls)
-            quick_long = self.signal_generator.quick_check_long(orderbook_data, trade_flow)
-            quick_short = self.signal_generator.quick_check_short(orderbook_data, trade_flow)
+            # === NO MORE QUICK_CHECK ===
+            # Previously: used WebSocket depth20 for quick imbalance check
+            # Now: check_long/short_conditions fetches depth=500 and calculates global imbalance internally
+            # This is more expensive (REST API) but more accurate (global imbalance on 200 levels)
             
-            if not quick_long and not quick_short:
-                # Log first 3 quick_check failures for diagnostics
-                if symbol_index < 3:
-                    logger.info(
-                        f"❌ [DIAGNOSTIC {symbol}] Failed quick_check: "
-                        f"imb={imbalance:.3f} (need >0.28 for LONG or <-0.28 for SHORT), "
-                        f"large_buys={trade_flow.get('large_buys', 0)}, "
-                        f"large_sells={trade_flow.get('large_sells', 0)} (need ≥3)"
-                    )
-                return
-            
-            # Passed quick check! Now calculate volume_intensity with historical comparison
+            # Calculate volume_intensity with historical comparison
             current_volume_per_minute = trade_flow.get('volume_per_minute', 0)
             
             # Get average volume from 15m kline data (if available)
@@ -343,27 +319,32 @@ class BinanceFuturesScanner:
             }
             
             # Full check with volume_intensity and VWAP (NOW ASYNC!)
+            # NOTE: orderbook_data parameter is NO LONGER USED (global imbalance calculated internally)
+            orderbook_data = {}  # Empty dict (for compatibility)
+            
             can_long, long_conditions = await self.signal_generator.check_long_conditions(
                 symbol,
                 orderbook_data,
                 trade_flow,
-                price_data,
-                orderbook
+                price_data
             )
             
             can_short, short_conditions = await self.signal_generator.check_short_conditions(
                 symbol,
                 orderbook_data,
                 trade_flow,
-                price_data,
-                orderbook
+                price_data
             )
             
             # Debug log for EVERY 10th symbol to see why signals aren't generated
             symbol_index = active_symbols.index(symbol) if symbol in active_symbols else -1
             if symbol_index % 10 == 0:  # Log every 10th symbol
                 avg_vol_info = f"avg={kline_15m.get('volume', 0)/15:,.0f}" if kline_15m else "no kline"
-                logger.info(f"📊 [DEBUG {symbol}] imb={imbalance:.3f}, large_buys={trade_flow.get('large_buys', 0)}, large_sells={trade_flow.get('large_sells', 0)}, vol_int={volume_intensity:.2f} (current={current_volume_per_minute:,.0f}, {avg_vol_info}), vwap=${vwap:.2f}, price=${price:.2f}")
+                # NOTE: imbalance is now calculated internally in check_long/short_conditions
+                global_imb_long = long_conditions.get('global_imbalance', 0) if long_conditions else 0
+                global_imb_short = short_conditions.get('global_imbalance', 0) if short_conditions else 0
+                global_imb = global_imb_long if abs(global_imb_long) > abs(global_imb_short) else global_imb_short
+                logger.info(f"📊 [DEBUG {symbol}] global_imb={global_imb:.3f}, large_buys={trade_flow.get('large_buys', 0)}, large_sells={trade_flow.get('large_sells', 0)}, vol_int={volume_intensity:.2f} (current={current_volume_per_minute:,.0f}, {avg_vol_info}), vwap=${vwap:.2f}, price=${price:.2f}")
                 if not can_long and not can_short:
                     failed_long = [k for k, v in long_conditions.get('required', {}).items() if not v]
                     failed_short = [k for k, v in short_conditions.get('required', {}).items() if not v]

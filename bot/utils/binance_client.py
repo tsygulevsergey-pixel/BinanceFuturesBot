@@ -185,5 +185,41 @@ class BinanceProxyClient:
             '/fapi/v1/ticker/bookTicker',
             weight=5  # Weight for all symbols
         )
+    
+    async def get_orderbook_depth(self, symbol: str, limit: int = 500) -> Optional[Dict]:
+        """
+        Fetch deep orderbook from REST API for cluster analysis
+        
+        Args:
+            symbol: Trading pair (e.g., 'BTCUSDT')
+            limit: Number of levels (5, 10, 20, 50, 100, 500, 1000)
+                   limit=500 → weight=10
+        
+        Returns:
+            {
+                'bids': [[price, qty], ...],  # 500 levels
+                'asks': [[price, qty], ...]   # 500 levels
+            }
+        """
+        logger.info(f"📊 [BinanceClient] Fetching deep orderbook for {symbol}, limit={limit}")
+        
+        # Weight calculation based on Binance API docs
+        if limit <= 50:
+            weight = 2
+        elif limit <= 100:
+            weight = 5
+        elif limit <= 500:
+            weight = 10
+        elif limit <= 1000:
+            weight = 20
+        else:
+            weight = 50
+        
+        return await self._make_request(
+            'GET',
+            '/fapi/v1/depth',
+            params={'symbol': symbol, 'limit': limit},
+            weight=weight
+        )
 
 binance_client = BinanceProxyClient()
