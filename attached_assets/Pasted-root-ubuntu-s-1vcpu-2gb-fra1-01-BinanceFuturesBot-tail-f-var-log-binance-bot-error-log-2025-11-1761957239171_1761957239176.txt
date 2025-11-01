@@ -1,0 +1,737 @@
+root@ubuntu-s-1vcpu-2gb-fra1-01:~/BinanceFuturesBot# tail -f /var/log/binance-bot-error.log
+2025-11-01 00:05:07 - BinanceScanner - INFO - [main.py:40] - 🔧 [Main] Starting initialization...
+2025-11-01 00:05:07 - BinanceScanner - INFO - [db_manager.py:22] - 🔧 [DatabaseManager] Initializing synchronous database connection...
+2025-11-01 00:05:07 - BinanceScanner - INFO - [db_manager.py:42] - ✅ [DatabaseManager] Database connection ready, all tables created/verified
+2025-11-01 00:05:07 - BinanceScanner - INFO - [db_manager.py:63] - 🔧 [DatabaseManager] Initializing async database connection pool...
+2025-11-01 00:05:07 - BinanceScanner - INFO - [db_manager.py:76] - ✅ [DatabaseManager] Async database pool created successfully (2-10 connections)
+2025-11-01 00:05:07 - BinanceScanner - INFO - [signal_generator.py:34] - 🔧 [SignalGenerator] Initialized with dynamic SL/TP modules
+2025-11-01 00:05:07 - BinanceScanner - INFO - [main.py:46] - ✅ [Main] SignalGenerator initialized with db_pool
+2025-11-01 00:05:07 - BinanceScanner - INFO - [redis_manager.py:19] - 🔧 [RedisManager] Connecting to Redis...
+2025-11-01 00:05:07 - BinanceScanner - INFO - [redis_manager.py:30] - ✅ [RedisManager] Connected to Redis successfully
+2025-11-01 00:05:07 - BinanceScanner - INFO - [binance_client.py:33] - 🔧 [BinanceClient] Initializing synchronous client with proxy...
+2025-11-01 00:05:09 - BinanceScanner - INFO - [binance_client.py:45] - ✅ [BinanceClient] Connected to Binance Futures API, 626 symbols available
+2025-11-01 00:05:09 - BinanceScanner - INFO - [binance_client.py:53] - 🔧 [BinanceClient] Initializing async session with proxy...
+2025-11-01 00:05:09 - BinanceScanner - INFO - [binance_client.py:70] - ✅ [BinanceClient] Async session initialized with optimized connector (limit=50, force_close=True)
+2025-11-01 00:05:09 - BinanceScanner - INFO - [telegram_dispatcher.py:28] - ✅ [TelegramDispatcher] Connected as @EBinFut_bot
+2025-11-01 00:05:09 - BinanceScanner - INFO - [telegram_bot.py:22] - 🚀 [TelegramBotHandler] Starting Telegram bot...
+2025-11-01 00:05:09 - BinanceScanner - INFO - [telegram_bot.py:36] - ✅ [TelegramBotHandler] Telegram bot started successfully with proxy
+2025-11-01 00:05:09 - BinanceScanner - INFO - [telegram_dispatcher.py:206] - 📤 [TelegramDispatcher] Sent notification
+2025-11-01 00:05:09 - BinanceScanner - INFO - [main.py:59] - ✅ [Main] Initialization complete!
+2025-11-01 00:05:09 - BinanceScanner - INFO - [main.py:69] - 🚀 [Main] Starting main loop...
+2025-11-01 00:05:09 - BinanceScanner - INFO - [main.py:98] - 🔍 [Main] Performing initial universe scan...
+2025-11-01 00:05:09 - BinanceScanner - INFO - [universe_selector.py:63] - 🔍 [UniverseSelector] Starting optimized 3-stage universe scan...
+2025-11-01 00:05:09 - BinanceScanner - INFO - [binance_client.py:137] - 📝 [BinanceClient] Fetching exchange info...
+2025-11-01 00:05:09 - BinanceScanner - INFO - [universe_selector.py:77] - 📊 [UniverseSelector] Found 535 USDT trading pairs
+2025-11-01 00:05:09 - BinanceScanner - INFO - [universe_selector.py:56] - 🚫 [Blacklist] Filtered 1 blacklisted symbols
+2025-11-01 00:05:09 - BinanceScanner - INFO - [universe_selector.py:58] - 🚫 [Blacklist] Filtered 1 non-ASCII symbols
+2025-11-01 00:05:09 - BinanceScanner - INFO - [universe_selector.py:81] - 📊 [UniverseSelector] After blacklist filter: 533 symbols
+2025-11-01 00:05:09 - BinanceScanner - INFO - [binance_client.py:141] - 📝 [BinanceClient] Fetching 24hr tickers...
+2025-11-01 00:05:10 - BinanceScanner - INFO - [binance_client.py:182] - 📝 [BinanceClient] Fetching book tickers (bid/ask prices) for all symbols...
+2025-11-01 00:05:10 - BinanceScanner - INFO - [universe_selector.py:97] - 📊 [UniverseSelector] Fetched book tickers (bid/ask) for 533 symbols
+2025-11-01 00:05:10 - BinanceScanner - INFO - [universe_selector.py:209] - 📝 [Stage 1 Debug] First book ticker (BTCUSDT): bidPrice=109387.50, askPrice=109387.60
+2025-11-01 00:05:10 - BinanceScanner - INFO - [universe_selector.py:228] - ✅ [Stage 1] Passed volume filter: 107 symbols ready for Stage 2
+2025-11-01 00:05:10 - BinanceScanner - INFO - [universe_selector.py:103] - ✅ [Stage 1/3] Volume filter: 533 → 107 symbols (0.00s)
+2025-11-01 00:05:10 - BinanceScanner - INFO - [universe_selector.py:246] - 📊 [Stage 2] Processing 107 symbols in 11 batches of 10 (stable mode)...
+2025-11-01 00:05:10 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 1/11] Processing symbols 1 to 10...
+2025-11-01 00:05:18 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 1/11 complete, pausing 1 second before next batch...
+2025-11-01 00:05:19 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 2/11] Processing symbols 11 to 20...
+2025-11-01 00:05:26 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 2/11 complete, pausing 1 second before next batch...
+2025-11-01 00:05:27 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 3/11] Processing symbols 21 to 30...
+2025-11-01 00:05:35 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 3/11 complete, pausing 1 second before next batch...
+2025-11-01 00:05:36 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 4/11] Processing symbols 31 to 40...
+2025-11-01 00:05:43 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 4/11 complete, pausing 1 second before next batch...
+2025-11-01 00:05:44 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 5/11] Processing symbols 41 to 50...
+2025-11-01 00:05:52 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 5/11 complete, pausing 1 second before next batch...
+2025-11-01 00:05:53 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 6/11] Processing symbols 51 to 60...
+2025-11-01 00:06:00 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 6/11 complete, pausing 1 second before next batch...
+2025-11-01 00:06:01 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 7/11] Processing symbols 61 to 70...
+2025-11-01 00:06:09 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 7/11 complete, pausing 1 second before next batch...
+2025-11-01 00:06:10 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 8/11] Processing symbols 71 to 80...
+2025-11-01 00:06:17 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 8/11 complete, pausing 1 second before next batch...
+2025-11-01 00:06:18 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 9/11] Processing symbols 81 to 90...
+2025-11-01 00:06:25 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 9/11 complete, pausing 1 second before next batch...
+2025-11-01 00:06:26 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 10/11] Processing symbols 91 to 100...
+2025-11-01 00:06:34 - BinanceScanner - INFO - [universe_selector.py:295] - ⏸️  [Stage 2] Batch 10/11 complete, pausing 1 second before next batch...
+2025-11-01 00:06:35 - BinanceScanner - INFO - [universe_selector.py:249] - 🔄 [Stage 2 Batch 11/11] Processing symbols 101 to 107...
+2025-11-01 00:06:40 - BinanceScanner - INFO - [universe_selector.py:301] - 📊 [Stage 2 Samples] First 5 OI values: BTCUSDT($8568.4M @ $109408.90), ETHUSDT($6003.5M @ $3843.94), BCHUSDT($143.8M @ $532.84), XRPUSDT($488.3M @ $2.50), LTCUSDT($94.1M @ $95.14)
+2025-11-01 00:06:40 - BinanceScanner - INFO - [universe_selector.py:303] - 📊 [Stage 2 Summary] Processed 107 symbols: Passed=107, Below threshold=0, Failed=0
+2025-11-01 00:06:40 - BinanceScanner - INFO - [universe_selector.py:113] - ✅ [Stage 2/3] Open Interest filter: 107 → 107 symbols (89.53s)
+2025-11-01 00:06:40 - BinanceScanner - INFO - [universe_selector.py:356] - 📊 [Stage 3 Samples] First 5 spreads: BTCUSDT(0.0001%), ETHUSDT(0.0003%), BCHUSDT(0.0019%), XRPUSDT(0.0040%), LTCUSDT(0.0105%)
+2025-11-01 00:06:40 - BinanceScanner - INFO - [universe_selector.py:358] - 📊 [Stage 3 Details] Passed: 61, Filtered: 46, No bid: 0, Max spread: 0.02%
+2025-11-01 00:06:40 - BinanceScanner - INFO - [universe_selector.py:123] - ✅ [Stage 3/3] Spread filter: 107 → 61 symbols (0.00s)
+2025-11-01 00:06:40 - BinanceScanner - INFO - [universe_selector.py:130] - 📊 [UniverseSelector] Calculating scores for 61 symbols...
+2025-11-01 00:07:06 - BinanceScanner - INFO - [universe_selector.py:136] - ✅ [UniverseSelector] Score calculation complete
+2025-11-01 00:07:06 - BinanceScanner - INFO - [universe_selector.py:142] - 📊 [UniverseSelector] Updating database with 61 symbols...
+2025-11-01 00:07:07 - BinanceScanner - INFO - [universe_selector.py:176] - ✅ [UniverseSelector] Universe scan completed in 117.71s, selected 61 symbols
+2025-11-01 00:07:07 - BinanceScanner - INFO - [universe_selector.py:178] - 🏆 [UniverseSelector] Top 10 symbols by score: XRPUSDT(85.2), DOGEUSDT(84.3), SOLUSDT(82.8), BTCUSDT(81.9), ADAUSDT(79.4), AVNTUSDT(77.1), TRUMPUSDT(76.8), ZECUSDT(76.4), AI16ZUSDT(76.0), TAOUSDT(75.6)
+2025-11-01 00:07:07 - BinanceScanner - INFO - [telegram_dispatcher.py:206] - 📤 [TelegramDispatcher] Sent notification
+2025-11-01 00:07:07 - BinanceScanner - INFO - [main.py:109] - ✅ [Main] Initial scan complete, selected 61 symbols
+2025-11-01 00:07:07 - BinanceScanner - INFO - [main.py:122] - 📥 [Main] Preloading historical klines for 61 symbols...
+2025-11-01 00:07:47 - BinanceScanner - INFO - [main.py:175] - ✅ [Main] Preloaded 1830 klines for 61/61 symbols
+2025-11-01 00:07:47 - BinanceScanner - INFO - [main.py:77] - 🚀 [Main] Starting DataCollector for 61 symbols...
+2025-11-01 00:07:47 - BinanceScanner - INFO - [main.py:228] - 🎯 [Main] Starting signal generation loop...
+2025-11-01 00:07:47 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:07:47 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:07:47 - BinanceScanner - INFO - [main.py:451] - ⚡ [Main] Starting 100ms fast signal tracking loop...
+2025-11-01 00:07:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:07:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:07:47 - BinanceScanner - INFO - [main.py:494] - 📊 [Main] Starting metrics update loop...
+2025-11-01 00:07:47 - BinanceScanner - INFO - [data_collector.py:31] - 🚀 [DataCollector] Starting data collection for 61 symbols...
+2025-11-01 00:07:47 - BinanceScanner - INFO - [data_collector.py:32] - 📊 [DataCollector] Total streams: 244 (bookTicker+depth20+aggTrade+kline_15m, limit: 1024)
+2025-11-01 00:07:47 - BinanceScanner - INFO - [data_collector.py:56] - 📡 [DataCollector] Connecting to combined WebSocket for 61 symbols with proxy...
+2025-11-01 00:07:48 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:07:48 - BinanceScanner - INFO - [data_collector.py:215] - 🔍 [DIAGNOSTIC] Trade #1 from Binance: HBARUSDT - Price=$0.20, Qty=10184.0000, Size=$2,048, IsSell=True, Time=1761955668422
+2025-11-01 00:07:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] HBARUSDT - Trades accumulated: 1 (cleaned 0)
+2025-11-01 00:07:48 - BinanceScanner - INFO - [data_collector.py:215] - 🔍 [DIAGNOSTIC] Trade #2 from Binance: GIGGLEUSDT - Price=$93.75, Qty=0.7000, Size=$66, IsSell=True, Time=1761955668582
+2025-11-01 00:07:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] GIGGLEUSDT - Trades accumulated: 1 (cleaned 0)
+2025-11-01 00:07:48 - BinanceScanner - INFO - [data_collector.py:215] - 🔍 [DIAGNOSTIC] Trade #3 from Binance: GIGGLEUSDT - Price=$93.74, Qty=2.9200, Size=$274, IsSell=True, Time=1761955668584
+2025-11-01 00:07:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] COMMONUSDT - Trades accumulated: 1 (cleaned 0)
+2025-11-01 00:07:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] DASHUSDT - Trades accumulated: 1 (cleaned 0)
+2025-11-01 00:07:48 - BinanceScanner - INFO - [trade_flow_analyzer.py:64] - 📊 [DIAGNOSTIC] BNBUSDT - Trades accumulated: 1 (cleaned 0)
+2025-11-01 00:07:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:165] - 💰 [DIAGNOSTIC] LARGE SELL EIGENUSDT: $49,818 (threshold=$10,000, price=$0.92, qty=54273.9000)
+2025-11-01 00:07:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:165] - 💰 [DIAGNOSTIC] LARGE SELL EIGENUSDT: $49,818 (threshold=$10,000, price=$0.92, qty=54273.9000)
+2025-11-01 00:07:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:165] - 💰 [DIAGNOSTIC] LARGE SELL EIGENUSDT: $49,818 (threshold=$10,000, price=$0.92, qty=54273.9000)
+2025-11-01 00:07:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:165] - 💰 [DIAGNOSTIC] LARGE SELL EIGENUSDT: $49,818 (threshold=$10,000, price=$0.92, qty=54273.9000)
+2025-11-01 00:07:50 - BinanceScanner - INFO - [trade_flow_analyzer.py:165] - 💰 [DIAGNOSTIC] LARGE SELL EIGENUSDT: $49,818 (threshold=$10,000, price=$0.92, qty=54273.9000)
+2025-11-01 00:07:51 - BinanceScanner - INFO - [trade_flow_analyzer.py:175] - 💰 [DIAGNOSTIC] LARGE BUY XRPUSDT: $16,163 (threshold=$10,000, price=$2.50, qty=6462.0000)
+2025-11-01 00:07:51 - BinanceScanner - INFO - [trade_flow_analyzer.py:175] - 💰 [DIAGNOSTIC] LARGE BUY XRPUSDT: $16,163 (threshold=$10,000, price=$2.50, qty=6462.0000)
+2025-11-01 00:07:51 - BinanceScanner - INFO - [trade_flow_analyzer.py:175] - 💰 [DIAGNOSTIC] LARGE BUY BTCUSDT: $10,938 (threshold=$10,000, price=$109382.40, qty=0.1000)
+2025-11-01 00:07:52 - BinanceScanner - INFO - [trade_flow_analyzer.py:175] - 💰 [DIAGNOSTIC] LARGE BUY BTCUSDT: $10,938 (threshold=$10,000, price=$109382.40, qty=0.1000)
+2025-11-01 00:07:52 - BinanceScanner - INFO - [trade_flow_analyzer.py:175] - 💰 [DIAGNOSTIC] LARGE BUY BTCUSDT: $10,938 (threshold=$10,000, price=$109382.40, qty=0.1000)
+2025-11-01 00:07:52 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:07:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:03 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:08 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:13 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 105684 messages processed
+2025-11-01 00:08:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:29 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:45 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.204, large_buys=0, large_sells=1
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.204 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=1 (need ≥3)
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.347, large_buys=0, large_sells=1
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.347 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=1 (need ≥3)
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.084, large_buys=1, large_sells=0
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.084 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=0 (need ≥3)
+2025-11-01 00:08:47 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for SUIUSDT, calculating dynamic SL/TP...
+2025-11-01 00:08:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 209136 messages processed
+2025-11-01 00:08:47 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for SUIUSDT
+2025-11-01 00:08:47 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:08:51 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:08:56 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:01 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:06 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:12 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:17 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 296982 messages processed
+2025-11-01 00:09:22 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:28 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:38 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:43 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 382384 messages processed
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.175, large_buys=1, large_sells=1
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.175 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=1 (need ≥3)
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.106, large_buys=1, large_sells=0
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.106 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=0 (need ≥3)
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.457, large_buys=2, large_sells=1
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.457 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:09:47 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for TAOUSDT, calculating dynamic SL/TP...
+2025-11-01 00:09:47 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for TAOUSDT
+2025-11-01 00:09:47 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:09:47 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 00:09:47 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for BNBUSDT, calculating dynamic SL/TP...
+2025-11-01 00:09:47 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for BNBUSDT
+2025-11-01 00:09:47 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:09:49 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:54 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:09:59 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:05 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:10 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:15 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 449446 messages processed
+2025-11-01 00:10:21 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:31 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:36 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:10:37 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:42 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 509773 messages processed
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.127, large_buys=2, large_sells=1
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.127 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.066, large_buys=1, large_sells=1
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.066 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=1 (need ≥3)
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=0.144, large_buys=3, large_sells=1
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=0.144 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=1 (need ≥3)
+2025-11-01 00:10:47 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 00:10:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:47 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 00:10:47 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for ZECUSDT, calculating dynamic SL/TP...
+2025-11-01 00:10:47 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for ZECUSDT
+2025-11-01 00:10:47 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for HYPEUSDT, calculating dynamic SL/TP...
+2025-11-01 00:10:47 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for HYPEUSDT
+2025-11-01 00:10:47 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:10:53 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:10:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:04 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:09 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:14 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 564986 messages processed
+2025-11-01 00:11:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:25 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:30 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:41 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:46 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 623275 messages processed
+2025-11-01 00:11:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:11:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.331, large_buys=2, large_sells=2
+2025-11-01 00:11:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.331 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=2 (need ≥3)
+2025-11-01 00:11:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.202, large_buys=1, large_sells=1
+2025-11-01 00:11:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.202 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=1 (need ≥3)
+2025-11-01 00:11:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.441, large_buys=2, large_sells=3
+2025-11-01 00:11:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ZECUSDT, calculating dynamic SL/TP...
+2025-11-01 00:11:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ZECUSDT
+2025-11-01 00:11:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for SUIUSDT, calculating dynamic SL/TP...
+2025-11-01 00:11:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for SUIUSDT
+2025-11-01 00:11:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:11:52 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:11:57 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:02 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:07 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:13 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:15 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:12:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 670519 messages processed
+2025-11-01 00:12:18 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:23 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:29 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:34 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:45 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 718823 messages processed
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.110, large_buys=0, large_sells=5
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.110 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.004, large_buys=1, large_sells=2
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.004 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=2 (need ≥3)
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.062, large_buys=3, large_sells=3
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.062 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=3 (need ≥3)
+2025-11-01 00:12:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:12:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 00:12:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:12:50 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:12:56 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:01 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:07 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:07 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:13:09 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:13:12 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:17 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 764351 messages processed
+2025-11-01 00:13:23 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:28 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:39 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:44 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 821848 messages processed
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.151, large_buys=0, large_sells=5
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.151 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.093, large_buys=2, large_sells=1
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.093 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.053, large_buys=3, large_sells=3
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.053 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=3 (need ≥3)
+2025-11-01 00:13:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for VIRTUALUSDT, calculating dynamic SL/TP...
+2025-11-01 00:13:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for VIRTUALUSDT
+2025-11-01 00:13:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:13:49 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:13:55 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:00 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:05 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:10 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:16 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 877864 messages processed
+2025-11-01 00:14:21 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:32 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:37 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:42 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 945582 messages processed
+2025-11-01 00:14:48 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.133, large_buys=0, large_sells=5
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.133 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.224, large_buys=2, large_sells=1
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.224 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.003, large_buys=2, large_sells=3
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.003 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=3 (need ≥3)
+2025-11-01 00:14:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 00:14:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 00:14:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for DASHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:14:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for DASHUSDT
+2025-11-01 00:14:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:14:53 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:14:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:04 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:10 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:15 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 997409 messages processed
+2025-11-01 00:15:20 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:31 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:36 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:15:36 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:42 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1050734 messages processed
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.239, large_buys=0, large_sells=5
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.239 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.391, large_buys=2, large_sells=1
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.391 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.230, large_buys=2, large_sells=5
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.230 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=5 (need ≥3)
+2025-11-01 00:15:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:15:52 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:15:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:03 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:08 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:14 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1101736 messages processed
+2025-11-01 00:16:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:30 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:46 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1160894 messages processed
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.099, large_buys=0, large_sells=5
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.099 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.171, large_buys=2, large_sells=1
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.171 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.208, large_buys=4, large_sells=3
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.208 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=4, large_sells=3 (need ≥3)
+2025-11-01 00:16:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 00:16:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 00:16:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:16:51 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:16:56 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:02 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:07 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:07 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:17:12 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1218677 messages processed
+2025-11-01 00:17:18 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:23 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:28 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:39 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:44 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1277898 messages processed
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.224, large_buys=0, large_sells=5
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.224 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.102, large_buys=2, large_sells=1
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.102 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.167, large_buys=6, large_sells=2
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.167 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=6, large_sells=2 (need ≥3)
+2025-11-01 00:17:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:17:49 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:17:55 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:00 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:05 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:11 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:16 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1332920 messages processed
+2025-11-01 00:18:21 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:32 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:37 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:42 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1395804 messages processed
+2025-11-01 00:18:48 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.047, large_buys=0, large_sells=5
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.047 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.429, large_buys=2, large_sells=1
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.429 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=1 (need ≥3)
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.174, large_buys=5, large_sells=3
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.174 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=5, large_sells=3 (need ≥3)
+2025-11-01 00:18:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:18:53 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:18:54 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:18:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:04 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:09 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:14 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1446607 messages processed
+2025-11-01 00:19:20 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:25 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:31 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:36 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:41 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:46 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1510707 messages processed
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.229, large_buys=0, large_sells=4
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.229 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=4 (need ≥3)
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.114, large_buys=1, large_sells=2
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.114 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=2 (need ≥3)
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.196, large_buys=6, large_sells=3
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.196 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=6, large_sells=3 (need ≥3)
+2025-11-01 00:19:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:19:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 00:19:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:19:52 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:19:57 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:02 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:08 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:13 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1569922 messages processed
+2025-11-01 00:20:18 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:29 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:34 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:41 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:20:45 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1619532 messages processed
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.055, large_buys=1, large_sells=4
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.055 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=4 (need ≥3)
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.290, large_buys=1, large_sells=2
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.290 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=2 (need ≥3)
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.312, large_buys=6, large_sells=2
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.312 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=6, large_sells=2 (need ≥3)
+2025-11-01 00:20:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:20:50 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:20:56 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:01 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:06 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:11 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:17 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1679453 messages processed
+2025-11-01 00:21:22 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:27 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:38 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:43 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1745179 messages processed
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.060, large_buys=1, large_sells=4
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.060 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=4 (need ≥3)
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.325, large_buys=0, large_sells=3
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.325 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=3 (need ≥3)
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.230, large_buys=3, large_sells=3
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.230 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=3 (need ≥3)
+2025-11-01 00:21:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:21:49 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:54 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:21:59 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:05 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:10 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:15 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1795610 messages processed
+2025-11-01 00:22:20 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:27 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:22:29 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:22:31 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:31 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:22:33 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:22:36 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:22:36 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:41 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1840183 messages processed
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.106, large_buys=3, large_sells=3
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.106 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=3 (need ≥3)
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.164, large_buys=0, large_sells=3
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.164 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=3 (need ≥3)
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.229, large_buys=2, large_sells=4
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.229 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=4 (need ≥3)
+2025-11-01 00:22:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for BNBUSDT, calculating dynamic SL/TP...
+2025-11-01 00:22:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for BNBUSDT
+2025-11-01 00:22:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:22:52 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:22:57 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:03 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:08 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:14 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1910265 messages processed
+2025-11-01 00:23:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:30 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:33 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:23:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:46 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 1983714 messages processed
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.019, large_buys=3, large_sells=3
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.019 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=3 (need ≥3)
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.384, large_buys=0, large_sells=3
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.384 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=3 (need ≥3)
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=0.110, large_buys=3, large_sells=4
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=0.110 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=4 (need ≥3)
+2025-11-01 00:23:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 00:23:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 00:23:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:23:51 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:23:57 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:02 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:07 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:13 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2049295 messages processed
+2025-11-01 00:24:18 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:29 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:34 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:45 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2120804 messages processed
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.069, large_buys=4, large_sells=1
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.069 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=4, large_sells=1 (need ≥3)
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.036, large_buys=3, large_sells=0
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.036 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=0 (need ≥3)
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=0.217, large_buys=2, large_sells=5
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=0.217 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=5 (need ≥3)
+2025-11-01 00:24:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for BNBUSDT, calculating dynamic SL/TP...
+2025-11-01 00:24:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for BNBUSDT
+2025-11-01 00:24:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:24:50 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:24:56 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:01 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:06 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:12 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:17 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2183458 messages processed
+2025-11-01 00:25:22 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:28 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:38 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:44 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2232103 messages processed
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.146, large_buys=3, large_sells=1
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.146 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=1 (need ≥3)
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.011, large_buys=0, large_sells=3
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.011 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=3 (need ≥3)
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=0.081, large_buys=3, large_sells=4
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=0.081 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=4 (need ≥3)
+2025-11-01 00:25:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for DASHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:25:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for DASHUSDT
+2025-11-01 00:25:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:25:49 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:25:53 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:25:54 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:00 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:05 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:10 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:15 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2281269 messages processed
+2025-11-01 00:26:21 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:31 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:37 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:42 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2307059 messages processed
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.042, large_buys=3, large_sells=0
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.042 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=0 (need ≥3)
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=0.018, large_buys=0, large_sells=3
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=0.018 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=3 (need ≥3)
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=0.567, large_buys=2, large_sells=4
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=0.567 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=4 (need ≥3)
+2025-11-01 00:26:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 00:26:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 00:26:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for DASHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:26:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for DASHUSDT
+2025-11-01 00:26:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:26:53 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:26:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:02 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:27:03 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:04 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:27:08 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:14 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2351205 messages processed
+2025-11-01 00:27:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:30 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:46 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2404903 messages processed
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.113, large_buys=3, large_sells=0
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.113 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=0 (need ≥3)
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.204, large_buys=0, large_sells=3
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.204 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=3 (need ≥3)
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=0.134, large_buys=2, large_sells=4
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=0.134 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=4 (need ≥3)
+2025-11-01 00:27:48 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ZECUSDT, calculating dynamic SL/TP...
+2025-11-01 00:27:48 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ZECUSDT
+2025-11-01 00:27:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:27:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 00:27:48 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:27:51 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:27:57 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:02 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:08 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:13 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2454089 messages processed
+2025-11-01 00:28:18 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:29 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:35 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:40 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:45 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2511047 messages processed
+2025-11-01 00:28:48 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:28:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=0.148, large_buys=3, large_sells=0
+2025-11-01 00:28:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=0.148 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=0 (need ≥3)
+2025-11-01 00:28:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.022, large_buys=0, large_sells=2
+2025-11-01 00:28:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.022 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=2 (need ≥3)
+2025-11-01 00:28:48 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.247, large_buys=1, large_sells=4
+2025-11-01 00:28:48 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.247 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=4 (need ≥3)
+2025-11-01 00:28:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 00:28:48 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 00:28:48 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for TAOUSDT, calculating dynamic SL/TP...
+2025-11-01 00:28:49 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for TAOUSDT
+2025-11-01 00:28:49 - BinanceScanner - INFO - [signal_generator.py:107] - 📊 [SignalGenerator] Basic LONG conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:28:49 - BinanceScanner - WARNING - [signal_generator.py:114] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 00:28:49 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:28:49 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:28:51 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:28:51 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:28:54 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:28:56 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:28:56 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:01 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:06 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:12 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2562904 messages processed
+2025-11-01 00:29:17 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:23 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:28 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:39 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:44 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2632532 messages processed
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.409, large_buys=0, large_sells=4
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:366] - 📊 [DEBUG XRPUSDT] imb=-0.409, large_buys=0, large_sells=4, vol_int=2.21 (current=748,166, avg=338,525), vwap=$2.50, price=$2.50
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:370] - 📊 [DEBUG XRPUSDT] LONG failed: ['orderbook_imbalance', 'large_buy_trades'], SHORT failed: ['price_below_vwap']
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.179, large_buys=1, large_sells=1
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.179 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=1 (need ≥3)
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.218, large_buys=2, large_sells=2
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.218 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=2 (need ≥3)
+2025-11-01 00:29:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for TRUMPUSDT, calculating dynamic SL/TP...
+2025-11-01 00:29:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for TRUMPUSDT
+2025-11-01 00:29:49 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:29:50 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:29:55 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:01 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:06 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:11 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:17 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2692403 messages processed
+2025-11-01 00:30:22 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:27 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:33 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:38 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:43 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2748590 messages processed
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.135, large_buys=0, large_sells=5
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.135 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=5 (need ≥3)
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.368, large_buys=1, large_sells=1
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.368 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=1, large_sells=1 (need ≥3)
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.324, large_buys=3, large_sells=2
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.324 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=2 (need ≥3)
+2025-11-01 00:30:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ZECUSDT, calculating dynamic SL/TP...
+2025-11-01 00:30:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ZECUSDT
+2025-11-01 00:30:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:30:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 00:30:49 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:30:49 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:30:54 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:00 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:05 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:07 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:31:10 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:16 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2815225 messages processed
+2025-11-01 00:31:21 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:26 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:32 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:37 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:42 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2877643 messages processed
+2025-11-01 00:31:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:49 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:31:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.382, large_buys=0, large_sells=6
+2025-11-01 00:31:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for XRPUSDT, calculating dynamic SL/TP...
+2025-11-01 00:31:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for XRPUSDT
+2025-11-01 00:31:49 - BinanceScanner - INFO - [main.py:366] - 📊 [DEBUG XRPUSDT] imb=-0.382, large_buys=0, large_sells=6, vol_int=3.22 (current=1,085,026, avg=337,111), vwap=$2.50, price=$2.49
+2025-11-01 00:31:49 - BinanceScanner - INFO - [main.py:370] - 📊 [DEBUG XRPUSDT] LONG failed: ['orderbook_imbalance', 'large_buy_trades', 'price_above_vwap'], SHORT failed: []
+2025-11-01 00:31:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.615, large_buys=1, large_sells=3
+2025-11-01 00:31:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.393, large_buys=2, large_sells=3
+2025-11-01 00:31:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for SOLUSDT, calculating dynamic SL/TP...
+2025-11-01 00:31:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for SOLUSDT
+2025-11-01 00:31:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 00:31:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 00:31:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for TAOUSDT, calculating dynamic SL/TP...
+2025-11-01 00:31:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for TAOUSDT
+2025-11-01 00:31:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 00:31:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 00:31:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for BNBUSDT, calculating dynamic SL/TP...
+2025-11-01 00:31:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for BNBUSDT
+2025-11-01 00:31:49 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:31:53 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:31:58 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:01 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:32:03 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:32:03 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:09 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:14 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 2946833 messages processed
+2025-11-01 00:32:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:25 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:30 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:36 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:41 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:47 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:47 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 3024900 messages processed
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:239] - 🔍 [Main] Analyzing ALL 61 symbols for signals...
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC XRPUSDT] imb=-0.143, large_buys=0, large_sells=6
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC XRPUSDT] Failed quick_check: imb=-0.143 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=0, large_sells=6 (need ≥3)
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC DOGEUSDT] imb=-0.326, large_buys=3, large_sells=2
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC DOGEUSDT] Failed quick_check: imb=-0.326 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=3, large_sells=2 (need ≥3)
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:280] - 📊 [DIAGNOSTIC SOLUSDT] imb=-0.284, large_buys=2, large_sells=2
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:294] - ❌ [DIAGNOSTIC SOLUSDT] Failed quick_check: imb=-0.284 (need >0.28 for LONG or <-0.28 for SHORT), large_buys=2, large_sells=2 (need ≥3)
+2025-11-01 00:32:49 - BinanceScanner - INFO - [signal_generator.py:239] - 📊 [SignalGenerator] Basic SHORT conditions passed for BNBUSDT, calculating dynamic SL/TP...
+2025-11-01 00:32:49 - BinanceScanner - WARNING - [signal_generator.py:246] - ⚠️ [SignalGenerator] Could not calculate volatility for BNBUSDT
+2025-11-01 00:32:49 - BinanceScanner - INFO - [main.py:249] - ✅ [Main] Completed signal check for 61 symbols - Generated 0 signals
+2025-11-01 00:32:52 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:32:57 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:33:03 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:33:08 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:33:13 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:33:17 - BinanceScanner - INFO - [data_collector.py:82] - 💓 [DataCollector] WebSocket alive - 3099433 messages processed
+2025-11-01 00:33:19 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:33:23 - BinanceScanner - INFO - [data_collector.py:67] - ✅ [DataCollector] Connected! Streaming 244 streams for 61 symbols
+2025-11-01 00:33:24 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+2025-11-01 00:33:29 - BinanceScanner - INFO - [fast_signal_tracker.py:76] - 🔄 [FastSignalTracker] Cache synced: 0 open signals, 0 active reversal counters, 0 partial close states
+202

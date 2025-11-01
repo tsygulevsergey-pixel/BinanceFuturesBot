@@ -191,9 +191,9 @@ class OrderbookLevelsAnalyzer:
             # Получить свечи за последние 6 часов
             query = """
                 SELECT 
-                    high_price,
-                    low_price,
-                    close_price,
+                    high,
+                    low,
+                    close,
                     volume,
                     timestamp
                 FROM klines
@@ -216,8 +216,8 @@ class OrderbookLevelsAnalyzer:
             bin_size = avg_price * 0.001
             
             for row in rows:
-                low = float(row['low_price'])
-                high = float(row['high_price'])
+                low = float(row['low'])
+                high = float(row['high'])
                 volume = float(row['volume'])
                 
                 # Распределить объем свечи по ценовым уровням

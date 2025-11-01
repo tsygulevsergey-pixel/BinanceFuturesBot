@@ -44,9 +44,9 @@ class VolatilityCalculator:
             # Получить последние N+1 свечей 1m для расчета True Range
             query = """
                 SELECT 
-                    high_price,
-                    low_price,
-                    close_price,
+                    high,
+                    low,
+                    close,
                     timestamp
                 FROM klines
                 WHERE symbol = $1
@@ -63,15 +63,15 @@ class VolatilityCalculator:
             
             # Рассчитать True Range для каждой свечи
             true_ranges = []
-            current_price = float(rows[0]['close_price'])
+            current_price = float(rows[0]['close'])
             
             for i in range(len(rows) - 1):
                 current = rows[i]
                 previous = rows[i + 1]
                 
-                high = float(current['high_price'])
-                low = float(current['low_price'])
-                prev_close = float(previous['close_price'])
+                high = float(current['high'])
+                low = float(current['low'])
+                prev_close = float(previous['close'])
                 
                 # True Range = max(High-Low, |High-PrevClose|, |Low-PrevClose|)
                 tr = max(

@@ -40,6 +40,14 @@ This update adds historical klines preloading from Binance API to eliminate the 
   - Automatically preloads klines ONLY for new symbols
   - Logs added/removed symbols for transparency
 
+## Critical Fix Applied
+
+**Issue Found:** VolatilityCalculator was using incorrect column names (`high_price`, `low_price`, `close_price`) instead of correct names (`high`, `low`, `close`) from Kline model.
+
+**Fixed in:** `bot/modules/volatility_calculator.py`
+
+This fix is **required** for ATR calculation to work with the new klines table.
+
 ## Deployment Steps
 
 ### Step 1: Pull Latest Code
