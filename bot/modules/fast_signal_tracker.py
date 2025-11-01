@@ -435,18 +435,21 @@ class FastSignalTracker:
                         )
                         
                         # Send Telegram notification (non-blocking)
-                        asyncio.create_task(
-                            telegram_dispatcher.send_signal_update(
-                                signal_id=signal.id,
-                                symbol=signal.symbol,
-                                exit_reason='TAKE_PROFIT_1_PARTIAL',
-                                entry_price=entry_price,
-                                exit_price=exit_price,
-                                pnl_percent=tp1_pnl * 100,
-                                hold_time_minutes=hold_time,
-                                original_message_id=signal_data.get('telegram_message_id')
+                        try:
+                            asyncio.create_task(
+                                telegram_dispatcher.send_signal_update(
+                                    signal_id=str(signal.id),  # Convert Column to str
+                                    symbol=str(signal.symbol),  # Convert Column to str
+                                    exit_reason='TAKE_PROFIT_1_PARTIAL',
+                                    entry_price=entry_price,
+                                    exit_price=exit_price,
+                                    pnl_percent=tp1_pnl * 100,
+                                    hold_time_minutes=hold_time,
+                                    original_message_id=signal_data.get('telegram_message_id')
+                                )
                             )
-                        )
+                        except Exception as telegram_error:
+                            logger.warning(f"⚠️ Telegram notification failed: {telegram_error}")
                         
                         # DON'T remove from cache - signal remains open
                         
@@ -496,18 +499,21 @@ class FastSignalTracker:
                         )
                         
                         # Send Telegram notification (non-blocking)
-                        asyncio.create_task(
-                            telegram_dispatcher.send_signal_update(
-                                signal_id=signal.id,
-                                symbol=signal.symbol,
-                                exit_reason=exit_reason,
-                                entry_price=entry_price,
-                                exit_price=exit_price,
-                                pnl_percent=total_pnl * 100,
-                                hold_time_minutes=hold_time,
-                                original_message_id=signal_data.get('telegram_message_id')
+                        try:
+                            asyncio.create_task(
+                                telegram_dispatcher.send_signal_update(
+                                    signal_id=str(signal.id),  # Convert Column to str
+                                    symbol=str(signal.symbol),  # Convert Column to str
+                                    exit_reason=exit_reason,
+                                    entry_price=entry_price,
+                                    exit_price=exit_price,
+                                    pnl_percent=total_pnl * 100,
+                                    hold_time_minutes=hold_time,
+                                    original_message_id=signal_data.get('telegram_message_id')
+                                )
                             )
-                        )
+                        except Exception as telegram_error:
+                            logger.warning(f"⚠️ Telegram notification failed: {telegram_error}")
                         
                         # Remove from cache - signal is fully closed
                         if signal_id in self.open_signals_cache:
@@ -559,18 +565,21 @@ class FastSignalTracker:
                         )
                         
                         # Send Telegram notification (non-blocking)
-                        asyncio.create_task(
-                            telegram_dispatcher.send_signal_update(
-                                signal_id=signal.id,
-                                symbol=signal.symbol,
-                                exit_reason=exit_reason,
-                                entry_price=entry_price,
-                                exit_price=exit_price,
-                                pnl_percent=pnl_percent,
-                                hold_time_minutes=hold_time,
-                                original_message_id=signal_data.get('telegram_message_id')
+                        try:
+                            asyncio.create_task(
+                                telegram_dispatcher.send_signal_update(
+                                    signal_id=str(signal.id),  # Convert Column to str
+                                    symbol=str(signal.symbol),  # Convert Column to str
+                                    exit_reason=exit_reason,
+                                    entry_price=entry_price,
+                                    exit_price=exit_price,
+                                    pnl_percent=pnl_percent,
+                                    hold_time_minutes=hold_time,
+                                    original_message_id=signal_data.get('telegram_message_id')
+                                )
                             )
-                        )
+                        except Exception as telegram_error:
+                            logger.warning(f"⚠️ Telegram notification failed: {telegram_error}")
                         
                         # Remove from cache
                         if signal_id in self.open_signals_cache:
@@ -581,8 +590,7 @@ class FastSignalTracker:
                             f"🗑️ [FastSignalTracker] Removed {signal_id} from all caches"
                         )
                 
-                # Commit all changes
-                session.commit()
+                # NOTE: No explicit commit needed - context manager auto-commits on exit
                 logger.info(
                     f"✅ [FastSignalTracker] Batch processing completed: "
                     f"{len(exit_signals)} signal exits processed"

@@ -120,16 +120,19 @@ class SignalTracker:
                 f"@ ${exit_price:.4f} ({exit_reason}) PnL: {pnl_percent:+.2f}% Hold: {hold_time}min"
             )
             
-            await telegram_dispatcher.send_signal_update(
-                signal_id=signal.id,
-                symbol=signal.symbol,
-                exit_reason=exit_reason,
-                entry_price=entry_price,
-                exit_price=exit_price,
-                pnl_percent=pnl_percent,
-                hold_time_minutes=hold_time,
-                original_message_id=signal.telegram_message_id
-            )
+            try:
+                await telegram_dispatcher.send_signal_update(
+                    signal_id=str(signal.id),  # Convert Column to str
+                    symbol=str(signal.symbol),  # Convert Column to str
+                    exit_reason=exit_reason,
+                    entry_price=entry_price,
+                    exit_price=exit_price,
+                    pnl_percent=pnl_percent,
+                    hold_time_minutes=hold_time,
+                    original_message_id=int(signal.telegram_message_id) if signal.telegram_message_id else None
+                )
+            except Exception as telegram_error:
+                logger.warning(f"⚠️ Telegram notification failed: {telegram_error}")
             
         except Exception as e:
             logger.error(f"❌ [SignalTracker] Error closing signal {signal.id}: {e}")
