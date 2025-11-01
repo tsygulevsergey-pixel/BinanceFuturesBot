@@ -1,17 +1,19 @@
 """
 Data Collector - collects real-time data via WebSocket
-Streams: orderbook depth, aggregate trades, klines
-Updates Redis cache and triggers analysis
+Streams: orderbook depth, aggregate trades, klines (1m + 15m)
+Updates Redis cache, saves 1m klines to PostgreSQL for ATR calculation
 """
 import asyncio
 import json
 import aiohttp
 from typing import Dict, List, Set
+from datetime import datetime, timedelta
 from bot.config import Config
 from bot.utils import logger
 from bot.utils.redis_manager import redis_manager
 from bot.modules.orderbook_analyzer import orderbook_analyzer
 from bot.modules.trade_flow_analyzer import trade_flow_analyzer
+from bot.database import db_manager
 
 class DataCollector:
     def __init__(self):
@@ -20,6 +22,8 @@ class DataCollector:
         self.websocket_connections = {}
         self.running = False
         self.proxy = Config.PROXY_URL  # Add proxy support
+        self.last_cleanup = datetime.now()
+        self.cleanup_interval = 300  # Cleanup every 5 minutes
         
         logger.info("🔧 [DataCollector] Initialized")
     
@@ -29,7 +33,7 @@ class DataCollector:
             self.running = True
             
             logger.info(f"🚀 [DataCollector] Starting data collection for {len(symbols)} symbols...")
-            logger.info(f"📊 [DataCollector] Total streams: {len(symbols) * 4} (bookTicker+depth20+aggTrade+kline_15m, limit: 1024)")
+            logger.info(f"📊 [DataCollector] Total streams: {len(symbols) * 5} (bookTicker+depth20+aggTrade+kline_1m+kline_15m, limit: 1024)")
             
             # Use ONE combined WebSocket connection for ALL symbols (efficient!)
             await self.collect_all_symbols_combined(symbols)
@@ -48,7 +52,8 @@ class DataCollector:
                 f"{symbol_lower}@bookTicker",  # Best bid/ask ONLY (accurate pricing!)
                 f"{symbol_lower}@depth20@100ms",  # Top 20 levels for orderbook analysis
                 f"{symbol_lower}@aggTrade",
-                f"{symbol_lower}@kline_15m"
+                f"{symbol_lower}@kline_1m",   # 1m klines for ATR calculation (saved to PostgreSQL)
+                f"{symbol_lower}@kline_15m"   # 15m klines for volume analysis (saved to Redis)
             ])
         
         stream_url = f"{self.base_url}/stream?streams={'/'.join(all_streams)}"
@@ -81,6 +86,9 @@ class DataCollector:
                                     if current_time - last_heartbeat >= 30:
                                         logger.info(f"💓 [DataCollector] WebSocket alive - {message_count} messages processed")
                                         last_heartbeat = current_time
+                                    
+                                    # Periodic cleanup of old klines data
+                                    await self.cleanup_old_klines()
                                         
                                 elif msg.type == aiohttp.WSMsgType.ERROR:
                                     logger.error(f"❌ [DataCollector] WebSocket error: {ws.exception()}")
@@ -230,10 +238,8 @@ class DataCollector:
     async def process_kline(self, symbol: str, data: Dict):
         try:
             kline = data.get('k', {})
+            interval = kline.get('i', '15m')  # Get interval (1m or 15m)
             
-            # IMPORTANT: Save ALL kline updates (not only closed candles)
-            # This provides immediate volume data for volume_intensity calculation
-            # Without this, bot waits up to 15 minutes for first closed candle!
             kline_data = {
                 'open': float(kline.get('o', 0)),
                 'high': float(kline.get('h', 0)),
@@ -241,22 +247,95 @@ class DataCollector:
                 'close': float(kline.get('c', 0)),
                 'volume': float(kline.get('v', 0)),
                 'timestamp': kline.get('T', 0),
-                'is_closed': kline.get('x', False)  # Track if candle is closed
+                'is_closed': kline.get('x', False)
             }
             
-            # Save to Redis with 15min expiry
-            redis_manager.set(f'kline_15m:{symbol}', kline_data, expiry=900)
-            
-            # Log first closed candle for each symbol (diagnostics)
-            if kline.get('x', False):
-                if not hasattr(self, '_closed_klines_logged'):
-                    self._closed_klines_logged = set()
-                if symbol not in self._closed_klines_logged:
-                    logger.info(f"📊 [DataCollector] First 15m candle closed for {symbol}: vol={kline_data['volume']:,.0f}")
-                    self._closed_klines_logged.add(symbol)
+            if interval == '1m':
+                # 1m klines: Save ONLY closed candles to PostgreSQL for ATR calculation
+                # This provides accurate True Range data for volatility analysis
+                if kline.get('x', False):  # Only closed candles
+                    await self.save_kline_to_db(symbol, interval, kline_data)
+                    
+                    # Log first closed 1m candle for diagnostics
+                    if not hasattr(self, '_closed_1m_logged'):
+                        self._closed_1m_logged = set()
+                    if symbol not in self._closed_1m_logged:
+                        logger.info(f"📊 [DataCollector] First 1m candle saved to DB for {symbol}")
+                        self._closed_1m_logged.add(symbol)
+                        
+            elif interval == '15m':
+                # 15m klines: Save ALL updates to Redis for volume_intensity calculation
+                # Without this, bot waits up to 15 minutes for first closed candle!
+                redis_manager.set(f'kline_15m:{symbol}', kline_data, expiry=900)
+                
+                # Log first closed 15m candle for diagnostics
+                if kline.get('x', False):
+                    if not hasattr(self, '_closed_15m_logged'):
+                        self._closed_15m_logged = set()
+                    if symbol not in self._closed_15m_logged:
+                        logger.info(f"📊 [DataCollector] First 15m candle closed for {symbol}: vol={kline_data['volume']:,.0f}")
+                        self._closed_15m_logged.add(symbol)
             
         except Exception as e:
             logger.error(f"❌ [DataCollector] Error processing kline for {symbol}: {e}")
+    
+    async def save_kline_to_db(self, symbol: str, interval: str, kline_data: Dict):
+        """Save closed kline to PostgreSQL for ATR calculation"""
+        try:
+            if not db_manager.async_pool:
+                logger.warning("⚠️ [DataCollector] Database pool not initialized, skipping kline save")
+                return
+                
+            timestamp = datetime.fromtimestamp(kline_data['timestamp'] / 1000)
+            
+            query = """
+                INSERT INTO klines (symbol, interval, timestamp, open, high, low, close, volume)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                ON CONFLICT (symbol, interval, timestamp) DO NOTHING
+            """
+            
+            async with db_manager.async_pool.acquire() as conn:
+                await conn.execute(
+                    query,
+                    symbol,
+                    interval,
+                    timestamp,
+                    kline_data['open'],
+                    kline_data['high'],
+                    kline_data['low'],
+                    kline_data['close'],
+                    kline_data['volume']
+                )
+                
+            logger.debug(f"💾 [DataCollector] Saved {interval} kline for {symbol} to DB")
+            
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error saving kline to DB for {symbol}: {e}")
+    
+    async def cleanup_old_klines(self):
+        """Periodically cleanup klines older than 1 hour to save space"""
+        try:
+            now = datetime.now()
+            if (now - self.last_cleanup).total_seconds() < self.cleanup_interval:
+                return  # Not time yet
+            
+            if not db_manager.async_pool:
+                return  # Pool not initialized yet
+            
+            self.last_cleanup = now
+            cutoff_time = now - timedelta(hours=1)
+            
+            query = "DELETE FROM klines WHERE timestamp < $1"
+            
+            async with db_manager.async_pool.acquire() as conn:
+                result = await conn.execute(query, cutoff_time)
+                deleted_count = int(result.split()[-1]) if result else 0
+                
+                if deleted_count > 0:
+                    logger.info(f"🧹 [DataCollector] Cleaned up {deleted_count} old klines (>1 hour)")
+                    
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error cleaning up old klines: {e}")
     
     async def stop_collecting(self):
         self.running = False
