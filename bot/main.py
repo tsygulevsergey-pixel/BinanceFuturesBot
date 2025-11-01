@@ -207,6 +207,8 @@ class BinanceFuturesScanner:
                     
                     if new_symbols:
                         logger.info(f"🆕 [Main] Found {len(new_symbols)} new symbols: {', '.join(list(new_symbols)[:5])}")
+                        # Fetch tickSize for new symbols (needed for orderbook aggregation!)
+                        await data_collector.fetch_symbol_tick_sizes(list(new_symbols))
                         # Preload historical klines for new symbols only!
                         await self.preload_historical_klines(list(new_symbols))
                     
