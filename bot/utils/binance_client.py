@@ -177,6 +177,16 @@ class BinanceProxyClient:
             weight=1
         )
     
+    async def get_symbol_ticker_async(self, symbol: str) -> Optional[Dict]:
+        """Get current price for a single symbol (fallback for FastSignalTracker)"""
+        logger.debug(f"📝 [BinanceClient] Fetching ticker price for {symbol}")
+        return await self._make_request(
+            'GET',
+            '/fapi/v1/ticker/price',
+            params={'symbol': symbol},
+            weight=1
+        )
+    
     async def get_book_tickers(self) -> Optional[list]:
         """Get best bid/ask prices for all symbols (single batch request)"""
         logger.info("📝 [BinanceClient] Fetching book tickers (bid/ask prices) for all symbols...")
