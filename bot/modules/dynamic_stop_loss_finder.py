@@ -67,21 +67,11 @@ class DynamicStopLossFinder:
         stop_distance_usd = entry_price - stop_loss_price
         stop_distance_pct = (stop_distance_usd / entry_price) * 100
         
-        # REJECT signal if stop too close (don't expand - kills accuracy!)
-        if stop_distance_pct > 0 and stop_distance_pct < self.min_stop_distance_pct:
-            return {
-                'stop_loss_price': None,
-                'stop_distance_pct': None,
-                'stop_distance_usd': None,
-                'reason': f'Stop too close: {stop_distance_pct:.2f}% < {self.min_stop_distance_pct}% minimum (support at {strongest_support:.2f})',
-                'is_valid': False,
-                'support_level': strongest_support
-            }
-        
+        # NO minimum distance check for SL - the closer the stop to support, the better!
+        # Only check maximum distance to avoid overly wide stops
         reason = f"Below support cluster at {strongest_support:.2f}"
         
-        # Проверить ограничения максимального расстояния
-        is_valid = (stop_distance_pct <= self.max_stop_distance_pct)
+        is_valid = (stop_distance_pct > 0 and stop_distance_pct <= self.max_stop_distance_pct)
         
         if not is_valid:
             if stop_distance_pct > self.max_stop_distance_pct:
@@ -143,21 +133,11 @@ class DynamicStopLossFinder:
         stop_distance_usd = stop_loss_price - entry_price
         stop_distance_pct = (stop_distance_usd / entry_price) * 100
         
-        # REJECT signal if stop too close (don't expand - kills accuracy!)
-        if stop_distance_pct > 0 and stop_distance_pct < self.min_stop_distance_pct:
-            return {
-                'stop_loss_price': None,
-                'stop_distance_pct': None,
-                'stop_distance_usd': None,
-                'reason': f'Stop too close: {stop_distance_pct:.2f}% < {self.min_stop_distance_pct}% minimum (resistance at {strongest_resistance:.2f})',
-                'is_valid': False,
-                'resistance_level': strongest_resistance
-            }
-        
+        # NO minimum distance check for SL - the closer the stop to resistance, the better!
+        # Only check maximum distance to avoid overly wide stops
         reason = f"Above resistance cluster at {strongest_resistance:.2f}"
         
-        # Проверить ограничения максимального расстояния
-        is_valid = (stop_distance_pct <= self.max_stop_distance_pct)
+        is_valid = (stop_distance_pct > 0 and stop_distance_pct <= self.max_stop_distance_pct)
         
         if not is_valid:
             if stop_distance_pct > self.max_stop_distance_pct:
