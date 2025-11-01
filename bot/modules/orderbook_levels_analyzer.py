@@ -93,9 +93,27 @@ class OrderbookLevelsAnalyzer:
             [lvl for lvl in combined_levels['all_levels'] if lvl > current_price]
         )
         
-        # 5. Определить strongest уровни
-        strongest_support = support_levels[0] if support_levels else None
-        strongest_resistance = resistance_levels[0] if resistance_levels else None
+        # 5. Определить strongest уровни (САМЫЙ МОЩНЫЙ по объёму, НЕ ближайший!)
+        # ВАЖНО: SL должен быть за САМОЙ СИЛЬНОЙ зоной, чтобы избежать преждевременных стопов
+        level_volumes = combined_levels['level_volumes']
+        
+        if support_levels:
+            # Найти support с максимальным объёмом
+            strongest_support = max(
+                support_levels,
+                key=lambda lvl: level_volumes.get(lvl, 0)
+            )
+        else:
+            strongest_support = None
+        
+        if resistance_levels:
+            # Найти resistance с максимальным объёмом
+            strongest_resistance = max(
+                resistance_levels,
+                key=lambda lvl: level_volumes.get(lvl, 0)
+            )
+        else:
+            strongest_resistance = None
         
         # 6. Найти POC (Point of Control) - уровень с максимальным объемом
         poc = combined_levels['poc']
@@ -112,13 +130,20 @@ class OrderbookLevelsAnalyzer:
             'resistance_levels': resistance_levels[:5],
             'strongest_support': strongest_support,
             'strongest_resistance': strongest_resistance,
+            'strongest_support_volume': level_volumes.get(strongest_support, 0) if strongest_support else 0,
+            'strongest_resistance_volume': level_volumes.get(strongest_resistance, 0) if strongest_resistance else 0,
             'poc': poc,
             'low_volume_zones': low_volume_zones,
             'volume_profile': volume_profile,
+            'level_volumes': level_volumes,  # Добавлено для отладки
             'total_levels_found': len(combined_levels['all_levels'])
         }
         
         print(f"✅ [OrderbookLevelsAnalyzer] Found {len(support_levels)} support, {len(resistance_levels)} resistance")
+        if strongest_support:
+            print(f"   🔴 STRONGEST Support: ${strongest_support:.2f} (volume: {level_volumes.get(strongest_support, 0):.2f})")
+        if strongest_resistance:
+            print(f"   🔴 STRONGEST Resistance: ${strongest_resistance:.2f} (volume: {level_volumes.get(strongest_resistance, 0):.2f})")
         
         return result
     
