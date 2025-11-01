@@ -127,14 +127,15 @@ class Config:
     FAST_TRACKING_INTERVAL = 0.1  # 100ms check interval
     CACHE_SYNC_INTERVAL = 5        # Sync cache from DB every 5 seconds
     
-    # Hybrid exit thresholds
+    # Hybrid exit thresholds (OPTIMIZED for GLOBAL 200-level imbalance)
     # IMBALANCE_EXIT_NORMALIZED = 0.2   # DISABLED - was causing premature exits with -PnL
-    IMBALANCE_EXIT_REVERSED = 0.4     # Exit when opposite imbalance > 0.4 (RAISED from 0.3 to reduce noise)
-    MIN_HOLD_TIME_SECONDS = 30        # Minimum hold time before allowing IMBALANCE_REVERSED exit
+    IMBALANCE_EXIT_REVERSED = 0.4     # Exit when opposite imbalance > 0.4
+    MIN_HOLD_TIME_SECONDS = 10        # REDUCED for global imbalance: 10s (was 30s for local)
     
-    # EXIT Persistence filter: require SUSTAINED reversal before exiting
-    # This prevents exits on temporary imbalance spikes (noise)
-    IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES = 75  # 75 samples × 100ms = 7.5 seconds confirmation
+    # EXIT Persistence filter: RELAXED for global 200-level imbalance
+    # Global imbalance is stable/smooth, less noise than local 5-10 levels
+    # Total protection: 10s (hold time) + 3s (persistence) = 13 seconds (vs 37.5s before)
+    IMBALANCE_REVERSAL_PERSISTENCE_SAMPLES = 30  # 30 samples × 100ms = 3 seconds confirmation
     
     # ENTRY Persistence filter: require SUSTAINED confluence before creating signal
     # This prevents signal creation on temporary spikes (noise filtering)

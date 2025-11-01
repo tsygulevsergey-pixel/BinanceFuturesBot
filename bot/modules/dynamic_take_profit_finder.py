@@ -74,8 +74,11 @@ class DynamicTakeProfitFinder:
         # Риск = расстояние от входа до стопа
         risk_usd = stop_info['stop_distance_usd']
         
-        # TP1 = ближайший resistance
-        tp1_price = resistance_levels[0]
+        # TP1 = ПЕРЕД ближайшим resistance (95% distance to avoid rejection at level)
+        # This ensures we take profit BEFORE price bounces off resistance
+        resistance_target = resistance_levels[0]
+        distance_to_resistance = resistance_target - entry_price
+        tp1_price = entry_price + (distance_to_resistance * 0.95)  # 95% of distance
         reward1_usd = tp1_price - entry_price
         tp1_distance_pct = (reward1_usd / entry_price) * 100
         
@@ -88,10 +91,10 @@ class DynamicTakeProfitFinder:
                 'reason': f'TP1 too close: {tp1_distance_pct:.2f}% < {self.min_tp_distance_pct}% minimum (resistance at {tp1_price:.2f})'
             }
         
-        tp1_reason = f"First resistance at {tp1_price:.2f}"
+        tp1_reason = f"95% before resistance at {resistance_target:.2f}"
         tp1_rr = reward1_usd / risk_usd if risk_usd > 0 else 0
         
-        # TP2 = следующий resistance (если есть)
+        # TP2 = ПЕРЕД следующим resistance (если есть)
         tp2_price = None
         tp2_distance_pct = None
         tp2_rr = None
@@ -99,11 +102,13 @@ class DynamicTakeProfitFinder:
         tp2_reason = None
         
         if len(resistance_levels) >= 2:
-            tp2_price = resistance_levels[1]
+            resistance_target_2 = resistance_levels[1]
+            distance_to_resistance_2 = resistance_target_2 - entry_price
+            tp2_price = entry_price + (distance_to_resistance_2 * 0.95)  # 95% of distance
             reward2_usd = tp2_price - entry_price
             tp2_distance_pct = (reward2_usd / entry_price) * 100
             tp2_rr = reward2_usd / risk_usd if risk_usd > 0 else 0
-            tp2_reason = f"Second resistance at {tp2_price:.2f}"
+            tp2_reason = f"95% before second resistance at {resistance_target_2:.2f}"
         else:
             # Если нет второго уровня, используем TP1 * 1.5
             tp2_price = entry_price + (reward1_usd * 1.5)
@@ -170,8 +175,11 @@ class DynamicTakeProfitFinder:
         # Риск = расстояние от входа до стопа
         risk_usd = stop_info['stop_distance_usd']
         
-        # TP1 = ближайший support (support_levels уже отсортированы от ближайшего)
-        tp1_price = support_levels[0]
+        # TP1 = ПЕРЕД ближайшим support (95% distance to avoid rejection at level)
+        # This ensures we take profit BEFORE price bounces off support
+        support_target = support_levels[0]
+        distance_to_support = entry_price - support_target
+        tp1_price = entry_price - (distance_to_support * 0.95)  # 95% of distance
         reward1_usd = entry_price - tp1_price
         tp1_distance_pct = (reward1_usd / entry_price) * 100
         
@@ -184,10 +192,10 @@ class DynamicTakeProfitFinder:
                 'reason': f'TP1 too close: {tp1_distance_pct:.2f}% < {self.min_tp_distance_pct}% minimum (support at {tp1_price:.2f})'
             }
         
-        tp1_reason = f"First support at {tp1_price:.2f}"
+        tp1_reason = f"95% before support at {support_target:.2f}"
         tp1_rr = reward1_usd / risk_usd if risk_usd > 0 else 0
         
-        # TP2 = следующий support
+        # TP2 = ПЕРЕД следующим support (если есть)
         tp2_price = None
         tp2_distance_pct = None
         tp2_rr = None
@@ -195,11 +203,13 @@ class DynamicTakeProfitFinder:
         tp2_reason = None
         
         if len(support_levels) >= 2:
-            tp2_price = support_levels[1]
+            support_target_2 = support_levels[1]
+            distance_to_support_2 = entry_price - support_target_2
+            tp2_price = entry_price - (distance_to_support_2 * 0.95)  # 95% of distance
             reward2_usd = entry_price - tp2_price
             tp2_distance_pct = (reward2_usd / entry_price) * 100
             tp2_rr = reward2_usd / risk_usd if risk_usd > 0 else 0
-            tp2_reason = f"Second support at {tp2_price:.2f}"
+            tp2_reason = f"95% before second support at {support_target_2:.2f}"
         else:
             # Если нет второго уровня, используем TP1 * 1.5
             tp2_price = entry_price - (reward1_usd * 1.5)
