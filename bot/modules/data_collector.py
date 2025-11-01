@@ -35,6 +35,9 @@ class DataCollector:
             logger.info(f"🚀 [DataCollector] Starting data collection for {len(symbols)} symbols...")
             logger.info(f"📊 [DataCollector] Total streams: {len(symbols) * 5} (bookTicker+depth20+aggTrade+kline_1m+kline_15m, limit: 1024)")
             
+            # Backfill historical 1m klines for ATR calculation (so bot doesn't wait 15 minutes!)
+            await self.backfill_historical_klines(symbols)
+            
             # Use ONE combined WebSocket connection for ALL symbols (efficient!)
             await self.collect_all_symbols_combined(symbols)
             
@@ -336,6 +339,125 @@ class DataCollector:
                     
         except Exception as e:
             logger.error(f"❌ [DataCollector] Error cleaning up old klines: {e}")
+    
+    async def backfill_historical_klines(self, symbols: List[str]):
+        """
+        Load historical 1m klines from Binance REST API on startup
+        This allows ATR calculation to work immediately without waiting 15 minutes!
+        """
+        try:
+            if not db_manager.async_pool:
+                logger.warning("⚠️ [DataCollector] Database pool not initialized, skipping backfill")
+                return
+            
+            logger.info(f"📥 [DataCollector] Starting backfill of 1m klines for {len(symbols)} symbols...")
+            
+            # Check which symbols need backfill (missing data in last hour)
+            symbols_to_backfill = await self.get_symbols_needing_backfill(symbols)
+            
+            if not symbols_to_backfill:
+                logger.info(f"✅ [DataCollector] All symbols have recent 1m klines, skipping backfill")
+                return
+            
+            logger.info(f"📥 [DataCollector] Backfilling {len(symbols_to_backfill)} symbols that need data...")
+            
+            # Fetch last 20 klines (1m) for each symbol via REST API
+            import aiohttp
+            url = "https://fapi.binance.com/fapi/v1/klines"
+            
+            timeout = aiohttp.ClientTimeout(total=30)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                tasks = []
+                for symbol in symbols_to_backfill:
+                    tasks.append(self.fetch_and_save_klines(session, url, symbol))
+                
+                # Process in batches of 10 to avoid overwhelming API
+                batch_size = 10
+                for i in range(0, len(tasks), batch_size):
+                    batch = tasks[i:i+batch_size]
+                    await asyncio.gather(*batch, return_exceptions=True)
+                    await asyncio.sleep(0.5)  # Rate limit protection
+            
+            logger.info(f"✅ [DataCollector] Backfill completed! ATR calculation ready immediately")
+            
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error during backfill: {e}")
+    
+    async def get_symbols_needing_backfill(self, symbols: List[str]) -> List[str]:
+        """Check which symbols have insufficient klines data in last hour"""
+        try:
+            cutoff_time = datetime.now() - timedelta(minutes=20)
+            
+            query = """
+                SELECT symbol, COUNT(*) as kline_count
+                FROM klines
+                WHERE interval = '1m'
+                    AND timestamp >= $1
+                GROUP BY symbol
+            """
+            
+            async with db_manager.async_pool.acquire() as conn:
+                rows = await conn.fetch(query, cutoff_time)
+            
+            existing_symbols = {row['symbol']: row['kline_count'] for row in rows}
+            
+            # Need backfill if: no data OR less than 15 klines
+            symbols_needing_backfill = [
+                s for s in symbols 
+                if existing_symbols.get(s, 0) < 15
+            ]
+            
+            return symbols_needing_backfill
+            
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error checking backfill needs: {e}")
+            return symbols  # Backfill all if check fails
+    
+    async def fetch_and_save_klines(self, session: aiohttp.ClientSession, url: str, symbol: str):
+        """Fetch last 20 1m klines from Binance REST API and save to DB"""
+        try:
+            params = {
+                'symbol': symbol,
+                'interval': '1m',
+                'limit': 20  # Get last 20 candles (enough for ATR14 + buffer)
+            }
+            
+            async with session.get(url, params=params, proxy=self.proxy) as response:
+                if response.status != 200:
+                    logger.warning(f"⚠️ [DataCollector] Failed to fetch klines for {symbol}: HTTP {response.status}")
+                    return
+                
+                klines = await response.json()
+                
+                # Save each kline to database
+                saved_count = 0
+                async with db_manager.async_pool.acquire() as conn:
+                    for kline in klines:
+                        timestamp = datetime.fromtimestamp(kline[0] / 1000)  # Open time
+                        
+                        query = """
+                            INSERT INTO klines (symbol, interval, timestamp, open, high, low, close, volume)
+                            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                            ON CONFLICT (symbol, interval, timestamp) DO NOTHING
+                        """
+                        
+                        await conn.execute(
+                            query,
+                            symbol,
+                            '1m',
+                            timestamp,
+                            float(kline[1]),  # open
+                            float(kline[2]),  # high
+                            float(kline[3]),  # low
+                            float(kline[4]),  # close
+                            float(kline[5])   # volume
+                        )
+                        saved_count += 1
+                
+                logger.info(f"💾 [DataCollector] Backfilled {saved_count} 1m klines for {symbol}")
+                
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error fetching klines for {symbol}: {e}")
     
     async def stop_collecting(self):
         self.running = False
