@@ -135,9 +135,10 @@ class OrderbookLevelsAnalyzer:
         bids = orderbook.get('bids', [])
         asks = orderbook.get('asks', [])
         
-        # Bin size = 1.0% from price (10x wider than before = 1 level higher)
-        # Before: 0.1% (price * 0.001), Now: 1.0% (price * 0.01)
-        bin_size = current_price * 0.01  # 1.0%
+        # Bin size = 0.2% from price (optimized for 500-level deep analysis)
+        # 0.1% too narrow (over-fragmentation), 1.0% too wide (lost precision)
+        # 0.2% is sweet spot: BTC $90K → $180 bins (good granularity)
+        bin_size = current_price * 0.002  # 0.2%
         
         bid_clusters = defaultdict(float)
         ask_clusters = defaultdict(float)
@@ -216,10 +217,10 @@ class OrderbookLevelsAnalyzer:
             # Группировать объем по ценовым уровням
             volume_profile = defaultdict(float)
             
-            # Bin size = 1.0% from average price (10x wider than before = 1 level higher)
-            # Before: 0.1% (avg_price * 0.001), Now: 1.0% (avg_price * 0.01)
+            # Bin size = 0.2% from average price (optimized for volume profile)
+            # Matches orderbook cluster bin size for consistency
             avg_price = (lower_bound + upper_bound) / 2
-            bin_size = avg_price * 0.01  # 1.0%
+            bin_size = avg_price * 0.002  # 0.2%
             
             for row in rows:
                 low = float(row['low'])
