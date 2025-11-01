@@ -231,19 +231,29 @@ class DataCollector:
         try:
             kline = data.get('k', {})
             
-            if not kline.get('x', False):
-                return
-            
+            # IMPORTANT: Save ALL kline updates (not only closed candles)
+            # This provides immediate volume data for volume_intensity calculation
+            # Without this, bot waits up to 15 minutes for first closed candle!
             kline_data = {
                 'open': float(kline.get('o', 0)),
                 'high': float(kline.get('h', 0)),
                 'low': float(kline.get('l', 0)),
                 'close': float(kline.get('c', 0)),
                 'volume': float(kline.get('v', 0)),
-                'timestamp': kline.get('T', 0)
+                'timestamp': kline.get('T', 0),
+                'is_closed': kline.get('x', False)  # Track if candle is closed
             }
             
+            # Save to Redis with 15min expiry
             redis_manager.set(f'kline_15m:{symbol}', kline_data, expiry=900)
+            
+            # Log first closed candle for each symbol (diagnostics)
+            if kline.get('x', False):
+                if not hasattr(self, '_closed_klines_logged'):
+                    self._closed_klines_logged = set()
+                if symbol not in self._closed_klines_logged:
+                    logger.info(f"📊 [DataCollector] First 15m candle closed for {symbol}: vol={kline_data['volume']:,.0f}")
+                    self._closed_klines_logged.add(symbol)
             
         except Exception as e:
             logger.error(f"❌ [DataCollector] Error processing kline for {symbol}: {e}")

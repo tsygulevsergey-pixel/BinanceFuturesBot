@@ -1,0 +1,17 @@
+2025-11-01 01:04:03 - BinanceScanner - WARNING - [main.py:321] - ⚠️ [TRUMPUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=2.39 (current=239,228/min)
+2025-11-01 01:04:03 - BinanceScanner - WARNING - [main.py:321] - ⚠️ [ZECUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=4.77 (current=477,274/min)
+2025-11-01 01:04:03 - BinanceScanner - INFO - [signal_generator.py:116] - 📊 [SignalGenerator] Basic LONG conditions passed for ZECUSDT, calculating dynamic SL/TP...
+2025-11-01 01:04:03 - BinanceScanner - WARNING - [signal_generator.py:123] - ⚠️ [SignalGenerator] Could not calculate volatility for ZECUSDT
+2025-11-01 01:04:03 - BinanceScanner - WARNING - [main.py:321] - ⚠️ [ZENUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=2.48 (current=247,584/min)
+2025-11-01 01:04:03 - BinanceScanner - INFO - [signal_generator.py:116] - 📊 [SignalGenerator] Basic LONG conditions passed for ZENUSDT, calculating dynamic SL/TP...
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [signal_generator.py:123] - ⚠️ [SignalGenerator] Could not calculate volatility for ZENUSDT
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [main.py:321] - ⚠️ [ETHUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=14.18 (current=1,417,883/min)
+2025-11-01 01:04:04 - BinanceScanner - INFO - [signal_generator.py:116] - 📊 [SignalGenerator] Basic LONG conditions passed for ETHUSDT, calculating dynamic SL/TP...
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [signal_generator.py:123] - ⚠️ [SignalGenerator] Could not calculate volatility for ETHUSDT
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [main.py:321] - ⚠️ [BTCUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=12.32 (current=1,232,235/min)
+2025-11-01 01:04:04 - BinanceScanner - INFO - [signal_generator.py:116] - 📊 [SignalGenerator] Basic LONG conditions passed for BTCUSDT, calculating dynamic SL/TP...
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [signal_generator.py:123] - ⚠️ [SignalGenerator] Could not calculate volatility for BTCUSDT
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [main.py:321] - ⚠️ [BNBUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=5.13 (current=512,725/min)
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [main.py:321] - ⚠️ [HYPEUSDT] No 15m kline data, using fallback baseline (100K/min): volume_intensity=3.17 (current=316,561/min)
+2025-11-01 01:04:04 - BinanceScanner - INFO - [signal_generator.py:116] - 📊 [SignalGenerator] Basic LONG conditions passed for HYPEUSDT, calculating dynamic SL/TP...
+2025-11-01 01:04:04 - BinanceScanner - WARNING - [signal_generator.py:123] - ⚠️ [SignalGenerator] Could not calculate volatility for HYPEUSDT
