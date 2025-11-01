@@ -60,8 +60,8 @@ class Config:
     PRIMARY_TF = '15m'
     CONTEXT_TF = '1h'
     
-    MAX_DAILY_SIGNALS = 80
-    MAX_CONCURRENT_SIGNALS = 10  # Increased from 5 to allow more opportunities
+    MAX_DAILY_SIGNALS = 999999  # No limit (user request)
+    MAX_CONCURRENT_SIGNALS = 999999  # No limit (user request)
     CORRELATION_THRESHOLD = 0.6
     
     ORDERBOOK_DEPTH = 20
