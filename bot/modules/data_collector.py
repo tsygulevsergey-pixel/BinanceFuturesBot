@@ -35,6 +35,9 @@ class DataCollector:
             logger.info(f"🚀 [DataCollector] Starting data collection for {len(symbols)} symbols...")
             logger.info(f"📊 [DataCollector] Total streams: {len(symbols) * 5} (bookTicker+depth20+aggTrade+kline_1m+kline_15m, limit: 1024)")
             
+            # Fetch tickSize for dynamic orderbook aggregation (different for each symbol!)
+            await self.fetch_symbol_tick_sizes(symbols)
+            
             # Backfill historical 1m klines for ATR calculation (so bot doesn't wait 15 minutes!)
             await self.backfill_historical_klines(symbols)
             
@@ -43,6 +46,48 @@ class DataCollector:
             
         except Exception as e:
             logger.error(f"❌ [DataCollector] Error in data collection: {e}")
+    
+    async def fetch_symbol_tick_sizes(self, symbols: List[str]):
+        """Fetch tickSize for each symbol from Binance exchangeInfo (for dynamic orderbook aggregation)"""
+        try:
+            logger.info(f"📏 [DataCollector] Fetching tickSize for {len(symbols)} symbols...")
+            
+            # Binance Futures API endpoint
+            api_url = 'https://fapi.binance.com/fapi/v1/exchangeInfo'
+            
+            timeout = aiohttp.ClientTimeout(total=30)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                async with session.get(api_url, proxy=self.proxy) as response:
+                    if response.status != 200:
+                        logger.error(f"❌ [DataCollector] Failed to fetch exchangeInfo: {response.status}")
+                        return
+                    
+                    data = await response.json()
+                    symbols_info = data.get('symbols', [])
+                    
+                    tick_sizes = {}
+                    for symbol_info in symbols_info:
+                        symbol = symbol_info.get('symbol', '')
+                        if symbol not in symbols:
+                            continue
+                        
+                        # Find PRICE filter to get tickSize
+                        filters = symbol_info.get('filters', [])
+                        for f in filters:
+                            if f.get('filterType') == 'PRICE_FILTER':
+                                tick_size = float(f.get('tickSize', 0.01))
+                                tick_sizes[symbol] = tick_size
+                                
+                                # Save to Redis for use in orderbook analysis
+                                redis_manager.set(f'tick_size:{symbol}', {'tick_size': tick_size}, expiry=86400)  # 24h TTL
+                                
+                                logger.debug(f"📏 [DataCollector] {symbol}: tickSize = {tick_size}")
+                                break
+                    
+                    logger.info(f"✅ [DataCollector] Fetched tickSize for {len(tick_sizes)} symbols (aggregation level: tickSize * 10)")
+                    
+        except Exception as e:
+            logger.error(f"❌ [DataCollector] Error fetching tick sizes: {e}")
     
     async def collect_all_symbols_combined(self, symbols: List[str]):
         """Collect data for ALL symbols using ONE combined WebSocket connection with proxy"""
