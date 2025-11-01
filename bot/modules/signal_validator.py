@@ -18,15 +18,15 @@ class SignalValidator:
             config: Конфиг с параметрами фильтрации
         """
         # GLOBAL imbalance thresholds (200 levels, more smoothed than local 10 levels)
-        self.min_imbalance = config.get('ORDERBOOK_IMBALANCE_THRESHOLD', 0.15)  # was 0.25 for local
+        self.min_imbalance = config.get('ORDERBOOK_IMBALANCE_THRESHOLD', 0.05)  # FURTHER LOWERED for global 200 levels
         self.min_large_trades = config.get('MIN_LARGE_TRADES', 2)
         self.min_volume_intensity = config.get('VOLUME_INTENSITY_THRESHOLD', 1.5)
         self.min_rr_ratio = config.get('MIN_RR_RATIO', 0.8)
         self.max_stop_distance = config.get('MAX_STOP_DISTANCE_PCT', 1.5)
         
-        # Priority thresholds for GLOBAL imbalance (200 levels)
-        self.priority_high = config.get('PRIORITY_HIGH_THRESHOLD', 0.25)    # was 0.35 for local
-        self.priority_medium = config.get('PRIORITY_MEDIUM_THRESHOLD', 0.20) # was 0.30 for local
+        # Priority thresholds for GLOBAL imbalance (200 levels) - FURTHER LOWERED
+        self.priority_high = config.get('PRIORITY_HIGH_THRESHOLD', 0.15)    # HIGH ≥15% (was 0.25)
+        self.priority_medium = config.get('PRIORITY_MEDIUM_THRESHOLD', 0.10) # MEDIUM ≥10% (was 0.20)
     
     def validate(
         self,
