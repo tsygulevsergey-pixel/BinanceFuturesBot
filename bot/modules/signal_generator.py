@@ -7,16 +7,16 @@ Uses depth=500 REST API for deep analysis:
   - Cluster analysis: all 500 bid + 500 ask levels for resistance/support detection
 
 Quality classification: HIGH (80+), MEDIUM (65-79), LOW (50-64)
-Scoring (adjusted for GLOBAL imbalance): 
-  - Orderbook imbalance (30 points): ≥0.25→30pts, ≥0.20→25pts, ≥0.15→15pts (was 0.35/0.30/0.25 for local)
+Scoring (FURTHER LOWERED for GLOBAL imbalance): 
+  - Orderbook imbalance (35 points): ≥0.15→35pts, ≥0.10→25pts, ≥0.05→15pts (was 0.25/0.20/0.15, further lowered)
   - Volume confirmation (20 points): ≥3.0x→20pts, ≥2.0x→15pts, ≥1.5x→10pts
-  - Large trades (20 points): 5+→20pts, 3+→15pts, 2+→10pts
+  - Large trades (20 points): 5+→20pts, 3+→15pts, 2+→10pts (tiered: BTC/ETH=$50K, SOL/BNB=$25K, others=$10K)
   - R/R ratio (20 points): ≥2.0→20pts, ≥1.5→15pts, ≥1.0→10pts, ≥0.8→5pts
   - Levels clarity (10 points): 5+→10pts, 3+→7pts, 1+→5pts
 
-Minimum entry requirements (GLOBAL thresholds):
-  - global_imbalance ≥ 0.15 (was 0.25 for local)
-  - large_trades ≥ 2
+Minimum entry requirements (GLOBAL thresholds, FURTHER LOWERED):
+  - global_imbalance ≥ 0.05 (was 0.15, further lowered for global 200 levels)
+  - large_trades ≥ 2 (tiered detection: BTC/ETH=$50K, SOL/BNB=$25K, others=$10K)
   - volume ≥ 1.5x average
   - TP ≥ 0.5% (MIN_TP_DISTANCE_PCT)
 """

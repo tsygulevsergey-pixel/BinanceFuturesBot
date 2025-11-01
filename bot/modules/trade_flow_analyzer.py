@@ -20,8 +20,12 @@ class TradeFlowAnalyzer:
         self.min_threshold = Config.MIN_LARGE_TRADE_SIZE
         self.large_trade_size = Config.LARGE_TRADE_SIZE
         
-        mode = f"DYNAMIC (top {100-self.percentile}%, min ${self.min_threshold:,.0f})" if self.use_dynamic else f"FIXED (${self.large_trade_size:,.0f})"
+        # Load tiered thresholds
+        self.tier_config = Config.LARGE_ORDER_SIZE_TIERS
+        
+        mode = f"DYNAMIC (top {100-self.percentile}%, tiered)" if self.use_dynamic else f"FIXED (${self.large_trade_size:,.0f})"
         logger.info(f"🔧 [TradeFlowAnalyzer] Initialized with window={window_minutes}min, mode={mode}")
+        logger.info(f"🎯 [TradeFlowAnalyzer] Tiered thresholds: TIER_1=${self.tier_config['TIER_1']['threshold']:,}, TIER_2=${self.tier_config['TIER_2']['threshold']:,}, TIER_3=${self.tier_config['TIER_3']['threshold']:,}")
     
     def add_trade(self, symbol: str, trade: Dict):
         try:
@@ -66,23 +70,47 @@ class TradeFlowAnalyzer:
         except Exception as e:
             logger.error(f"❌ [TradeFlowAnalyzer] Error adding trade for {symbol}: {e}")
     
+    def get_tier_threshold(self, symbol: str) -> float:
+        """
+        Get tiered threshold based on symbol
+        TIER_1: $50K для BTC/ETH
+        TIER_2: $25K для SOL/BNB
+        TIER_3: $10K для остальных
+        """
+        # Check TIER_1
+        if symbol in self.tier_config['TIER_1']['symbols']:
+            return self.tier_config['TIER_1']['threshold']
+        
+        # Check TIER_2
+        if symbol in self.tier_config['TIER_2']['symbols']:
+            return self.tier_config['TIER_2']['threshold']
+        
+        # Default to TIER_3
+        return self.tier_config['TIER_3']['threshold']
+    
     def calculate_dynamic_threshold(self, symbol: str) -> float:
-        """Calculate dynamic threshold as Nth percentile of trade sizes"""
+        """
+        Calculate dynamic threshold as Nth percentile of trade sizes
+        Uses tiered minimum thresholds based on asset class
+        """
         try:
+            # Get tiered minimum threshold for this symbol
+            tier_min = self.get_tier_threshold(symbol)
+            
             if symbol not in self.trade_sizes or len(self.trade_sizes[symbol]) < 20:
-                return self.min_threshold  # Need at least 20 trades for meaningful percentile
+                return tier_min  # Need at least 20 trades for meaningful percentile
             
             sizes = list(self.trade_sizes[symbol])
             threshold = statistics.quantiles(sizes, n=100)[self.percentile - 1]  # 99th percentile
             
-            # Apply minimum threshold
-            threshold = max(threshold, self.min_threshold)
+            # Apply tiered minimum threshold
+            threshold = max(threshold, tier_min)
             
             return threshold
             
         except Exception as e:
             logger.error(f"❌ [TradeFlowAnalyzer] Error calculating threshold for {symbol}: {e}")
-            return self.min_threshold
+            return self.get_tier_threshold(symbol)
     
     def analyze_trade_flow(self, symbol: str, current_time: Optional[int] = None) -> Dict:
         try:

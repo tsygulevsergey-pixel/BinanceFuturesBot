@@ -46,14 +46,32 @@ class Config:
     # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
     FILTER_NON_ASCII = True
     
-    # GLOBAL IMBALANCE (200 levels): thresholds LOWERED by ~40% compared to local (10 levels)
+    # GLOBAL IMBALANCE (200 levels): thresholds LOWERED significantly for global analysis
     # Global imbalance is more smoothed, typically 0.05-0.20 vs local 0.25-0.50
-    ORDERBOOK_IMBALANCE_THRESHOLD = 0.15  # Minimum GLOBAL imbalance for signal (was 0.25 for local)
+    ORDERBOOK_IMBALANCE_THRESHOLD = 0.05  # Minimum GLOBAL imbalance for signal (was 0.15, further lowered)
     MIN_LARGE_TRADES = 2                  # Minimum large trades required
     
     # Large trade detection: DYNAMIC (percentile-based) approach
     USE_DYNAMIC_LARGE_TRADES = True        # Use percentile-based (top 1%) instead of fixed threshold
     LARGE_TRADE_PERCENTILE = 99            # 99th percentile = top 1% of trade sizes
+    
+    # Tiered large order thresholds (different thresholds for different asset classes)
+    LARGE_ORDER_SIZE_TIERS = {
+        'TIER_1': {
+            'threshold': 50000,  # $50K для BTC/ETH
+            'symbols': ['BTCUSDT', 'ETHUSDT']
+        },
+        'TIER_2': {
+            'threshold': 25000,  # $25K для SOL/BNB
+            'symbols': ['SOLUSDT', 'BNBUSDT']
+        },
+        'TIER_3': {
+            'threshold': 10000,  # $10K для остальных
+            'symbols': []  # Default для всех остальных
+        }
+    }
+    
+    # Legacy fallback thresholds (when not using tiers)
     MIN_LARGE_TRADE_SIZE = 10_000          # Minimum threshold ($10K) as fallback for low-liquidity pairs
     LARGE_TRADE_SIZE = 50_000              # Legacy fixed threshold (used when USE_DYNAMIC_LARGE_TRADES=False)
     
@@ -122,9 +140,10 @@ class Config:
     # This prevents signal creation on temporary spikes (noise filtering)
     SIGNAL_ENTRY_PERSISTENCE_SAMPLES = 50  # 50 samples × 100ms = 5 seconds confirmation
     
-    # Priority thresholds for GLOBAL imbalance (200 levels)
-    PRIORITY_HIGH_THRESHOLD = 0.25     # HIGH: ≥25% global imbalance (was 0.35 for local)
-    PRIORITY_MEDIUM_THRESHOLD = 0.20   # MEDIUM: ≥20% global imbalance (was 0.30 for local)
+    # Priority thresholds for GLOBAL imbalance (200 levels) - FURTHER LOWERED
+    PRIORITY_HIGH_THRESHOLD = 0.15     # HIGH: ≥15% global imbalance (was 0.25, lowered again)
+    PRIORITY_MEDIUM_THRESHOLD = 0.10   # MEDIUM: ≥10% global imbalance (was 0.20, lowered again)
+    # LOW priority: ≥5% (ORDERBOOK_IMBALANCE_THRESHOLD = 0.05)
     
     # Partial close settings
     PARTIAL_CLOSE_TP1_PERCENT = 0.5  # Close 50% of position on TP1

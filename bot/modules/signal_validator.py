@@ -53,7 +53,7 @@ class SignalValidator:
                 'is_valid': bool,
                 'priority': str,  # HIGH/MEDIUM/LOW
                 'rejection_reasons': [str],  # причины отклонения
-                'quality_score': float,  # 0-100
+                'quality_score': float,  # 0-105 (increased from 0-100, imbalance now 0-35)
                 'warnings': [str]  # предупреждения (не критично)
             }
         """
@@ -163,10 +163,10 @@ class SignalValidator:
         total_levels: int
     ) -> float:
         """
-        Рассчитать качество сигнала (0-100)
+        Рассчитать качество сигнала (0-105)
         
         Компоненты:
-        - Imbalance: 0-30 баллов
+        - Imbalance: 0-35 баллов (≥0.15→35, ≥0.10→25, ≥0.05→15)
         - Large trades: 0-20 баллов
         - Volume: 0-20 баллов
         - R/R ratio: 0-20 баллов
@@ -174,15 +174,15 @@ class SignalValidator:
         """
         score = 0.0
         
-        # 1. Imbalance (0-30) - GLOBAL thresholds (200 levels)
-        if imbalance >= 0.25:  # HIGH: ≥25% (was 0.35 for local)
-            score += 30
-        elif imbalance >= 0.20:  # MEDIUM: ≥20% (was 0.30 for local)
+        # 1. Imbalance (0-35) - GLOBAL thresholds (200 levels) - FURTHER LOWERED
+        if imbalance >= 0.15:  # HIGH: ≥15% global imbalance
+            score += 35
+        elif imbalance >= 0.10:  # MEDIUM: ≥10% global imbalance
             score += 25
-        elif imbalance >= 0.15:  # LOW: ≥15% (was 0.25 for local)
+        elif imbalance >= 0.05:  # LOW: ≥5% global imbalance
             score += 15
         else:
-            score += max(0, imbalance * 60)  # пропорционально (adjusted multiplier)
+            score += max(0, imbalance * 100)  # пропорционально (adjusted multiplier)
         
         # 2. Large trades (0-20)
         if large_trades_count >= 5:
@@ -226,4 +226,4 @@ class SignalValidator:
         else:
             score += 0
         
-        return min(100, score)
+        return min(105, score)  # Updated from 100 to 105 (imbalance now 0-35 instead of 0-30)
