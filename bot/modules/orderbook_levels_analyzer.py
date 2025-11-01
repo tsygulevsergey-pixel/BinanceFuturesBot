@@ -143,12 +143,16 @@ class OrderbookLevelsAnalyzer:
         
         # Группировать bids
         for price, qty in bids:
+            price = float(price)  # Convert string to float
+            qty = float(qty)
             if lower_bound <= price <= upper_bound:
                 bin_price = round(price / bin_size) * bin_size
                 bid_clusters[bin_price] += qty
         
         # Группировать asks
         for price, qty in asks:
+            price = float(price)  # Convert string to float
+            qty = float(qty)
             if lower_bound <= price <= upper_bound:
                 bin_price = round(price / bin_size) * bin_size
                 ask_clusters[bin_price] += qty
