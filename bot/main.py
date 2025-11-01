@@ -381,10 +381,34 @@ class BinanceFuturesScanner:
             if not direction or not dynamic_data:
                 return
             
+            # CRITICAL: Get FRESH price right before signal creation (avoid stale data)
+            fresh_price_info = redis_manager.get(f'price:{symbol}')
+            if not fresh_price_info:
+                logger.warning(f"⚠️ [Main] No fresh price data for {symbol}, using cached price")
+                fresh_entry_price = price
+            else:
+                fresh_bid = fresh_price_info.get('bid', 0)
+                fresh_ask = fresh_price_info.get('ask', 0)
+                fresh_entry_price = fresh_price_info.get('mid', price)
+                
+                # VALIDATION: Entry must be within bid/ask spread
+                if fresh_bid > 0 and fresh_ask > 0:
+                    if direction == 'LONG' and fresh_entry_price < fresh_bid:
+                        logger.warning(f"⚠️ [Main] Entry ${fresh_entry_price:.4f} below bid ${fresh_bid:.4f}, adjusting to bid")
+                        fresh_entry_price = fresh_bid
+                    elif direction == 'SHORT' and fresh_entry_price > fresh_ask:
+                        logger.warning(f"⚠️ [Main] Entry ${fresh_entry_price:.4f} above ask ${fresh_ask:.4f}, adjusting to ask")
+                        fresh_entry_price = fresh_ask
+                
+                if abs(fresh_entry_price - price) > price * 0.001:  # More than 0.1% difference
+                    logger.info(f"📊 [Main] Fresh entry price for {symbol}: ${fresh_entry_price:.4f} (cached: ${price:.4f}, diff: {abs(fresh_entry_price - price)/price*100:.2f}%)")
+                else:
+                    logger.debug(f"🔄 [Main] Fresh entry price for {symbol}: ${fresh_entry_price:.4f} (cached: ${price:.4f})")
+            
             signal_data = self.signal_generator.generate_signal(
                 symbol=symbol,
                 direction=direction,
-                entry_price=price,
+                entry_price=fresh_entry_price,
                 orderbook_data=orderbook_data,
                 trade_flow=trade_flow,
                 price_data=price_data,
