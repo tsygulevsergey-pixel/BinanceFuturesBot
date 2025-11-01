@@ -12,11 +12,13 @@ class DynamicStopLossFinder:
     реальных уровней поддержки/сопротивления из стакана
     """
     
-    def __init__(self, max_stop_distance_pct: float = 1.5):
+    def __init__(self, min_stop_distance_pct: float = 0.15, max_stop_distance_pct: float = 1.5):
         """
         Args:
+            min_stop_distance_pct: Минимальное расстояние стопа от входа в % (защита от микро-движений)
             max_stop_distance_pct: Максимальное расстояние стопа от входа в %
         """
+        self.min_stop_distance_pct = min_stop_distance_pct
         self.max_stop_distance_pct = max_stop_distance_pct
     
     def find_stop_for_long(
@@ -65,10 +67,20 @@ class DynamicStopLossFinder:
         stop_distance_usd = entry_price - stop_loss_price
         stop_distance_pct = (stop_distance_usd / entry_price) * 100
         
-        # Проверить ограничение максимального расстояния
-        is_valid = stop_distance_pct <= self.max_stop_distance_pct and stop_distance_pct > 0
+        # ENFORCE MINIMUM DISTANCE: Если стоп слишком близко, расширить до минимума
+        if stop_distance_pct > 0 and stop_distance_pct < self.min_stop_distance_pct:
+            # Расширить стоп до минимального расстояния
+            min_stop_distance_usd = entry_price * (self.min_stop_distance_pct / 100)
+            stop_loss_price = entry_price - min_stop_distance_usd
+            stop_distance_usd = min_stop_distance_usd
+            stop_distance_pct = self.min_stop_distance_pct
+            reason = f"Expanded to minimum {self.min_stop_distance_pct}% (support at {strongest_support:.2f} too close)"
+        else:
+            reason = f"Below support cluster at {strongest_support:.2f}"
         
-        reason = f"Below support cluster at {strongest_support:.2f}"
+        # Проверить ограничения минимального и максимального расстояния
+        is_valid = (self.min_stop_distance_pct <= stop_distance_pct <= self.max_stop_distance_pct)
+        
         if not is_valid:
             if stop_distance_pct > self.max_stop_distance_pct:
                 reason += f" (TOO WIDE: {stop_distance_pct:.2f}% > {self.max_stop_distance_pct}%)"
@@ -129,10 +141,20 @@ class DynamicStopLossFinder:
         stop_distance_usd = stop_loss_price - entry_price
         stop_distance_pct = (stop_distance_usd / entry_price) * 100
         
-        # Проверить ограничение
-        is_valid = stop_distance_pct <= self.max_stop_distance_pct and stop_distance_pct > 0
+        # ENFORCE MINIMUM DISTANCE: Если стоп слишком близко, расширить до минимума
+        if stop_distance_pct > 0 and stop_distance_pct < self.min_stop_distance_pct:
+            # Расширить стоп до минимального расстояния
+            min_stop_distance_usd = entry_price * (self.min_stop_distance_pct / 100)
+            stop_loss_price = entry_price + min_stop_distance_usd
+            stop_distance_usd = min_stop_distance_usd
+            stop_distance_pct = self.min_stop_distance_pct
+            reason = f"Expanded to minimum {self.min_stop_distance_pct}% (resistance at {strongest_resistance:.2f} too close)"
+        else:
+            reason = f"Above resistance cluster at {strongest_resistance:.2f}"
         
-        reason = f"Above resistance cluster at {strongest_resistance:.2f}"
+        # Проверить ограничения минимального и максимального расстояния
+        is_valid = (self.min_stop_distance_pct <= stop_distance_pct <= self.max_stop_distance_pct)
+        
         if not is_valid:
             if stop_distance_pct > self.max_stop_distance_pct:
                 reason += f" (TOO WIDE: {stop_distance_pct:.2f}% > {self.max_stop_distance_pct}%)"

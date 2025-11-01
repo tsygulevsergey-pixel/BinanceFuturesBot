@@ -36,8 +36,14 @@ class SignalGenerator:
         # Initialize dynamic SL/TP modules
         self.volatility_calc = VolatilityCalculator(db_pool)
         self.levels_analyzer = OrderbookLevelsAnalyzer(db_pool)
-        self.stop_finder = DynamicStopLossFinder()
-        self.tp_finder = DynamicTakeProfitFinder()
+        self.stop_finder = DynamicStopLossFinder(
+            min_stop_distance_pct=Config.MIN_STOP_DISTANCE_PCT,
+            max_stop_distance_pct=Config.MAX_STOP_DISTANCE_PCT
+        )
+        self.tp_finder = DynamicTakeProfitFinder(
+            min_tp_distance_pct=Config.MIN_TP_DISTANCE_PCT,
+            min_rr_ratio=Config.MIN_RR_RATIO
+        )
         self.validator = SignalValidator(Config.__dict__)
         
         logger.info(f"🔧 [SignalGenerator] Initialized with dynamic SL/TP modules")

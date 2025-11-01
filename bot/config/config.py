@@ -128,10 +128,12 @@ class Config:
     # === DYNAMIC SL/TP SYSTEM (Orderbook-based levels) ===
     
     # Stop Loss Settings
-    MAX_STOP_DISTANCE_PCT = 1.5  # Максимальное расстояние стопа от входа (%)
+    MIN_STOP_DISTANCE_PCT = 0.15  # Минимальное расстояние стопа от входа (%) - защита от микро-движений
+    MAX_STOP_DISTANCE_PCT = 1.5   # Максимальное расстояние стопа от входа (%)
     
     # Take Profit Settings
-    MIN_RR_RATIO = 0.8  # Минимальный Risk/Reward ratio для принятия сигнала
+    MIN_TP_DISTANCE_PCT = 0.20    # Минимальное расстояние TP от входа (%) - защита от комиссий
+    MIN_RR_RATIO = 0.8            # Минимальный Risk/Reward ratio для принятия сигнала
     
     # Orderbook Analysis Settings
     ORDERBOOK_DEPTH_LEVELS = 50  # Глубина анализа стакана (уровней)

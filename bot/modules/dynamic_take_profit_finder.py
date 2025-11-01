@@ -12,11 +12,13 @@ class DynamicTakeProfitFinder:
     реальных уровней сопротивления/поддержки из стакана
     """
     
-    def __init__(self, min_rr_ratio: float = 0.8):
+    def __init__(self, min_tp_distance_pct: float = 0.20, min_rr_ratio: float = 0.8):
         """
         Args:
+            min_tp_distance_pct: Минимальное расстояние TP от входа в % (защита от комиссий)
             min_rr_ratio: Минимальный Risk/Reward ratio для принятия сигнала
         """
+        self.min_tp_distance_pct = min_tp_distance_pct
         self.min_rr_ratio = min_rr_ratio
     
     def find_targets_for_long(
@@ -76,6 +78,17 @@ class DynamicTakeProfitFinder:
         tp1_price = resistance_levels[0]
         reward1_usd = tp1_price - entry_price
         tp1_distance_pct = (reward1_usd / entry_price) * 100
+        
+        # ENFORCE MINIMUM TP DISTANCE: Если TP слишком близко, расширить до минимума
+        tp1_reason = f"First resistance at {tp1_price:.2f}"
+        if tp1_distance_pct > 0 and tp1_distance_pct < self.min_tp_distance_pct:
+            # Расширить TP до минимального расстояния
+            min_reward_usd = entry_price * (self.min_tp_distance_pct / 100)
+            tp1_price = entry_price + min_reward_usd
+            reward1_usd = min_reward_usd
+            tp1_distance_pct = self.min_tp_distance_pct
+            tp1_reason = f"Expanded to minimum {self.min_tp_distance_pct}% (resistance at {resistance_levels[0]:.2f} too close)"
+        
         tp1_rr = reward1_usd / risk_usd if risk_usd > 0 else 0
         
         # TP2 = следующий resistance (если есть)
@@ -106,7 +119,7 @@ class DynamicTakeProfitFinder:
             'tp1_price': round(tp1_price, 8),
             'tp1_distance_pct': round(tp1_distance_pct, 4),
             'tp1_rr': round(tp1_rr, 2),
-            'tp1_reason': f"First resistance at {tp1_price:.2f}",
+            'tp1_reason': tp1_reason,
             
             'tp2_price': round(tp2_price, 8),
             'tp2_distance_pct': round(tp2_distance_pct, 4),
@@ -161,6 +174,17 @@ class DynamicTakeProfitFinder:
         tp1_price = support_levels[0]
         reward1_usd = entry_price - tp1_price
         tp1_distance_pct = (reward1_usd / entry_price) * 100
+        
+        # ENFORCE MINIMUM TP DISTANCE: Если TP слишком близко, расширить до минимума
+        tp1_reason = f"First support at {tp1_price:.2f}"
+        if tp1_distance_pct > 0 and tp1_distance_pct < self.min_tp_distance_pct:
+            # Расширить TP до минимального расстояния
+            min_reward_usd = entry_price * (self.min_tp_distance_pct / 100)
+            tp1_price = entry_price - min_reward_usd
+            reward1_usd = min_reward_usd
+            tp1_distance_pct = self.min_tp_distance_pct
+            tp1_reason = f"Expanded to minimum {self.min_tp_distance_pct}% (support at {support_levels[0]:.2f} too close)"
+        
         tp1_rr = reward1_usd / risk_usd if risk_usd > 0 else 0
         
         # TP2 = следующий support
@@ -191,7 +215,7 @@ class DynamicTakeProfitFinder:
             'tp1_price': round(tp1_price, 8),
             'tp1_distance_pct': round(tp1_distance_pct, 4),
             'tp1_rr': round(tp1_rr, 2),
-            'tp1_reason': f"First support at {tp1_price:.2f}",
+            'tp1_reason': tp1_reason,
             
             'tp2_price': round(tp2_price, 8),
             'tp2_distance_pct': round(tp2_distance_pct, 4),
