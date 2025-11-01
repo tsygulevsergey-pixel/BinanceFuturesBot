@@ -79,16 +79,16 @@ class DynamicTakeProfitFinder:
         reward1_usd = tp1_price - entry_price
         tp1_distance_pct = (reward1_usd / entry_price) * 100
         
-        # ENFORCE MINIMUM TP DISTANCE: Если TP слишком близко, расширить до минимума
-        tp1_reason = f"First resistance at {tp1_price:.2f}"
+        # REJECT signal if TP1 too close (don't expand - kills accuracy!)
         if tp1_distance_pct > 0 and tp1_distance_pct < self.min_tp_distance_pct:
-            # Расширить TP до минимального расстояния
-            min_reward_usd = entry_price * (self.min_tp_distance_pct / 100)
-            tp1_price = entry_price + min_reward_usd
-            reward1_usd = min_reward_usd
-            tp1_distance_pct = self.min_tp_distance_pct
-            tp1_reason = f"Expanded to minimum {self.min_tp_distance_pct}% (resistance at {resistance_levels[0]:.2f} too close)"
+            return {
+                'tp1_price': None,
+                'tp2_price': None,
+                'is_valid': False,
+                'reason': f'TP1 too close: {tp1_distance_pct:.2f}% < {self.min_tp_distance_pct}% minimum (resistance at {tp1_price:.2f})'
+            }
         
+        tp1_reason = f"First resistance at {tp1_price:.2f}"
         tp1_rr = reward1_usd / risk_usd if risk_usd > 0 else 0
         
         # TP2 = следующий resistance (если есть)
@@ -175,16 +175,16 @@ class DynamicTakeProfitFinder:
         reward1_usd = entry_price - tp1_price
         tp1_distance_pct = (reward1_usd / entry_price) * 100
         
-        # ENFORCE MINIMUM TP DISTANCE: Если TP слишком близко, расширить до минимума
-        tp1_reason = f"First support at {tp1_price:.2f}"
+        # REJECT signal if TP1 too close (don't expand - kills accuracy!)
         if tp1_distance_pct > 0 and tp1_distance_pct < self.min_tp_distance_pct:
-            # Расширить TP до минимального расстояния
-            min_reward_usd = entry_price * (self.min_tp_distance_pct / 100)
-            tp1_price = entry_price - min_reward_usd
-            reward1_usd = min_reward_usd
-            tp1_distance_pct = self.min_tp_distance_pct
-            tp1_reason = f"Expanded to minimum {self.min_tp_distance_pct}% (support at {support_levels[0]:.2f} too close)"
+            return {
+                'tp1_price': None,
+                'tp2_price': None,
+                'is_valid': False,
+                'reason': f'TP1 too close: {tp1_distance_pct:.2f}% < {self.min_tp_distance_pct}% minimum (support at {tp1_price:.2f})'
+            }
         
+        tp1_reason = f"First support at {tp1_price:.2f}"
         tp1_rr = reward1_usd / risk_usd if risk_usd > 0 else 0
         
         # TP2 = следующий support
