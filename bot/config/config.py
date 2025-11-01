@@ -46,8 +46,8 @@ class Config:
     # Filter out symbols with non-ASCII characters (Chinese, Japanese, etc.)
     FILTER_NON_ASCII = True
     
-    ORDERBOOK_IMBALANCE_THRESHOLD = 0.38  # RAISED from 0.35 for stricter entry filter
-    MIN_LARGE_TRADES = 3                  # RAISED from 2 for higher quality signals
+    ORDERBOOK_IMBALANCE_THRESHOLD = 0.25  # Minimum imbalance for signal creation (LOW tier starts here)
+    MIN_LARGE_TRADES = 2                  # Minimum large trades required
     
     # Large trade detection: DYNAMIC (percentile-based) approach
     USE_DYNAMIC_LARGE_TRADES = True        # Use percentile-based (top 1%) instead of fixed threshold

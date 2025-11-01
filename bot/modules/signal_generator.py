@@ -1,8 +1,17 @@
 """
 Signal Generator - generates LONG/SHORT signals based on orderbook imbalance and trade flow
 NOW WITH DYNAMIC SL/TP based on orderbook levels and volatility
+
 Quality classification: HIGH (80+), MEDIUM (65-79), LOW (50-64)
-Scoring: orderbook_imbalance (35 points), volume_confirmation (30 points), large_trades (35 points)
+Scoring: 
+  - Orderbook imbalance (35 points): ≥0.35→35pts, >0.30→25pts, ≤0.30→15pts
+  - Volume confirmation (30 points): ≥2.0x→30pts, ≥1.5x→20pts, <1.5x→10pts
+  - Large trades (35 points): 8 points per large trade (max 35)
+
+Minimum entry requirements:
+  - imbalance ≥ 0.25
+  - large_trades ≥ 2
+  - volume ≥ 1.5x average
 """
 import uuid
 from typing import Dict, Optional, Tuple
@@ -39,7 +48,7 @@ class SignalGenerator:
             imbalance = orderbook_data.get('imbalance', 0)
             large_buys = trade_flow.get('large_buys', 0)
             
-            return (imbalance > self.imbalance_threshold and 
+            return (imbalance >= self.imbalance_threshold and 
                     large_buys >= self.min_large_trades)
         except Exception as e:
             logger.error(f"❌ [SignalGenerator] Error in quick_check_long: {e}")
@@ -51,7 +60,7 @@ class SignalGenerator:
             imbalance = orderbook_data.get('imbalance', 0)
             large_sells = trade_flow.get('large_sells', 0)
             
-            return (imbalance < -self.imbalance_threshold and 
+            return (imbalance <= -self.imbalance_threshold and 
                     large_sells >= self.min_large_trades)
         except Exception as e:
             logger.error(f"❌ [SignalGenerator] Error in quick_check_short: {e}")
@@ -84,9 +93,9 @@ class SignalGenerator:
             vwap = price_data.get('vwap', 0)
             
             required_conditions = {
-                'orderbook_imbalance': imbalance > self.imbalance_threshold,
+                'orderbook_imbalance': imbalance >= self.imbalance_threshold,
                 'large_buy_trades': large_buys >= self.min_large_trades,
-                'volume_intensity': volume_intensity > self.volume_multiplier,
+                'volume_intensity': volume_intensity >= self.volume_multiplier,
                 'price_above_vwap': price > vwap if vwap > 0 else True
             }
             
@@ -216,9 +225,9 @@ class SignalGenerator:
             vwap = price_data.get('vwap', 0)
             
             required_conditions = {
-                'orderbook_imbalance': imbalance < -self.imbalance_threshold,
+                'orderbook_imbalance': imbalance <= -self.imbalance_threshold,
                 'large_sell_trades': large_sells >= self.min_large_trades,
-                'volume_intensity': volume_intensity > self.volume_multiplier,
+                'volume_intensity': volume_intensity >= self.volume_multiplier,
                 'price_below_vwap': price < vwap if vwap > 0 else True
             }
             
@@ -326,9 +335,9 @@ class SignalGenerator:
             quality_score = 0
             
             imbalance = abs(signal_data.get('orderbook_imbalance', 0))
-            if imbalance > 0.4:
+            if imbalance >= 0.35:
                 quality_score += 35
-            elif imbalance > 0.3:
+            elif imbalance > 0.30:
                 quality_score += 25
             else:
                 quality_score += 15
